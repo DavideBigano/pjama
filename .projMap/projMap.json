@@ -1,0 +1,707 @@
+{
+  "mapId": "60a973f9-cdb3-43c2-96ff-1b986b2c3c64",
+  "mapSlug": "pjama",
+  "label": "Pjama",
+  "components": [
+    {
+      "id": "COM-001",
+      "label": "Pjama",
+      "summary": "Toolkit for keeping a project map, a structured description of a project's architecture and specs, shared by developers and AI agents.",
+      "depth": "system",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-001",
+          "REQ-002",
+          "REQ-003",
+          "REQ-004",
+          "REQ-005",
+          "REQ-006",
+          "REQ-007",
+          "REQ-008",
+          "REQ-021"
+        ],
+        "useCases": [
+          "UC-001",
+          "UC-002",
+          "UC-004",
+          "UC-005",
+          "UC-006",
+          "UC-007"
+        ]
+      }
+    },
+    {
+      "id": "COM-002",
+      "label": "Claude plugin",
+      "summary": "",
+      "depth": "",
+      "level": "high-level",
+      "specs": {}
+    },
+    {
+      "id": "COM-003",
+      "label": "Pjama editor",
+      "summary": "Standalone application for editing project maps",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-015",
+          "REQ-016",
+          "REQ-017"
+        ]
+      },
+      "partOf": [
+        "COM-001"
+      ]
+    },
+    {
+      "id": "COM-004",
+      "label": "Pjama terminal manager",
+      "summary": "All-in-one CLI/TUI app for interacting with maps, the daemon and general utilities",
+      "depth": "",
+      "level": "high-level",
+      "specs": {},
+      "partOf": [
+        "COM-001"
+      ]
+    },
+    {
+      "id": "COM-005",
+      "label": "Pjama daemon",
+      "summary": "Backend process that manages concurrent read and writes on maps.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-009",
+          "REQ-010",
+          "REQ-011",
+          "REQ-012",
+          "REQ-013",
+          "REQ-014"
+        ]
+      },
+      "partOf": [
+        "COM-001"
+      ]
+    },
+    {
+      "id": "COM-006",
+      "label": "Pjama skill",
+      "summary": "",
+      "depth": "",
+      "level": "high-level",
+      "specs": {},
+      "partOf": [
+        "COM-001"
+      ]
+    },
+    {
+      "id": "COM-007",
+      "label": "Npm packages",
+      "summary": "",
+      "depth": "",
+      "level": "high-level",
+      "specs": {}
+    },
+    {
+      "id": "COM-008",
+      "label": "Init topic",
+      "summary": "",
+      "depth": "",
+      "level": "high-level",
+      "specs": {},
+      "partOf": [
+        "COM-006"
+      ]
+    },
+    {
+      "id": "COM-009",
+      "label": "Verify topic",
+      "summary": "",
+      "depth": "",
+      "level": "high-level",
+      "specs": {},
+      "partOf": [
+        "COM-006"
+      ]
+    },
+    {
+      "id": "COM-010",
+      "label": "Lint topic",
+      "summary": "",
+      "depth": "",
+      "level": "high-level",
+      "specs": {},
+      "partOf": [
+        "COM-006"
+      ]
+    },
+    {
+      "id": "COM-014",
+      "label": "Test topic",
+      "summary": "",
+      "depth": "",
+      "level": "high-level",
+      "specs": {},
+      "partOf": [
+        "COM-006"
+      ]
+    },
+    {
+      "id": "COM-015",
+      "label": "Build topic",
+      "summary": "",
+      "depth": "",
+      "level": "high-level",
+      "specs": {},
+      "partOf": [
+        "COM-006"
+      ]
+    },
+    {
+      "id": "COM-016",
+      "label": "Map schema",
+      "summary": "Defines the format of the project map file in the .pjama directory at the repo root.",
+      "depth": "schema",
+      "level": "high-level",
+      "specs": {
+        "interfaces": [
+          "IF-001"
+        ]
+      },
+      "partOf": [
+        "COM-001"
+      ]
+    },
+    {
+      "id": "COM-017",
+      "label": "Layout schema",
+      "summary": "Defines the format of the layout file in .pjama: per-user editor state such as graph node positions.",
+      "depth": "schema",
+      "level": "high-level",
+      "specs": {
+        "interfaces": [
+          "IF-002"
+        ],
+        "requirements": [
+          "REQ-022"
+        ]
+      },
+      "partOf": [
+        "COM-001"
+      ]
+    },
+    {
+      "id": "COM-018",
+      "label": "Log schema",
+      "summary": "Defines the format of the operation log file in .pjama.",
+      "depth": "schema",
+      "level": "high-level",
+      "specs": {
+        "interfaces": [
+          "IF-003"
+        ]
+      },
+      "partOf": [
+        "COM-001"
+      ]
+    }
+  ],
+  "folders": [],
+  "relations": [
+    {
+      "id": "REL-001",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "distributes",
+      "from": "COM-002",
+      "to": "COM-006"
+    },
+    {
+      "id": "REL-002",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "distributes",
+      "from": "COM-007",
+      "to": "COM-005"
+    },
+    {
+      "id": "REL-003",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "distributes",
+      "from": "COM-007",
+      "to": "COM-004"
+    },
+    {
+      "id": "REL-004",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "distributes",
+      "from": "COM-007",
+      "to": "COM-003"
+    },
+    {
+      "id": "REL-005",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "uses",
+      "from": "COM-006",
+      "to": "COM-004"
+    },
+    {
+      "id": "REL-006",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "talks to",
+      "from": "COM-004",
+      "to": "COM-005"
+    },
+    {
+      "id": "REL-007",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "talks to",
+      "from": "COM-003",
+      "to": "COM-005"
+    },
+    {
+      "id": "REL-008",
+      "label": "Daemon reads and writes the map file",
+      "summary": "",
+      "kind": "uses",
+      "from": "COM-005",
+      "to": "COM-016",
+      "reliesOn": [
+        "IF-001"
+      ]
+    },
+    {
+      "id": "REL-009",
+      "label": "Daemon reads and writes the layout file",
+      "summary": "",
+      "kind": "uses",
+      "from": "COM-005",
+      "to": "COM-017",
+      "reliesOn": [
+        "IF-002"
+      ]
+    },
+    {
+      "id": "REL-010",
+      "label": "Daemon reads and writes the log file",
+      "summary": "",
+      "kind": "uses",
+      "from": "COM-005",
+      "to": "COM-018",
+      "reliesOn": [
+        "IF-003"
+      ]
+    }
+  ],
+  "actors": [
+    {
+      "id": "ACT-001",
+      "label": "Developer",
+      "summary": "Person responsible for the project who shapes its map: structure, specs and decisions."
+    },
+    {
+      "id": "ACT-002",
+      "label": "AI agent",
+      "summary": "Coding agent working in the repo that reads the map for context and keeps it in sync with the code."
+    },
+    {
+      "id": "ACT-003",
+      "label": "CI pipeline",
+      "summary": "Automated pipeline that checks the map stays valid and consistent with the repo."
+    }
+  ],
+  "requirements": [
+    {
+      "id": "REQ-001",
+      "label": "Map lives in the repo",
+      "summary": "The map is a plain file versioned with the code and readable without Pjama installed.",
+      "category": "portability",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-002",
+      "label": "No silent lost edits",
+      "summary": "Simultaneous changes from developers and agents can overwrite each other but never silently.",
+      "category": "usability",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-003",
+      "label": "Always valid",
+      "summary": "Every write made through Pjama leaves the map schema-valid with all references resolved.",
+      "category": "dataIntegrity",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-004",
+      "label": "Changes reach every client",
+      "summary": "Each open client sees changes made elsewhere within a few seconds, without a manual reload.",
+      "category": "usability",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-005",
+      "label": "Agent parity",
+      "summary": "Every operation a developer can perform is also available to agents through a non-interactive command.",
+      "category": "usability",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-006",
+      "label": "Local and offline",
+      "summary": "All Pjama tools run on the developer's machine, with no network access or account required.",
+      "category": "security",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-007",
+      "label": "Incoming changes are visible",
+      "summary": "Developers and agents have visibility over the changes others make to the map.",
+      "category": "usability",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-008",
+      "label": "Changes can be reviewed and reverted",
+      "summary": "Developers can review changes, in detail or in bulk, and revert the ones they reject.",
+      "category": "usability",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-009",
+      "label": "Atomic operations",
+      "summary": "Applies each change as one item- or field-level operation, rejecting any that would leave the map invalid.",
+      "category": "dataIntegrity",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-010",
+      "label": "Broadcasts changes",
+      "summary": "Pushes every applied operation to all connected clients as it happens.",
+      "category": "usability",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-011",
+      "label": "Operation log",
+      "summary": "Keeps a persistent log of every operation: author, time, item, field, and before and after values.",
+      "category": "traceability",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-012",
+      "label": "Reverts operations",
+      "summary": "Reverts any logged operation by applying its inverse as a new operation.",
+      "category": "traceability",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-013",
+      "label": "Changes since a point",
+      "summary": "Returns every operation after a given position in the log, so each client can track what it has already seen.",
+      "category": "usability",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-014",
+      "label": "Detects external edits",
+      "summary": "Watches the map file and logs changes made outside Pjama as item- and value-level operations authored as external.",
+      "category": "dataIntegrity",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-015",
+      "label": "No save step",
+      "summary": "Each edit is sent as soon as it is finished; there is no batching or save button.",
+      "category": "usability",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-016",
+      "label": "Protects the field being edited",
+      "summary": "A remote change to the field being edited waits until editing ends, then is offered as keep mine or take theirs.",
+      "category": "usability",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-017",
+      "label": "Shows incoming changes",
+      "summary": "Changes made by others are marked where they appear, with their author.",
+      "category": "usability",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-021",
+      "label": "Mapping depth threshold",
+      "summary": "The map covers the project at the granularity the developer chooses; unmapped code and tests are normal, not gaps. Exceptions are at dev or agent discretion.",
+      "category": "usability",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-022",
+      "label": "Layout stays local",
+      "summary": "The layout file is never committed: it holds one user's editor state, not project information.",
+      "category": "security",
+      "verifiedBy": []
+    }
+  ],
+  "useCases": [
+    {
+      "id": "UC-001",
+      "label": "Start a project map",
+      "summary": "The agent drafts a first map of an existing repo and the developer refines it.",
+      "actors": [
+        "ACT-001",
+        "ACT-002"
+      ],
+      "prerequisites": [
+        "The repo has no project map"
+      ],
+      "steps": [
+        {
+          "action": "Developer asks the agent to map the project",
+          "next": {
+            "action": "Agent inspects the repo and drafts components, relations and specs",
+            "next": {
+              "action": "Developer reviews the draft and adjusts it",
+              "next": {
+                "action": "Pjama stores the map in the repo"
+              }
+            }
+          }
+        }
+      ],
+      "verifiedBy": []
+    },
+    {
+      "id": "UC-002",
+      "label": "Get oriented for a task",
+      "summary": "The agent uses the map to find the components and specs relevant to a task instead of scanning the whole repo.",
+      "actors": [
+        "ACT-002"
+      ],
+      "prerequisites": [
+        "A project map exists"
+      ],
+      "steps": [
+        {
+          "action": "Agent receives a task",
+          "next": {
+            "action": "Agent looks up the components the task touches in the map",
+            "branches": [
+              {
+                "action": "Agent finds no matching component",
+                "next": {
+                  "action": "Agent proposes map additions to the developer"
+                }
+              }
+            ],
+            "next": {
+              "action": "Agent reads their specs, including the ones inherited through containment and derived from relationships",
+              "next": {
+                "action": "Agent works on the task within those specs"
+              }
+            }
+          }
+        }
+      ],
+      "verifiedBy": []
+    },
+    {
+      "id": "UC-004",
+      "label": "Implement from the map",
+      "summary": "The agent builds or changes code to satisfy a set of items and links the resulting tests back to them.",
+      "actors": [
+        "ACT-001",
+        "ACT-002"
+      ],
+      "steps": [
+        {
+          "action": "Developer asks the agent to implement a mapped feature/aspect",
+          "next": {
+            "action": "Agent reads the relevant components' specs, including all related ones",
+            "next": {
+              "action": "Agent writes the code and its tests",
+              "next": {
+                "action": "Agent links tests that verify a spec at its granularity",
+                "next": {
+                  "action": "Pjama records the updated links in the map"
+                },
+                "branches": [
+                  {
+                    "action": "Agent finds a test covering behavior no spec expresses",
+                    "next": {
+                      "action": "Agent proposes a spec or leaves the test unmapped, and the developer decides"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "verifiedBy": [],
+      "prerequisites": [
+        "The feature is defined in the map"
+      ]
+    },
+    {
+      "id": "UC-005",
+      "label": "Verify the map against the repo",
+      "summary": "Pjama checks the map is valid and still matches the code, and reports any drift.",
+      "actors": [
+        "ACT-001",
+        "ACT-002",
+        "ACT-003"
+      ],
+      "prerequisites": [
+        "A project map exists"
+      ],
+      "steps": [
+        {
+          "action": "Developer, agent or CI requests a verification",
+          "next": {
+            "action": "Pjama checks the map's structure and references",
+            "next": {
+              "action": "Pjama compares the mapped items with the repo: source locations, linked tests, unverified specs",
+              "next": {
+                "action": "Pjama reports the discrepancies",
+                "branches": [
+                  {
+                    "action": "Pjama finds none and reports the map as clean"
+                  }
+                ],
+                "next": {
+                  "action": "Agent proposes fixes and the developer approves them"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "verifiedBy": []
+    },
+    {
+      "id": "UC-006",
+      "label": "Review recent changes",
+      "summary": "The developer goes through the changes made since they last looked and reverts the ones they don't want.",
+      "actors": [
+        "ACT-001"
+      ],
+      "prerequisites": [
+        "Others changed the map since the developer last looked"
+      ],
+      "steps": [
+        {
+          "action": "Developer opens the changes they haven't seen",
+          "next": {
+            "action": "Pjama lists them with author, time and what changed per item and value",
+            "next": {
+              "action": "Developer inspects a change on its item",
+              "branches": [
+                {
+                  "action": "Developer reverts the change",
+                  "next": {
+                    "action": "Pjama notifies the action"
+                  }
+                }
+              ],
+              "next": {
+                "action": "Developer marks the changes as seen"
+              }
+            }
+          }
+        }
+      ],
+      "verifiedBy": []
+    },
+    {
+      "id": "UC-007",
+      "label": "Pick up changes made outside Pjama",
+      "summary": "Changes made to the map file by other means (git, hand edits) show up like any other change.",
+      "actors": [
+        "ACT-001",
+        "ACT-002"
+      ],
+      "prerequisites": [
+        "A project map exists"
+      ],
+      "steps": [
+        {
+          "action": "Developer pulls commits that modify the map, or the agent edits the file by hand",
+          "next": {
+            "action": "Pjama detects that the map file changed",
+            "branches": [
+              {
+                "action": "Pjama finds the file invalid",
+                "next": {
+                  "action": "Pjama keeps serving the last valid map and reports the problem"
+                }
+              }
+            ],
+            "next": {
+              "action": "Pjama works out what changed, per item and value",
+              "next": {
+                "action": "Pjama shows the changes to every client as made externally"
+              }
+            }
+          }
+        }
+      ],
+      "verifiedBy": []
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-001",
+      "label": "Map file",
+      "summary": "The project map: components, relations and their specs, stored as JSON in .pjama.",
+      "protocol": {
+        "name": "JSON file"
+      },
+      "verifiedBy": []
+    },
+    {
+      "id": "IF-002",
+      "label": "Layout file",
+      "summary": "Editor state for one user (e.g. graph node positions), stored as JSON in .pjama.",
+      "protocol": {
+        "name": "JSON file"
+      },
+      "verifiedBy": []
+    },
+    {
+      "id": "IF-003",
+      "label": "Log file",
+      "summary": "The history of operations applied to the map, stored as JSON in .pjama.",
+      "protocol": {
+        "name": "JSON file"
+      },
+      "verifiedBy": []
+    }
+  ],
+  "resources": [],
+  "tests": [],
+  "decisions": [
+    {
+      "id": "D-001",
+      "label": "Partial mapping by design",
+      "summary": "The map is not meant to mirror every piece of code or every test; the developer decides how deep it goes.",
+      "notes": "Some tests sit at a granularity the developer does not want to map; others cover behavior at the right level that no spec expresses yet. Forcing full coverage would bloat the map or invent specs. Consequences: verification checks that mapped items are true, never flags unmapped ones as drift; agents link tests only where a spec matches, and propose a spec otherwise.",
+      "references": [
+        "REQ-021",
+        "UC-004",
+        "UC-005"
+      ]
+    }
+  ]
+}
