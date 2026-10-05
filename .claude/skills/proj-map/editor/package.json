@@ -1,0 +1,11 @@
+{
+  "name": "proj-map-editor",
+  "private": true,
+  "type": "module",
+  "description": "Local editor for projMap.json. No dependencies, no build.",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "engines": { "node": ">=22" }
+}

@@ -1,0 +1,745 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "projMap.schema.json",
+    "title": "Project Map",
+    "type": "object",
+    "properties": {
+        "mapId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifier for this map."
+        },
+        "mapSlug": {
+            "type": "string",
+            "description": "Legible hyphenated identifier for this map."
+        },
+        "label": {
+            "$ref": "#/$defs/label",
+            "description": "Legible project name, shown in tools."
+        },
+        "components": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/component"
+            },
+            "description": "List of all components (nodes) in this map."
+        },
+        "folders": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/folder"
+            },
+            "description": "Organizational folders for components. Purely for display, with no effect on requirements."
+        },
+        "relations": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/relation"
+            },
+            "description": "List of all dependency relations (edges) between components in this map."
+        },
+        "actors": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/actor"
+            },
+            "description": "List of all actors in this map."
+        },
+        "requirements": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/requirement"
+            },
+            "description": "List of all requirements in this map."
+        },
+        "useCases": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/useCase"
+            },
+            "description": "List of all use cases in this map."
+        },
+        "interfaces": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/interface"
+            },
+            "description": "List of all interfaces in this map."
+        },
+        "resources": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/resource"
+            },
+            "description": "List of all resources in this map."
+        },
+        "tests": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/test"
+            },
+            "description": "List of all tests in this map."
+        },
+        "decisions": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/decision"
+            },
+            "description": "Relevant decision points that shaped choices in the project. Fill in in accordance with the user."
+        }
+    },
+    "required": [
+        "mapId",
+        "mapSlug",
+        "label",
+        "components",
+        "folders",
+        "relations",
+        "actors",
+        "requirements",
+        "useCases",
+        "interfaces",
+        "resources",
+        "tests",
+        "decisions"
+    ],
+    "additionalProperties": false,
+    "$defs": {
+        "label": {
+            "type": "string",
+            "maxLength": 50,
+            "description": "Legible title/name. ~5 words."
+        },
+        "summary": {
+            "type": "string",
+            "maxLength": 200,
+            "description": "Short description, concise but clear. ~20 words."
+        },
+        "notes": {
+            "type": "string",
+            "description": "Free form annotations."
+        },
+        "path": {
+            "type": "string",
+            "description": "A file path (relative, absolute, posix or windows) or a URL."
+        },
+        "componentId": {
+            "type": "string",
+            "pattern": "^COM-[0-9]{3}$",
+            "description": "Progressive identifier, unique across the document."
+        },
+        "folderId": {
+            "type": "string",
+            "pattern": "^FOL-[0-9]{3}$",
+            "description": "Progressive identifier, unique across the document."
+        },
+        "relationId": {
+            "type": "string",
+            "pattern": "^REL-[0-9]{3}$",
+            "description": "Progressive identifier, unique across the document."
+        },
+        "requirementId": {
+            "type": "string",
+            "pattern": "^REQ-[0-9]{3}$",
+            "description": "Progressive identifier, unique across the document."
+        },
+        "useCaseId": {
+            "type": "string",
+            "pattern": "^UC-[0-9]{3}$",
+            "description": "Progressive identifier, unique across the document."
+        },
+        "interfaceId": {
+            "type": "string",
+            "pattern": "^IF-[0-9]{3}$",
+            "description": "Progressive identifier, unique across the document."
+        },
+        "actorId": {
+            "type": "string",
+            "pattern": "^ACT-[0-9]{3}$",
+            "description": "Progressive identifier, unique across the document."
+        },
+        "resourceId": {
+            "type": "string",
+            "pattern": "^RES-[0-9]{3}$",
+            "description": "Progressive identifier, unique across the document."
+        },
+        "testId": {
+            "type": "string",
+            "pattern": "^T-[0-9]{3}$",
+            "description": "Progressive identifier, unique across the document."
+        },
+        "decisionId": {
+            "type": "string",
+            "pattern": "^D-[0-9]{3}$",
+            "description": "Progressive identifier, unique across the document."
+        },
+        "specId": {
+            "anyOf": [
+                {
+                    "$ref": "#/$defs/requirementId"
+                },
+                {
+                    "$ref": "#/$defs/useCaseId"
+                },
+                {
+                    "$ref": "#/$defs/interfaceId"
+                }
+            ],
+            "description": "Id of any item a component can hold in its specs (requirement, use case or interface), and a relation can rely on."
+        },
+        "verifiedBy": {
+            "type": "array",
+            "items": {
+                "anyOf": [
+                    {
+                        "$ref": "#/$defs/testId"
+                    },
+                    {
+                        "$ref": "#/$defs/specId"
+                    }
+                ]
+            },
+            "description": "Tests and other specs (requirements, use cases, interfaces) that ensure this item is respected. Add only items that actually validate it. An empty list means the item is unverified."
+        },
+        "resourceIds": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/resourceId"
+            }
+        },
+        "component": {
+            "type": "object",
+            "description": "A system, subsystem, service, library, module, or other structural unit, described at whatever granularity its level implies.",
+            "properties": {
+                "id": {
+                    "$ref": "#/$defs/componentId"
+                },
+                "label": {
+                    "$ref": "#/$defs/label",
+                    "description": "Legible name for the item."
+                },
+                "summary": {
+                    "$ref": "#/$defs/summary",
+                    "description": "Short description for the item."
+                },
+                "notes": {
+                    "$ref": "#/$defs/notes"
+                },
+                "resources": {
+                    "$ref": "#/$defs/resourceIds"
+                },
+                "depth": {
+                    "$ref": "#/$defs/label",
+                    "description": "Used to contextualize where the component sits in the whole project's schema (Cross-system, system, app, service, library, module, file, function, class, ...). Useful to determine what is the appropriate granularity for the information describing the component. (e.g. the high level requirements for a 'system' component will have different concerns from those for a 'library' or 'module' component, which should be more detailed and geared towards implementation)."
+                },
+                "level": {
+                    "type": "string",
+                    "enum": [
+                        "low-level",
+                        "high-level"
+                    ],
+                    "description": "Whether the component is considered high level or low level. Helps agents interacting with it to better handle granularity and implementation details."
+                },
+                "folder": {
+                    "$ref": "#/$defs/folderId",
+                    "description": "Folder this component is displayed in. A component sits in at most one folder. Has no effect on requirements."
+                },
+                "partOf": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/componentId"
+                    },
+                    "description": "Components this one is part of (containment). Their specs apply to this component too. May list several parents; the containment graph must not have cycles."
+                },
+                "technologies": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of technologies used in this component."
+                },
+                "physicalLocation": {
+                    "type": "string",
+                    "description": "Physical location of the component."
+                },
+                "sourceLocation": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/path"
+                    },
+                    "description": "Location of the source file/s of the component."
+                },
+                "specs": {
+                    "type": "object",
+                    "description": "Specifications that describe the component. Relations can rely on any of them.",
+                    "properties": {
+                        "requirements": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/$defs/requirementId"
+                            }
+                        },
+                        "useCases": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/$defs/useCaseId"
+                            }
+                        },
+                        "interfaces": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/$defs/interfaceId"
+                            },
+                            "description": "Interfaces this component provides to others."
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            },
+            "required": [
+                "id",
+                "label",
+                "summary",
+                "depth",
+                "level",
+                "specs"
+            ],
+            "additionalProperties": false
+        },
+        "folder": {
+            "type": "object",
+            "description": "A display-only folder used to organize components. Folders nest through `parent` and carry no requirements.",
+            "properties": {
+                "id": {
+                    "$ref": "#/$defs/folderId"
+                },
+                "label": {
+                    "$ref": "#/$defs/label",
+                    "description": "Legible name for the item."
+                },
+                "summary": {
+                    "$ref": "#/$defs/summary",
+                    "description": "Short description for the item."
+                },
+                "notes": {
+                    "$ref": "#/$defs/notes"
+                },
+                "parent": {
+                    "$ref": "#/$defs/folderId",
+                    "description": "The folder this one is nested in. Omit for a top-level folder. Folder nesting must not have cycles."
+                }
+            },
+            "required": [
+                "id",
+                "label"
+            ],
+            "additionalProperties": false
+        },
+        "relation": {
+            "type": "object",
+            "description": "A directed dependency between two components (uses, calls, reads, ...). Containment is not a relation: see `component.partOf`.",
+            "properties": {
+                "id": {
+                    "$ref": "#/$defs/relationId"
+                },
+                "label": {
+                    "$ref": "#/$defs/label",
+                    "description": "Legible name for the item."
+                },
+                "summary": {
+                    "$ref": "#/$defs/summary",
+                    "description": "Short description for the item."
+                },
+                "notes": {
+                    "$ref": "#/$defs/notes"
+                },
+                "resources": {
+                    "$ref": "#/$defs/resourceIds"
+                },
+                "kind": {
+                    "type": "string",
+                    "examples": [
+                        "uses",
+                        "calls",
+                        "reads",
+                        "writes",
+                        "distributes"
+                    ],
+                    "description": "The kind of dependency. Allows for 'uses' | 'calls' | 'reads' | 'writes' | 'distributes' along with other user defined kinds."
+                },
+                "from": {
+                    "$ref": "#/$defs/componentId",
+                    "description": "Id of the component that depends on the other."
+                },
+                "to": {
+                    "$ref": "#/$defs/componentId",
+                    "description": "Id of the component being depended on. Must differ from `from`."
+                },
+                "reliesOn": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/specId"
+                    },
+                    "description": "Specs this relation relies on: interfaces, requirements or use cases. They usually belong to `from` or `to`, but may belong to any component in the map."
+                }
+            },
+            "required": [
+                "id",
+                "label",
+                "summary",
+                "kind",
+                "from",
+                "to"
+            ],
+            "additionalProperties": false
+        },
+        "interface": {
+            "type": "object",
+            "description": "An interface a component provides to others: an API, a CLI, a file format, an event stream, ...",
+            "properties": {
+                "id": {
+                    "$ref": "#/$defs/interfaceId"
+                },
+                "label": {
+                    "$ref": "#/$defs/label",
+                    "description": "Legible name for the item."
+                },
+                "summary": {
+                    "$ref": "#/$defs/summary",
+                    "description": "Short description for the item."
+                },
+                "notes": {
+                    "$ref": "#/$defs/notes"
+                },
+                "resources": {
+                    "$ref": "#/$defs/resourceIds"
+                },
+                "protocol": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "description": "HTTP(S), SOAP, MQTT, stdio, IPC, ..."
+                        },
+                        "additionalSpecs": {
+                            "type": "string",
+                            "description": "Additional specification details for the selected protocol (e.g. for HTTP, you may specify method, query params, payload schema, ...)."
+                        }
+                    },
+                    "required": [
+                        "name"
+                    ],
+                    "additionalProperties": false
+                },
+                "verifiedBy": {
+                    "$ref": "#/$defs/verifiedBy"
+                }
+            },
+            "required": [
+                "id",
+                "label",
+                "summary",
+                "verifiedBy"
+            ],
+            "additionalProperties": false
+        },
+        "requirement": {
+            "type": "object",
+            "description": "A single requirement (what the system must do, a quality attribute the system must satisfy, ...). Phrase as a tangible aspect / measurable quality.",
+            "properties": {
+                "id": {
+                    "$ref": "#/$defs/requirementId"
+                },
+                "label": {
+                    "$ref": "#/$defs/label"
+                },
+                "summary": {
+                    "$ref": "#/$defs/summary"
+                },
+                "notes": {
+                    "$ref": "#/$defs/notes"
+                },
+                "resources": {
+                    "$ref": "#/$defs/resourceIds"
+                },
+                "category": {
+                    "type": "string",
+                    "examples": [
+                        "performance",
+                        "security",
+                        "availabilityAndReliability",
+                        "usability"
+                    ],
+                    "description": "Optional categorization tag that can be assigned to better scope requirements."
+                },
+                "verifiedBy": {
+                    "$ref": "#/$defs/verifiedBy"
+                }
+            },
+            "required": [
+                "id",
+                "label",
+                "summary",
+                "verifiedBy"
+            ],
+            "additionalProperties": false
+        },
+        "actor": {
+            "type": "object",
+            "description": "A single actor: a role that interacts with the system, not a physical person.",
+            "properties": {
+                "id": {
+                    "$ref": "#/$defs/actorId"
+                },
+                "label": {
+                    "$ref": "#/$defs/label"
+                },
+                "summary": {
+                    "$ref": "#/$defs/summary"
+                },
+                "notes": {
+                    "$ref": "#/$defs/notes"
+                },
+                "resources": {
+                    "$ref": "#/$defs/resourceIds"
+                }
+            },
+            "required": [
+                "id",
+                "label",
+                "summary"
+            ],
+            "additionalProperties": false
+        },
+        "useCase": {
+            "type": "object",
+            "description": "A single use case describing an interaction between actors and the system.",
+            "properties": {
+                "id": {
+                    "$ref": "#/$defs/useCaseId"
+                },
+                "label": {
+                    "$ref": "#/$defs/label",
+                    "description": "Legible name for the item."
+                },
+                "summary": {
+                    "$ref": "#/$defs/summary",
+                    "description": "Short description for the item."
+                },
+                "notes": {
+                    "$ref": "#/$defs/notes"
+                },
+                "resources": {
+                    "$ref": "#/$defs/resourceIds"
+                },
+                "actors": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/actorId"
+                    },
+                    "description": "Ids of the actors involved in this use case."
+                },
+                "prerequisites": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Conditions that must hold true before this use case can begin."
+                },
+                "steps": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/step"
+                    },
+                    "description": "Sequence of actions of the use case. Allows for branching scenarios."
+                },
+                "verifiedBy": {
+                    "$ref": "#/$defs/verifiedBy"
+                }
+            },
+            "required": [
+                "id",
+                "label",
+                "summary",
+                "actors",
+                "steps",
+                "verifiedBy"
+            ],
+            "additionalProperties": false
+        },
+        "step": {
+            "type": "object",
+            "description": "A single step in a use case scenario. Steps chain through `next`; alternative flows fork off through `branches`.",
+            "properties": {
+                "action": {
+                    "type": "string",
+                    "description": "What happens in this step, phrased as \"<actor or system> <does something>\"."
+                },
+                "next": {
+                    "$ref": "#/$defs/step",
+                    "description": "The step that follows this one in the same flow. Omit on the last step."
+                },
+                "branches": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/step"
+                    },
+                    "description": "Alternative flows that fork off after this step (e.g. errors, optional paths). Each branch is the first step of its own chain."
+                }
+            },
+            "required": [
+                "action"
+            ],
+            "additionalProperties": false
+        },
+        "resource": {
+            "type": "object",
+            "description": "Reference material file or URL that holds additional information.",
+            "properties": {
+                "id": {
+                    "$ref": "#/$defs/resourceId"
+                },
+                "label": {
+                    "$ref": "#/$defs/label",
+                    "description": "Legible name for the item."
+                },
+                "summary": {
+                    "$ref": "#/$defs/summary",
+                    "description": "Short description for the item."
+                },
+                "notes": {
+                    "$ref": "#/$defs/notes"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Document, image, skill, diagram, use case diagram, flowchart, ..."
+                },
+                "location": {
+                    "$ref": "#/$defs/path"
+                }
+            },
+            "required": [
+                "id",
+                "label",
+                "summary",
+                "type",
+                "location"
+            ],
+            "additionalProperties": false
+        },
+        "test": {
+            "type": "object",
+            "description": "Represents a single test file, or a specific test inside a file.",
+            "properties": {
+                "id": {
+                    "$ref": "#/$defs/testId"
+                },
+                "label": {
+                    "$ref": "#/$defs/label",
+                    "description": "Legible name for the item."
+                },
+                "summary": {
+                    "$ref": "#/$defs/summary",
+                    "description": "Short description for the item."
+                },
+                "notes": {
+                    "$ref": "#/$defs/notes"
+                },
+                "resources": {
+                    "$ref": "#/$defs/resourceIds"
+                },
+                "type": {
+                    "type": "string",
+                    "examples": [
+                        "unit",
+                        "integration",
+                        "e2e",
+                        "screenshot"
+                    ],
+                    "description": "The type of test. Allows for 'unit' | 'integration' | 'e2e' | 'screenshot' along with other user defined types."
+                },
+                "location": {
+                    "$ref": "#/$defs/path",
+                    "description": "Location of the test file."
+                },
+                "testName": {
+                    "type": "string",
+                    "description": "Name for the specific test in the located file. If left empty the object points to the whole file."
+                }
+            },
+            "required": [
+                "id",
+                "label",
+                "summary",
+                "type",
+                "location"
+            ],
+            "additionalProperties": false
+        },
+        "decision": {
+            "type": "object",
+            "description": "A relevant decision point that shaped a choice in the project.",
+            "properties": {
+                "id": {
+                    "$ref": "#/$defs/decisionId"
+                },
+                "label": {
+                    "$ref": "#/$defs/label",
+                    "description": "Legible name for the item."
+                },
+                "summary": {
+                    "$ref": "#/$defs/summary",
+                    "description": "Short description for the item."
+                },
+                "notes": {
+                    "$ref": "#/$defs/notes"
+                },
+                "resources": {
+                    "$ref": "#/$defs/resourceIds"
+                },
+                "references": {
+                    "type": "array",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/$defs/componentId"
+                            },
+                            {
+                                "$ref": "#/$defs/relationId"
+                            },
+                            {
+                                "$ref": "#/$defs/requirementId"
+                            },
+                            {
+                                "$ref": "#/$defs/useCaseId"
+                            },
+                            {
+                                "$ref": "#/$defs/interfaceId"
+                            },
+                            {
+                                "$ref": "#/$defs/actorId"
+                            },
+                            {
+                                "$ref": "#/$defs/testId"
+                            },
+                            {
+                                "$ref": "#/$defs/resourceId"
+                            },
+                            {
+                                "$ref": "#/$defs/decisionId"
+                            }
+                        ]
+                    },
+                    "description": "Ids of the elements this decision pertains to, both as causes for and consequences of it (a component, relation, requirement, use case, interface, actor, test, resource, or another decision)."
+                }
+            },
+            "required": [
+                "id",
+                "label",
+                "summary",
+                "references"
+            ],
+            "additionalProperties": false
+        }
+    }
+}

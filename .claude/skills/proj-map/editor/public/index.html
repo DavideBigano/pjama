@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>projMap editor</title>
+<link rel="icon" href="data:,">
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+<link rel="stylesheet" href="styles.css">
+<script type="module" src="app.js"></script>
+</head>
+<body>
+<header class="topbar">
+	<div class="brand"><i data-lucide="map"></i><span id="projName" title="Click to rename the project"></span></div>
+	<nav class="tabs">
+		<a class="tab" data-view="list" href="#/list"><i data-lucide="layout-list"></i>List</a>
+		<a class="tab" data-view="graph" href="#/graph"><i data-lucide="waypoints"></i>Graph</a>
+	</nav>
+	<div class="search"><i data-lucide="search"></i><input id="search" type="search" placeholder="Search everything…" autocomplete="off" spellcheck="false"><kbd>Ctrl K</kbd>
+		<div class="search-results" id="searchResults" hidden></div></div>
+	<div class="save-area"><span class="map-path" id="mapPath"></span><span class="warn-pill" id="unverified" hidden></span><span id="saveState"></span>
+		<button type="button" class="btn primary" id="saveBtn" title="Save (Ctrl+S)"><i data-lucide="save" style="width:14px;height:14px"></i>Save</button></div>
+</header>
+
+<div class="fatal" id="fatal" hidden></div>
+
+<main class="body view-list" id="viewList" hidden>
+	<aside class="sidebar" id="sidebar">
+		<div class="side-head">
+			<h2>Components</h2><span class="count" id="compCount"></span>
+			<span style="flex:1"></span>
+			<button type="button" class="icon-btn" title="New folder" id="newFolder"><i data-lucide="folder-plus"></i></button>
+			<button type="button" class="icon-btn" title="New component" id="newComp"><i data-lucide="plus"></i></button>
+		</div>
+		<div class="tree" id="tree"></div>
+		<div class="resizer" id="resizer" title="Drag to resize"></div>
+	</aside>
+	<section class="detail" id="detail"></section>
+</main>
+
+<main class="body view-graph" id="viewGraph" hidden>
+	<div class="stage">
+		<svg id="svg"></svg>
+		<div class="toolbar">
+			<button type="button" class="btn" id="graphNewComp" style="margin:0"><i data-lucide="plus" style="width:14px;height:14px"></i>Component</button>
+			<label><input type="checkbox" id="showPart" checked>
+				<svg width="34" height="12"><line x1="0" y1="6" x2="26" y2="6" stroke="#7c3aed" stroke-width="1.75" stroke-dasharray="7 5"/><path d="M34,6 L24,1.5 L24,10.5z" fill="#7c3aed"/></svg>part of</label>
+			<label><input type="checkbox" id="showRel" checked>
+				<svg width="34" height="12"><line x1="0" y1="6" x2="26" y2="6" stroke="#52525b" stroke-width="1.75"/><path d="M34,6 L24,1.5 L24,10.5z" fill="#52525b"/></svg>depends on</label>
+		</div>
+		<div class="linkbar" id="linkbar"></div>
+		<div class="tip" id="tip"></div>
+		<div class="hint">Drag the canvas to pan, scroll to zoom, double-click to add a component · hover a node and drag a handle onto another node · click an edge to edit it · right-click or Delete to remove</div>
+		<div class="zoom"><button type="button" class="icon-btn" id="zoomIn" title="Zoom in"><i data-lucide="plus"></i></button>
+			<button type="button" class="icon-btn" id="zoomOut" title="Zoom out"><i data-lucide="minus"></i></button>
+			<button type="button" class="icon-btn" id="zoomFit" title="Fit everything"><i data-lucide="maximize"></i></button></div>
+	</div>
+	<aside class="panel" id="panel"></aside>
+</main>
+</body>
+</html>
