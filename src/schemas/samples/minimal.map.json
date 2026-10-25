@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "v0.1.0",
+  "id": "2d5e4def-29b8-4222-8faa-108e21b7cc65",
+  "name": "Empty map",
+  "slug": "empty-map",
+  "root": "..",
+  "components": [],
+  "relationships": [],
+  "checks": [],
+  "resources": [],
+  "decisions": [],
+  "actors": []
+}
