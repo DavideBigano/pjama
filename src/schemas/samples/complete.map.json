@@ -1,411 +1,384 @@
 {
-  "$schema": "../map.schema.json",
-  "schemaVersion": "v0.1.0",
-  "id": "2d5e4def-29b8-4222-8faa-108e21b7cc65",
-  "name": "Café Orders",
-  "slug": "cafe-orders",
-  "root": "..",
-  "components": [
-    {
-      "id": "b4782d11-b3d5-462c-952a-fc35284ee377",
-      "type": "component",
-      "name": "Orders app",
-      "description": "Web app for placing café orders.",
-      "notes": "Built **mobile first**.",
-      "resources": [
-        "6260bc44-6ae3-4aa9-b293-c6672d6fc296"
-      ],
-      "specs": [
+    "$schema": "../map.schema.json",
+    "schemaVersion": "v0.1.0",
+    "id": "2d5e4def-29b8-4222-8faa-108e21b7cc65",
+    "name": "Café Orders",
+    "slug": "cafe-orders",
+    "root": "..",
+    "components": [
         {
-          "id": "4a32087d-77b0-45a3-97b5-a944b46e0d1d",
-          "type": "requirement",
-          "name": "Fast start",
-          "description": "The app is usable within two seconds of opening.",
-          "category": "performance"
-        },
-        {
-          "id": "ba9b9667-fd2f-4bfa-94c9-2a4d168414ad",
-          "type": "useCase",
-          "name": "Log in",
-          "description": "A customer logs in to see their orders.",
-          "actors": [
-            "9407da5f-4f1e-46ed-8f71-1dfbd47fecc8"
-          ],
-          "prerequisites": [
-            "The customer has an account"
-          ],
-          "steps": [
-            {
-              "id": "d88eedfc-f81a-4c0a-9c01-febc63921893",
-              "description": "Customer opens the app",
-              "next": "1beff181-8c13-4ccb-b052-43bab9d1c143"
-            },
-            {
-              "id": "1beff181-8c13-4ccb-b052-43bab9d1c143",
-              "description": "Customer enters their credentials",
-              "next": "d25548a0-49fd-4eb4-bcac-1f8cf7221b5f",
-              "sibling": "5ae8d829-04f2-455b-a5ae-9c7a20f702e3"
-            },
-            {
-              "id": "5ae8d829-04f2-455b-a5ae-9c7a20f702e3",
-              "description": "Customer signs in with a passkey",
-              "next": "d25548a0-49fd-4eb4-bcac-1f8cf7221b5f"
-            },
-            {
-              "id": "d25548a0-49fd-4eb4-bcac-1f8cf7221b5f",
-              "description": "App shows the orders"
-            }
-          ]
-        },
-        {
-          "id": "17757408-e8b5-4d0f-a200-f0940192c621",
-          "type": "mockup",
-          "name": "Login form",
-          "description": "Wireframe of the login form.",
-          "content": {
-            "kind": "html",
-            "body": "<form><input name=\"email\"><button>Log in</button></form>"
-          }
-        },
-        {
-          "id": "59543ac5-eaa3-4bb6-bbcf-c513e9c2a512",
-          "type": "mockup",
-          "name": "Dashboard",
-          "description": "High-fidelity dashboard design.",
-          "content": {
-            "kind": "image",
-            "resource": "29275ff3-fb55-46cb-a1fa-2045f5bcd48c"
-          }
-        },
-        {
-          "id": "fc4b9d4c-9201-4b95-b160-da4e8c6aecb0",
-          "type": "mockup",
-          "name": "Settings page",
-          "description": "Prototype of the settings page.",
-          "content": {
-            "kind": "html-file",
-            "resource": "da2518ef-63c5-475f-9ae2-9ddf3f4de841"
-          }
-        },
-        {
-          "id": "fb7917b9-d4a2-48ef-bbae-d8bb425c08c8",
-          "type": "technology",
-          "name": "Written in TypeScript",
-          "description": "The app is written in TypeScript.",
-          "technology": "TypeScript",
-          "version": "^5.4",
-          "documentation": [
-            "6e6415bf-8909-4733-9edf-b41618df93e1"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "7221a477-270c-4a69-ac91-09833532b5ea",
-      "type": "component",
-      "name": "Orders API",
-      "description": "HTTP API behind the app.",
-      "specs": [
-        {
-          "id": "6b6a89d2-a762-49c8-8b1a-d3da78b9a986",
-          "type": "requirement",
-          "name": "Authenticated access",
-          "description": "Every endpoint but login requires a session."
-        },
-        {
-          "id": "7323a02c-0316-4d05-9723-4b25b60e33f8",
-          "type": "type",
-          "name": "Role",
-          "description": "What a user may do.",
-          "definition": {
-            "kind": "union",
-            "of": [
-              {
-                "description": "Places orders",
-                "type": {
-                  "kind": "constant",
-                  "value": "\"customer\""
+            "id": "b4782d11-b3d5-462c-952a-fc35284ee377",
+            "type": "component",
+            "name": "Orders app",
+            "description": "Web app for placing café orders.",
+            "notes": "Built **mobile first**.",
+            "resources": ["6260bc44-6ae3-4aa9-b293-c6672d6fc296"],
+            "specs": [
+                {
+                    "id": "4a32087d-77b0-45a3-97b5-a944b46e0d1d",
+                    "type": "requirement",
+                    "name": "Fast start",
+                    "description": "The app is usable within two seconds of opening.",
+                    "category": "performance"
+                },
+                {
+                    "id": "ba9b9667-fd2f-4bfa-94c9-2a4d168414ad",
+                    "type": "useCase",
+                    "name": "Log in",
+                    "description": "A customer logs in to see their orders.",
+                    "actors": ["9407da5f-4f1e-46ed-8f71-1dfbd47fecc8"],
+                    "prerequisites": ["The customer has an account"],
+                    "steps": [
+                        {
+                            "id": "d88eedfc-f81a-4c0a-9c01-febc63921893",
+                            "description": "Customer opens the app",
+                            "next": "1beff181-8c13-4ccb-b052-43bab9d1c143"
+                        },
+                        {
+                            "id": "1beff181-8c13-4ccb-b052-43bab9d1c143",
+                            "description": "Customer enters their credentials",
+                            "next": "d25548a0-49fd-4eb4-bcac-1f8cf7221b5f",
+                            "sibling": "5ae8d829-04f2-455b-a5ae-9c7a20f702e3"
+                        },
+                        {
+                            "id": "5ae8d829-04f2-455b-a5ae-9c7a20f702e3",
+                            "description": "Customer signs in with a passkey",
+                            "next": "d25548a0-49fd-4eb4-bcac-1f8cf7221b5f"
+                        },
+                        {
+                            "id": "d25548a0-49fd-4eb4-bcac-1f8cf7221b5f",
+                            "description": "App shows the orders"
+                        }
+                    ]
+                },
+                {
+                    "id": "17757408-e8b5-4d0f-a200-f0940192c621",
+                    "type": "mockup",
+                    "name": "Login form",
+                    "description": "Wireframe of the login form.",
+                    "content": {
+                        "kind": "html",
+                        "body": "<form><input name=\"email\"><button>Log in</button></form>"
+                    }
+                },
+                {
+                    "id": "59543ac5-eaa3-4bb6-bbcf-c513e9c2a512",
+                    "type": "mockup",
+                    "name": "Dashboard",
+                    "description": "High-fidelity dashboard design.",
+                    "content": {
+                        "kind": "image",
+                        "resource": "29275ff3-fb55-46cb-a1fa-2045f5bcd48c"
+                    }
+                },
+                {
+                    "id": "fc4b9d4c-9201-4b95-b160-da4e8c6aecb0",
+                    "type": "mockup",
+                    "name": "Settings page",
+                    "description": "Prototype of the settings page.",
+                    "content": {
+                        "kind": "html-file",
+                        "resource": "da2518ef-63c5-475f-9ae2-9ddf3f4de841"
+                    }
+                },
+                {
+                    "id": "fb7917b9-d4a2-48ef-bbae-d8bb425c08c8",
+                    "type": "technology",
+                    "name": "Written in TypeScript",
+                    "description": "The app is written in TypeScript.",
+                    "technology": "TypeScript",
+                    "version": "^5.4",
+                    "documentation": ["6e6415bf-8909-4733-9edf-b41618df93e1"]
                 }
-              },
-              {
-                "description": "Prepares orders",
-                "type": {
-                  "kind": "constant",
-                  "value": "\"barista\""
+            ]
+        },
+        {
+            "id": "7221a477-270c-4a69-ac91-09833532b5ea",
+            "type": "component",
+            "name": "Orders API",
+            "description": "HTTP API behind the app.",
+            "specs": [
+                {
+                    "id": "6b6a89d2-a762-49c8-8b1a-d3da78b9a986",
+                    "type": "requirement",
+                    "name": "Authenticated access",
+                    "description": "Every endpoint but login requires a session."
+                },
+                {
+                    "id": "7323a02c-0316-4d05-9723-4b25b60e33f8",
+                    "type": "type",
+                    "name": "Role",
+                    "description": "What a user may do.",
+                    "definition": {
+                        "kind": "union",
+                        "of": [
+                            {
+                                "description": "Places orders",
+                                "type": {
+                                    "kind": "constant",
+                                    "value": "\"customer\""
+                                }
+                            },
+                            {
+                                "description": "Prepares orders",
+                                "type": {
+                                    "kind": "constant",
+                                    "value": "\"barista\""
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "badeebfc-0639-4e4a-8991-8471fc9f80f5",
+                    "type": "type",
+                    "name": "User",
+                    "description": "A logged-in user.",
+                    "definition": {
+                        "kind": "merge",
+                        "of": [
+                            {
+                                "kind": "struct",
+                                "fields": [
+                                    {
+                                        "name": "email",
+                                        "type": {
+                                            "kind": "primitive",
+                                            "name": "string"
+                                        }
+                                    },
+                                    {
+                                        "name": "role",
+                                        "description": "Decides the screens shown",
+                                        "type": {
+                                            "kind": "reference",
+                                            "type": "7323a02c-0316-4d05-9723-4b25b60e33f8"
+                                        }
+                                    },
+                                    {
+                                        "name": "referrer",
+                                        "type": {
+                                            "kind": "reference",
+                                            "type": "badeebfc-0639-4e4a-8991-8471fc9f80f5"
+                                        },
+                                        "optional": true
+                                    }
+                                ]
+                            },
+                            {
+                                "kind": "struct",
+                                "fields": [
+                                    {
+                                        "name": "tags",
+                                        "type": {
+                                            "kind": "array",
+                                            "of": {
+                                                "kind": "primitive",
+                                                "name": "string"
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "7aaa6560-8bfe-483e-ad93-2aefe07b745f",
+                    "type": "interface",
+                    "name": "Login endpoint",
+                    "description": "Starts a session.",
+                    "inputs": [
+                        {
+                            "name": "email",
+                            "type": {
+                                "kind": "primitive",
+                                "name": "string"
+                            }
+                        },
+                        {
+                            "name": "password",
+                            "description": "Plain text, sent over TLS only",
+                            "type": {
+                                "kind": "primitive",
+                                "name": "string"
+                            }
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "type": {
+                                "kind": "reference",
+                                "type": "badeebfc-0639-4e4a-8991-8471fc9f80f5"
+                            }
+                        },
+                        {
+                            "name": "token",
+                            "type": {
+                                "kind": "primitive",
+                                "name": "string"
+                            }
+                        }
+                    ],
+                    "preconditions": ["The account exists"],
+                    "postconditions": ["A session is open"],
+                    "invariants": ["Passwords are never logged"],
+                    "protocols": ["HTTP POST /login"]
+                },
+                {
+                    "id": "29bd2ae6-bb24-412a-983f-7683d936079d",
+                    "type": "snippet",
+                    "name": "Password check",
+                    "description": "How a password is checked.",
+                    "body": "if hash(password, salt) == stored then ok else fail"
                 }
-              }
             ]
-          }
         },
         {
-          "id": "badeebfc-0639-4e4a-8991-8471fc9f80f5",
-          "type": "type",
-          "name": "User",
-          "description": "A logged-in user.",
-          "definition": {
-            "kind": "merge",
-            "of": [
-              {
-                "kind": "struct",
-                "fields": [
-                  {
-                    "name": "email",
-                    "type": {
-                      "kind": "primitive",
-                      "name": "string"
-                    }
-                  },
-                  {
-                    "name": "role",
-                    "description": "Decides the screens shown",
-                    "type": {
-                      "kind": "reference",
-                      "type": "7323a02c-0316-4d05-9723-4b25b60e33f8"
-                    }
-                  },
-                  {
-                    "name": "referrer",
-                    "type": {
-                      "kind": "reference",
-                      "type": "badeebfc-0639-4e4a-8991-8471fc9f80f5"
-                    },
-                    "optional": true
-                  }
-                ]
-              },
-              {
-                "kind": "struct",
-                "fields": [
-                  {
-                    "name": "tags",
-                    "type": {
-                      "kind": "array",
-                      "of": {
-                        "kind": "primitive",
-                        "name": "string"
-                      }
-                    }
-                  }
-                ]
-              }
-            ]
-          }
+            "id": "4fa6de50-4f2f-4473-b845-2ccf04ad1e11",
+            "type": "component",
+            "name": "Order store",
+            "description": "Persists orders.",
+            "specs": []
         },
         {
-          "id": "7aaa6560-8bfe-483e-ad93-2aefe07b745f",
-          "type": "interface",
-          "name": "Login endpoint",
-          "description": "Starts a session.",
-          "inputs": [
-            {
-              "name": "email",
-              "type": {
-                "kind": "primitive",
-                "name": "string"
-              }
-            },
-            {
-              "name": "password",
-              "description": "Plain text, sent over TLS only",
-              "type": {
-                "kind": "primitive",
-                "name": "string"
-              }
-            }
-          ],
-          "outputs": [
-            {
-              "type": {
-                "kind": "reference",
-                "type": "badeebfc-0639-4e4a-8991-8471fc9f80f5"
-              }
-            },
-            {
-              "name": "token",
-              "type": {
-                "kind": "primitive",
-                "name": "string"
-              }
-            }
-          ],
-          "preconditions": [
-            "The account exists"
-          ],
-          "postconditions": [
-            "A session is open"
-          ],
-          "invariants": [
-            "Passwords are never logged"
-          ],
-          "protocols": [
-            "HTTP POST /login"
-          ]
-        },
-        {
-          "id": "29bd2ae6-bb24-412a-983f-7683d936079d",
-          "type": "snippet",
-          "name": "Password check",
-          "description": "How a password is checked.",
-          "body": "if hash(password, salt) == stored then ok else fail"
+            "id": "1c0dba18-f25f-4689-8028-1fda26bdab64",
+            "type": "component",
+            "name": "Payment gateway",
+            "description": "Takes card payments.",
+            "specs": []
         }
-      ]
-    },
-    {
-      "id": "4fa6de50-4f2f-4473-b845-2ccf04ad1e11",
-      "type": "component",
-      "name": "Order store",
-      "description": "Persists orders.",
-      "specs": []
-    },
-    {
-      "id": "1c0dba18-f25f-4689-8028-1fda26bdab64",
-      "type": "component",
-      "name": "Payment gateway",
-      "description": "Takes card payments.",
-      "specs": []
-    }
-  ],
-  "relationships": [
-    {
-      "id": "f60c6c31-21d8-40d6-af76-8066130aa4f2",
-      "type": "containment",
-      "source": "4fa6de50-4f2f-4473-b845-2ccf04ad1e11",
-      "target": "7221a477-270c-4a69-ac91-09833532b5ea"
-    },
-    {
-      "id": "33c3ab36-4232-4d17-86c8-98d04bd2b18c",
-      "type": "dependency",
-      "source": "b4782d11-b3d5-462c-952a-fc35284ee377",
-      "target": "7221a477-270c-4a69-ac91-09833532b5ea",
-      "action": "calls",
-      "selectedSpecs": [
-        "7aaa6560-8bfe-483e-ad93-2aefe07b745f",
-        "badeebfc-0639-4e4a-8991-8471fc9f80f5"
-      ],
-      "notes": "Only for login."
-    },
-    {
-      "id": "af685dbf-8c90-43dd-a078-b8739ca1670f",
-      "type": "implementation",
-      "source": "1c0dba18-f25f-4689-8028-1fda26bdab64",
-      "target": "7221a477-270c-4a69-ac91-09833532b5ea",
-      "excludedSpecs": [
-        "29bd2ae6-bb24-412a-983f-7683d936079d"
-      ]
-    },
-    {
-      "id": "00486d43-fb52-4017-b10a-2243b4487912",
-      "type": "enforcement",
-      "source": "7ee74f84-fb8a-4fb6-aa51-30873920a974",
-      "target": "6b6a89d2-a762-49c8-8b1a-d3da78b9a986"
-    },
-    {
-      "id": "9b2541a3-979c-4655-ba39-3066265bfa57",
-      "type": "derivation",
-      "source": "6b6a89d2-a762-49c8-8b1a-d3da78b9a986",
-      "target": "4a32087d-77b0-45a3-97b5-a944b46e0d1d"
-    }
-  ],
-  "checks": [
-    {
-      "id": "ae6140bd-3c43-4a04-9f25-648d071b3f86",
-      "type": "review",
-      "name": "Login form review",
-      "description": "The login form matches the mockup.",
-      "criteria": [
-        "Fields match the mockup",
-        "Errors are shown inline"
-      ],
-      "resources": [
-        "6260bc44-6ae3-4aa9-b293-c6672d6fc296"
-      ],
-      "instructions": "1. Open the app\n2. Compare with the *Login form* mockup",
-      "reviewer": "human"
-    },
-    {
-      "id": "7ee74f84-fb8a-4fb6-aa51-30873920a974",
-      "type": "test",
-      "name": "Session tests",
-      "description": "Endpoints reject requests without a session.",
-      "plugin": "@pjama/vitest-test",
-      "config": {
-        "file": "api/session.test.ts"
-      }
-    }
-  ],
-  "resources": [
-    {
-      "id": "6260bc44-6ae3-4aa9-b293-c6672d6fc296",
-      "type": "resource",
-      "name": "Style guide",
-      "description": "Brand colours and type.",
-      "location": "docs/style-guide.md"
-    },
-    {
-      "id": "29275ff3-fb55-46cb-a1fa-2045f5bcd48c",
-      "type": "resource",
-      "name": "Dashboard design",
-      "description": "Exported design.",
-      "location": "design/dashboard.png"
-    },
-    {
-      "id": "da2518ef-63c5-475f-9ae2-9ddf3f4de841",
-      "type": "resource",
-      "name": "Settings prototype",
-      "description": "Clickable prototype.",
-      "location": "design/settings.html"
-    },
-    {
-      "id": "6e6415bf-8909-4733-9edf-b41618df93e1",
-      "type": "resource",
-      "name": "TypeScript handbook",
-      "description": "Official docs.",
-      "location": "https://www.typescriptlang.org/docs/"
-    }
-  ],
-  "decisions": [
-    {
-      "id": "32b9174c-7cab-4f9f-833c-834ea2ae1afa",
-      "type": "decision",
-      "name": "Order database",
-      "description": "Where orders are stored.",
-      "closed": false,
-      "options": [
+    ],
+    "relationships": [
         {
-          "id": "6a8e0693-a6d7-409c-9a45-efa5a1d154d6",
-          "name": "PostgreSQL",
-          "description": "Hosted Postgres."
+            "id": "f60c6c31-21d8-40d6-af76-8066130aa4f2",
+            "type": "containment",
+            "source": "4fa6de50-4f2f-4473-b845-2ccf04ad1e11",
+            "target": "7221a477-270c-4a69-ac91-09833532b5ea"
         },
         {
-          "id": "9963b9c4-1762-424f-a6e2-6f3959e3dbda",
-          "name": "SQLite",
-          "description": "Embedded file.",
-          "rejectedBecause": "Several API instances write at once."
+            "id": "33c3ab36-4232-4d17-86c8-98d04bd2b18c",
+            "type": "dependency",
+            "source": "b4782d11-b3d5-462c-952a-fc35284ee377",
+            "target": "7221a477-270c-4a69-ac91-09833532b5ea",
+            "action": "calls",
+            "selectedSpecs": [
+                "7aaa6560-8bfe-483e-ad93-2aefe07b745f",
+                "badeebfc-0639-4e4a-8991-8471fc9f80f5"
+            ],
+            "notes": "Only for login."
+        },
+        {
+            "id": "af685dbf-8c90-43dd-a078-b8739ca1670f",
+            "type": "implementation",
+            "source": "1c0dba18-f25f-4689-8028-1fda26bdab64",
+            "target": "7221a477-270c-4a69-ac91-09833532b5ea",
+            "excludedSpecs": ["29bd2ae6-bb24-412a-983f-7683d936079d"]
+        },
+        {
+            "id": "00486d43-fb52-4017-b10a-2243b4487912",
+            "type": "enforcement",
+            "source": "7ee74f84-fb8a-4fb6-aa51-30873920a974",
+            "target": "6b6a89d2-a762-49c8-8b1a-d3da78b9a986"
+        },
+        {
+            "id": "9b2541a3-979c-4655-ba39-3066265bfa57",
+            "type": "derivation",
+            "source": "6b6a89d2-a762-49c8-8b1a-d3da78b9a986",
+            "target": "4a32087d-77b0-45a3-97b5-a944b46e0d1d"
         }
-      ],
-      "chosenOption": "6a8e0693-a6d7-409c-9a45-efa5a1d154d6",
-      "rationale": "Handles concurrent writers.",
-      "references": [
-        "4fa6de50-4f2f-4473-b845-2ccf04ad1e11"
-      ],
-      "overrides": [
-        "0139f3aa-2c00-4e47-96bd-7bbafe133348"
-      ]
-    },
-    {
-      "id": "0139f3aa-2c00-4e47-96bd-7bbafe133348",
-      "type": "decision",
-      "name": "Keep orders in memory",
-      "description": "First prototype choice.",
-      "closed": true
-    }
-  ],
-  "actors": [
-    {
-      "id": "9407da5f-4f1e-46ed-8f71-1dfbd47fecc8",
-      "type": "actor",
-      "name": "Customer",
-      "description": "Someone ordering coffee."
-    }
-  ]
+    ],
+    "checks": [
+        {
+            "id": "ae6140bd-3c43-4a04-9f25-648d071b3f86",
+            "type": "review",
+            "name": "Login form review",
+            "description": "The login form matches the mockup.",
+            "criteria": ["Fields match the mockup", "Errors are shown inline"],
+            "resources": ["6260bc44-6ae3-4aa9-b293-c6672d6fc296"],
+            "instructions": "1. Open the app\n2. Compare with the *Login form* mockup",
+            "reviewer": "human"
+        },
+        {
+            "id": "7ee74f84-fb8a-4fb6-aa51-30873920a974",
+            "type": "test",
+            "name": "Session tests",
+            "description": "Endpoints reject requests without a session.",
+            "plugin": "@pjama/vitest-test",
+            "config": {
+                "file": "api/session.test.ts"
+            }
+        }
+    ],
+    "resources": [
+        {
+            "id": "6260bc44-6ae3-4aa9-b293-c6672d6fc296",
+            "type": "resource",
+            "name": "Style guide",
+            "description": "Brand colours and type.",
+            "location": "docs/style-guide.md"
+        },
+        {
+            "id": "29275ff3-fb55-46cb-a1fa-2045f5bcd48c",
+            "type": "resource",
+            "name": "Dashboard design",
+            "description": "Exported design.",
+            "location": "design/dashboard.png"
+        },
+        {
+            "id": "da2518ef-63c5-475f-9ae2-9ddf3f4de841",
+            "type": "resource",
+            "name": "Settings prototype",
+            "description": "Clickable prototype.",
+            "location": "design/settings.html"
+        },
+        {
+            "id": "6e6415bf-8909-4733-9edf-b41618df93e1",
+            "type": "resource",
+            "name": "TypeScript handbook",
+            "description": "Official docs.",
+            "location": "https://www.typescriptlang.org/docs/"
+        }
+    ],
+    "decisions": [
+        {
+            "id": "32b9174c-7cab-4f9f-833c-834ea2ae1afa",
+            "type": "decision",
+            "name": "Order database",
+            "description": "Where orders are stored.",
+            "closed": false,
+            "options": [
+                {
+                    "id": "6a8e0693-a6d7-409c-9a45-efa5a1d154d6",
+                    "name": "PostgreSQL",
+                    "description": "Hosted Postgres."
+                },
+                {
+                    "id": "9963b9c4-1762-424f-a6e2-6f3959e3dbda",
+                    "name": "SQLite",
+                    "description": "Embedded file.",
+                    "rejectedBecause": "Several API instances write at once."
+                }
+            ],
+            "chosenOption": "6a8e0693-a6d7-409c-9a45-efa5a1d154d6",
+            "rationale": "Handles concurrent writers.",
+            "references": ["4fa6de50-4f2f-4473-b845-2ccf04ad1e11"],
+            "overrides": ["0139f3aa-2c00-4e47-96bd-7bbafe133348"]
+        },
+        {
+            "id": "0139f3aa-2c00-4e47-96bd-7bbafe133348",
+            "type": "decision",
+            "name": "Keep orders in memory",
+            "description": "First prototype choice.",
+            "closed": true
+        }
+    ],
+    "actors": [
+        {
+            "id": "9407da5f-4f1e-46ed-8f71-1dfbd47fecc8",
+            "type": "actor",
+            "name": "Customer",
+            "description": "Someone ordering coffee."
+        }
+    ]
 }

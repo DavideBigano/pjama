@@ -1,728 +1,728 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Pjama map",
-  "description": "A Pjama project map: the components of a project, the specs they hold and the relationships between them. This schema checks types only: cardinality, references between items and other cross-item rules are checked by the schema validator, not here.",
-  "type": "object",
-  "properties": {
-    "$schema": {
-      "description": "Location of this JSON Schema, for editors and tools. It doesn't state which version of the map model the map follows: see schemaVersion.",
-      "type": "string"
-    },
-    "schemaVersion": {
-      "description": "Version of the map model the map is written in, as v<MAJ>.<MIN>.<PATCH>.",
-      "type": "string",
-      "pattern": "^v\\d+\\.\\d+\\.\\d+$"
-    },
-    "id": {
-      "description": "Random UUID identifying the map.",
-      "$ref": "#/$defs/uuid"
-    },
-    "name": {
-      "description": "Name of the map.",
-      "type": "string"
-    },
-    "slug": {
-      "description": "Derived from the name: diacritics dropped keeping the base letter, symbols other than letters, digits and spaces removed, repeated spaces collapsed, letters lowercased and the remaining spaces turned into hyphens.",
-      "type": "string",
-      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
-    },
-    "root": {
-      "description": "Path from the folder holding the map to the root of the project, in POSIX format. Every other path in the map is relative to this root.",
-      "type": "string"
-    },
-    "components": {
-      "description": "Every component of the map.",
-      "type": "array",
-      "items": { "$ref": "#/$defs/component" }
-    },
-    "relationships": {
-      "description": "Every relationship of the map, of any type.",
-      "type": "array",
-      "items": { "$ref": "#/$defs/relationship" }
-    },
-    "checks": {
-      "description": "Every check of the map, of any type. Check results, states and reviewers are not stored in the map.",
-      "type": "array",
-      "items": { "$ref": "#/$defs/check" }
-    },
-    "resources": {
-      "description": "Every resource of the map.",
-      "type": "array",
-      "items": { "$ref": "#/$defs/resource" }
-    },
-    "decisions": {
-      "description": "Every decision of the map.",
-      "type": "array",
-      "items": { "$ref": "#/$defs/decision" }
-    },
-    "actors": {
-      "description": "Every actor of the map, shared by the use cases that list them.",
-      "type": "array",
-      "items": { "$ref": "#/$defs/actor" }
-    }
-  },
-  "required": [
-    "schemaVersion",
-    "id",
-    "name",
-    "slug",
-    "root",
-    "components",
-    "relationships",
-    "checks",
-    "resources",
-    "decisions",
-    "actors"
-  ],
-  "additionalProperties": false,
-  "$defs": {
-    "uuid": {
-      "description": "Random UUID (RFC 4122, version 4).",
-      "type": "string",
-      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
-    },
-    "uuids": {
-      "type": "array",
-      "items": { "$ref": "#/$defs/uuid" }
-    },
-    "markdown": {
-      "description": "Free-form text, rendered as markdown.",
-      "type": "string"
-    },
-    "statements": {
-      "type": "array",
-      "items": { "type": "string" }
-    },
-
-    "item": {
-      "description": "Fields shared by every object that lives in the map.",
-      "type": "object",
-      "properties": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Pjama map",
+    "description": "A Pjama project map: the components of a project, the specs they hold and the relationships between them. This schema checks types only: cardinality, references between items and other cross-item rules are checked by the schema validator, not here.",
+    "type": "object",
+    "properties": {
+        "$schema": {
+            "description": "Location of this JSON Schema, for editors and tools. It doesn't state which version of the map model the map follows: see schemaVersion.",
+            "type": "string"
+        },
+        "schemaVersion": {
+            "description": "Version of the map model the map is written in, as v<MAJ>.<MIN>.<PATCH>.",
+            "type": "string",
+            "pattern": "^v\\d+\\.\\d+\\.\\d+$"
+        },
         "id": {
-          "description": "Random UUID identifying the item. Item ids never collide.",
-          "$ref": "#/$defs/uuid"
+            "description": "Random UUID identifying the map.",
+            "$ref": "#/$defs/uuid"
         },
-        "type": {
-          "description": "Type of the item, which decides its other fields.",
-          "type": "string"
-        },
-        "name": { "type": "string" },
-        "description": { "type": "string" },
-        "notes": {
-          "description": "Free-form notes, rendered as markdown.",
-          "$ref": "#/$defs/markdown"
-        }
-      },
-      "required": ["id", "type", "name", "description"]
-    },
-
-    "component": {
-      "description": "A piece of the project, holding its own specs.",
-      "type": "object",
-      "allOf": [{ "$ref": "#/$defs/item" }],
-      "properties": {
-        "type": { "const": "component" },
-        "specs": {
-          "description": "The specs the component holds. Each spec belongs to this component only, and reaches other components through relationships.",
-          "type": "array",
-          "items": { "$ref": "#/$defs/spec" }
-        },
-        "resources": {
-          "description": "Ids of the resources supporting the component. Resources don't take part in spec flows.",
-          "$ref": "#/$defs/uuids"
-        }
-      },
-      "required": ["specs"],
-      "unevaluatedProperties": false
-    },
-
-    "specBase": {
-      "description": "Fields shared by every spec. A spec states a constraint on the component that holds it.",
-      "type": "object",
-      "allOf": [{ "$ref": "#/$defs/item" }],
-      "properties": {
-        "category": {
-          "description": "Free-form category. The map's categories are the set of those used across its specs.",
-          "type": "string"
-        }
-      }
-    },
-    "spec": {
-      "oneOf": [
-        { "$ref": "#/$defs/requirement" },
-        { "$ref": "#/$defs/useCase" },
-        { "$ref": "#/$defs/interface" },
-        { "$ref": "#/$defs/snippet" },
-        { "$ref": "#/$defs/typeSpec" },
-        { "$ref": "#/$defs/mockup" },
-        { "$ref": "#/$defs/technology" }
-      ]
-    },
-
-    "requirement": {
-      "description": "An atomic statement about the component.",
-      "type": "object",
-      "allOf": [{ "$ref": "#/$defs/specBase" }],
-      "properties": {
-        "type": { "const": "requirement" }
-      },
-      "unevaluatedProperties": false
-    },
-
-    "useCase": {
-      "description": "A sequence of actions pertinent to the component.",
-      "type": "object",
-      "allOf": [{ "$ref": "#/$defs/specBase" }],
-      "properties": {
-        "type": { "const": "useCase" },
-        "actors": {
-          "description": "Ids of the actors taking part in the use case.",
-          "$ref": "#/$defs/uuids"
-        },
-        "prerequisites": {
-          "description": "Conditions or properties assumed to hold for the use case to apply.",
-          "$ref": "#/$defs/statements"
-        },
-        "steps": {
-          "description": "The steps of the use case. Linked through next and sibling, they form a directed acyclic graph with a single root, where the sequence starts.",
-          "type": "array",
-          "items": { "$ref": "#/$defs/step" }
-        }
-      },
-      "required": ["steps"],
-      "unevaluatedProperties": false
-    },
-    "step": {
-      "description": "One specific action of a use case.",
-      "type": "object",
-      "properties": {
-        "id": {
-          "description": "Random UUID identifying the step within its use case.",
-          "$ref": "#/$defs/uuid"
-        },
-        "description": {
-          "description": "Short description of the action.",
-          "type": "string"
-        },
-        "next": {
-          "description": "Id of the step that follows. Pointing to a step of another branch merges into it. Without it, the sequence terminates here.",
-          "$ref": "#/$defs/uuid"
-        },
-        "sibling": {
-          "description": "Id of the first step of an alternative branch, taken instead of this step.",
-          "$ref": "#/$defs/uuid"
-        }
-      },
-      "required": ["id", "description"],
-      "additionalProperties": false
-    },
-
-    "interface": {
-      "description": "A contract with inputs and outputs. Its types are the ones visible to its component: its own and the ones reaching it through flows.",
-      "type": "object",
-      "allOf": [{ "$ref": "#/$defs/specBase" }],
-      "properties": {
-        "type": { "const": "interface" },
-        "inputs": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "description": "The parameter's name. Inputs are always named.",
-                "type": "string"
-              },
-              "description": { "type": "string" },
-              "type": { "$ref": "#/$defs/typeExpression" }
-            },
-            "required": ["name", "type"],
-            "additionalProperties": false
-          }
-        },
-        "outputs": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "description": "The output's name, when it has one, e.g. for a named return value.",
-                "type": "string"
-              },
-              "description": { "type": "string" },
-              "type": { "$ref": "#/$defs/typeExpression" }
-            },
-            "required": ["type"],
-            "additionalProperties": false
-          }
-        },
-        "preconditions": {
-          "description": "Conditions that hold before the interface is invoked.",
-          "$ref": "#/$defs/statements"
-        },
-        "postconditions": {
-          "description": "Conditions that hold after the interface is invoked.",
-          "$ref": "#/$defs/statements"
-        },
-        "invariants": {
-          "description": "Conditions that hold before and after the interface is invoked.",
-          "$ref": "#/$defs/statements"
-        },
-        "protocols": {
-          "description": "Protocols used to invoke the interface, e.g. HTTP or CLI.",
-          "$ref": "#/$defs/statements"
-        }
-      },
-      "unevaluatedProperties": false
-    },
-
-    "snippet": {
-      "description": "Business logic given as a code snippet, in pseudocode or a real language.",
-      "type": "object",
-      "allOf": [{ "$ref": "#/$defs/specBase" }],
-      "properties": {
-        "type": { "const": "snippet" },
-        "language": {
-          "description": "Language the body is written in. Without it, the body is pseudocode.",
-          "type": "string"
-        },
-        "body": {
-          "description": "The code, as free-form text.",
-          "type": "string"
-        }
-      },
-      "required": ["body"],
-      "unevaluatedProperties": false
-    },
-
-    "typeSpec": {
-      "description": "A custom type. Its name is unique only within its component, and it reaches other components through flows like any other spec.",
-      "type": "object",
-      "allOf": [{ "$ref": "#/$defs/specBase" }],
-      "properties": {
-        "type": { "const": "type" },
-        "definition": { "$ref": "#/$defs/typeExpression" }
-      },
-      "required": ["definition"],
-      "unevaluatedProperties": false
-    },
-    "typeExpression": {
-      "description": "The shape of a type, which may contain other type expressions. A type may refer to itself.",
-      "oneOf": [
-        { "$ref": "#/$defs/primitiveType" },
-        { "$ref": "#/$defs/referenceType" },
-        { "$ref": "#/$defs/structType" },
-        { "$ref": "#/$defs/unionType" },
-        { "$ref": "#/$defs/arrayType" },
-        { "$ref": "#/$defs/mergeType" },
-        { "$ref": "#/$defs/constantType" }
-      ]
-    },
-    "primitiveType": {
-      "type": "object",
-      "properties": {
-        "kind": { "const": "primitive" },
         "name": {
-          "description": "Free-form primitive name, e.g. string or int64, so the map isn't tied to one language's type system.",
-          "type": "string"
-        }
-      },
-      "required": ["kind", "name"],
-      "additionalProperties": false
-    },
-    "referenceType": {
-      "type": "object",
-      "properties": {
-        "kind": { "const": "reference" },
-        "type": {
-          "description": "Id of a type spec visible to the referencing spec's component.",
-          "$ref": "#/$defs/uuid"
-        }
-      },
-      "required": ["kind", "type"],
-      "additionalProperties": false
-    },
-    "structType": {
-      "type": "object",
-      "properties": {
-        "kind": { "const": "struct" },
-        "fields": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "name": { "type": "string" },
-              "description": { "type": "string" },
-              "type": { "$ref": "#/$defs/typeExpression" },
-              "optional": {
-                "description": "Whether the field may be absent. Fields are required by default.",
-                "type": "boolean"
-              }
-            },
-            "required": ["name", "type"],
-            "additionalProperties": false
-          }
-        }
-      },
-      "required": ["kind", "fields"],
-      "additionalProperties": false
-    },
-    "unionType": {
-      "description": "One of several types.",
-      "type": "object",
-      "properties": {
-        "kind": { "const": "union" },
-        "of": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "description": {
-                "description": "What this alternative stands for.",
-                "type": "string"
-              },
-              "type": { "$ref": "#/$defs/typeExpression" }
-            },
-            "required": ["type"],
-            "additionalProperties": false
-          }
-        }
-      },
-      "required": ["kind", "of"],
-      "additionalProperties": false
-    },
-    "arrayType": {
-      "type": "object",
-      "properties": {
-        "kind": { "const": "array" },
-        "of": {
-          "description": "Type of the array's elements.",
-          "$ref": "#/$defs/typeExpression"
-        }
-      },
-      "required": ["kind", "of"],
-      "additionalProperties": false
-    },
-    "mergeType": {
-      "description": "All the fields of several structs, together.",
-      "type": "object",
-      "properties": {
-        "kind": { "const": "merge" },
-        "of": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/typeExpression" }
-        }
-      },
-      "required": ["kind", "of"],
-      "additionalProperties": false
-    },
-    "constantType": {
-      "description": "A single value. Distinct from a custom type.",
-      "type": "object",
-      "properties": {
-        "kind": { "const": "constant" },
-        "value": {
-          "description": "The value written as a raw literal, e.g. \"foo\" with its quotes, or 42.",
-          "type": "string"
-        }
-      },
-      "required": ["kind", "value"],
-      "additionalProperties": false
-    },
-
-    "mockup": {
-      "description": "A visual reference for a piece of UI, from a rough wireframe to a high-fidelity design.",
-      "type": "object",
-      "allOf": [{ "$ref": "#/$defs/specBase" }],
-      "properties": {
-        "type": { "const": "mockup" },
-        "content": {
-          "oneOf": [
-            {
-              "type": "object",
-              "properties": {
-                "kind": { "const": "image" },
-                "resource": {
-                  "description": "Id of the resource holding the image, in any format a browser can display (e.g. PNG, JPEG, SVG, WebP).",
-                  "$ref": "#/$defs/uuid"
-                }
-              },
-              "required": ["kind", "resource"],
-              "additionalProperties": false
-            },
-            {
-              "type": "object",
-              "properties": {
-                "kind": { "const": "html" },
-                "body": {
-                  "description": "Inline HTML: a fragment of elements, rendered inside a blank HTML document, or a full HTML document. It is rendered isolated from the app displaying it, and its scripts are blocked from execution.",
-                  "type": "string"
-                }
-              },
-              "required": ["kind", "body"],
-              "additionalProperties": false
-            },
-            {
-              "type": "object",
-              "properties": {
-                "kind": { "const": "html-file" },
-                "resource": {
-                  "description": "Id of the resource holding a full HTML document. It is rendered isolated from the app displaying it, and its scripts are blocked from execution.",
-                  "$ref": "#/$defs/uuid"
-                }
-              },
-              "required": ["kind", "resource"],
-              "additionalProperties": false
-            }
-          ]
-        }
-      },
-      "required": ["content"],
-      "unevaluatedProperties": false
-    },
-
-    "technology": {
-      "description": "A technology, such as a language, framework or library, that the component is built with or must use.",
-      "type": "object",
-      "allOf": [{ "$ref": "#/$defs/specBase" }],
-      "properties": {
-        "type": { "const": "technology" },
-        "technology": {
-          "description": "Name of the technology, e.g. TypeScript. Separate from the spec's own name.",
-          "type": "string"
+            "description": "Name of the map.",
+            "type": "string"
         },
-        "version": {
-          "description": "Version or version range of the technology, in free form.",
-          "type": "string"
+        "slug": {
+            "description": "Derived from the name: diacritics dropped keeping the base letter, symbols other than letters, digits and spaces removed, repeated spaces collapsed, letters lowercased and the remaining spaces turned into hyphens.",
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
         },
-        "documentation": {
-          "description": "Ids of the resources documenting the technology.",
-          "$ref": "#/$defs/uuids"
-        }
-      },
-      "required": ["technology"],
-      "unevaluatedProperties": false
-    },
-
-    "actor": {
-      "description": "Someone or something taking part in use cases.",
-      "type": "object",
-      "allOf": [{ "$ref": "#/$defs/item" }],
-      "properties": {
-        "type": { "const": "actor" }
-      },
-      "unevaluatedProperties": false
-    },
-
-    "resource": {
-      "description": "Supporting material: a file inside the project or a page at a URL. Resources don't take part in spec flows.",
-      "type": "object",
-      "allOf": [{ "$ref": "#/$defs/item" }],
-      "properties": {
-        "type": { "const": "resource" },
-        "location": {
-          "description": "Path of a file inside the project, relative to the project root in POSIX format, or a URL.",
-          "type": "string"
-        }
-      },
-      "required": ["location"],
-      "unevaluatedProperties": false
-    },
-
-    "decision": {
-      "description": "A choice made about the project, why it was made and why the other options weren't. Its status is derived, not stored: overridden if another decision overrides it, otherwise closed if it is marked closed or has a chosen option, otherwise open.",
-      "type": "object",
-      "allOf": [{ "$ref": "#/$defs/item" }],
-      "properties": {
-        "type": { "const": "decision" },
-        "closed": {
-          "description": "Marks the decision closed, also when none of its options is chosen.",
-          "type": "boolean"
+        "root": {
+            "description": "Path from the folder holding the map to the root of the project, in POSIX format. Every other path in the map is relative to this root.",
+            "type": "string"
         },
-        "options": {
-          "description": "The alternatives considered.",
-          "type": "array",
-          "items": { "$ref": "#/$defs/decisionOption" }
+        "components": {
+            "description": "Every component of the map.",
+            "type": "array",
+            "items": { "$ref": "#/$defs/component" }
         },
-        "chosenOption": {
-          "description": "Id of the chosen option. Choosing an option closes the decision.",
-          "$ref": "#/$defs/uuid"
+        "relationships": {
+            "description": "Every relationship of the map, of any type.",
+            "type": "array",
+            "items": { "$ref": "#/$defs/relationship" }
         },
-        "rationale": {
-          "description": "Why the chosen option was picked over the others.",
-          "type": "string"
-        },
-        "references": {
-          "description": "Ids of the items pertinent to the decision.",
-          "$ref": "#/$defs/uuids"
-        },
-        "overrides": {
-          "description": "Ids of earlier conflicting decisions this one overrides. They stay in the map.",
-          "$ref": "#/$defs/uuids"
-        }
-      },
-      "required": ["closed"],
-      "unevaluatedProperties": false
-    },
-    "decisionOption": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "description": "Random UUID identifying the option within its decision.",
-          "$ref": "#/$defs/uuid"
-        },
-        "name": { "type": "string" },
-        "description": { "type": "string" },
-        "rejectedBecause": {
-          "description": "Why the option wasn't chosen.",
-          "type": "string"
-        }
-      },
-      "required": ["id", "name", "description"],
-      "additionalProperties": false
-    },
-
-    "check": {
-      "oneOf": [{ "$ref": "#/$defs/review" }, { "$ref": "#/$defs/test" }]
-    },
-    "review": {
-      "description": "A manual check, assessed by a human or an agent. Its results and reviewers are not stored in the map.",
-      "type": "object",
-      "allOf": [{ "$ref": "#/$defs/item" }],
-      "properties": {
-        "type": { "const": "review" },
-        "criteria": {
-          "description": "Statements the reviewed work must satisfy to pass.",
-          "$ref": "#/$defs/statements"
+        "checks": {
+            "description": "Every check of the map, of any type. Check results, states and reviewers are not stored in the map.",
+            "type": "array",
+            "items": { "$ref": "#/$defs/check" }
         },
         "resources": {
-          "description": "Ids of the resources to look at.",
-          "$ref": "#/$defs/uuids"
+            "description": "Every resource of the map.",
+            "type": "array",
+            "items": { "$ref": "#/$defs/resource" }
         },
-        "instructions": {
-          "description": "How to carry out the review, as free-form text rendered as markdown.",
-          "$ref": "#/$defs/markdown"
+        "decisions": {
+            "description": "Every decision of the map.",
+            "type": "array",
+            "items": { "$ref": "#/$defs/decision" }
         },
-        "reviewer": {
-          "description": "Who must perform the review. Without it, either may.",
-          "enum": ["human", "agent"]
+        "actors": {
+            "description": "Every actor of the map, shared by the use cases that list them.",
+            "type": "array",
+            "items": { "$ref": "#/$defs/actor" }
         }
-      },
-      "required": ["criteria"],
-      "unevaluatedProperties": false
     },
-    "test": {
-      "description": "An automated, repeatable check run by a plugin. Its results are not stored in the map.",
-      "type": "object",
-      "allOf": [{ "$ref": "#/$defs/item" }],
-      "properties": {
-        "type": { "const": "test" },
-        "plugin": {
-          "description": "Name of the plugin that runs the test, e.g. @pjama/vitest-test.",
-          "type": "string"
+    "required": [
+        "schemaVersion",
+        "id",
+        "name",
+        "slug",
+        "root",
+        "components",
+        "relationships",
+        "checks",
+        "resources",
+        "decisions",
+        "actors"
+    ],
+    "additionalProperties": false,
+    "$defs": {
+        "uuid": {
+            "description": "Random UUID (RFC 4122, version 4).",
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
         },
-        "config": {
-          "description": "Plugin-specific settings, validated by the plugin's own schema.",
-          "type": "object"
-        }
-      },
-      "required": ["plugin"],
-      "unevaluatedProperties": false
-    },
+        "uuids": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/uuid" }
+        },
+        "markdown": {
+            "description": "Free-form text, rendered as markdown.",
+            "type": "string"
+        },
+        "statements": {
+            "type": "array",
+            "items": { "type": "string" }
+        },
 
-    "relationshipBase": {
-      "description": "A directed edge from a source item to a target item. Relationships are not items: they have no name or description.",
-      "type": "object",
-      "properties": {
-        "id": {
-          "description": "Random UUID identifying the relationship.",
-          "$ref": "#/$defs/uuid"
+        "item": {
+            "description": "Fields shared by every object that lives in the map.",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "Random UUID identifying the item. Item ids never collide.",
+                    "$ref": "#/$defs/uuid"
+                },
+                "type": {
+                    "description": "Type of the item, which decides its other fields.",
+                    "type": "string"
+                },
+                "name": { "type": "string" },
+                "description": { "type": "string" },
+                "notes": {
+                    "description": "Free-form notes, rendered as markdown.",
+                    "$ref": "#/$defs/markdown"
+                }
+            },
+            "required": ["id", "type", "name", "description"]
         },
-        "type": {
-          "description": "Type of the relationship, which decides what source and target are.",
-          "type": "string"
+
+        "component": {
+            "description": "A piece of the project, holding its own specs.",
+            "type": "object",
+            "allOf": [{ "$ref": "#/$defs/item" }],
+            "properties": {
+                "type": { "const": "component" },
+                "specs": {
+                    "description": "The specs the component holds. Each spec belongs to this component only, and reaches other components through relationships.",
+                    "type": "array",
+                    "items": { "$ref": "#/$defs/spec" }
+                },
+                "resources": {
+                    "description": "Ids of the resources supporting the component. Resources don't take part in spec flows.",
+                    "$ref": "#/$defs/uuids"
+                }
+            },
+            "required": ["specs"],
+            "unevaluatedProperties": false
         },
-        "source": {
-          "description": "Id of the item the edge starts from: the one that depends on the target.",
-          "$ref": "#/$defs/uuid"
+
+        "specBase": {
+            "description": "Fields shared by every spec. A spec states a constraint on the component that holds it.",
+            "type": "object",
+            "allOf": [{ "$ref": "#/$defs/item" }],
+            "properties": {
+                "category": {
+                    "description": "Free-form category. The map's categories are the set of those used across its specs.",
+                    "type": "string"
+                }
+            }
         },
-        "target": {
-          "description": "Id of the item the edge points to.",
-          "$ref": "#/$defs/uuid"
+        "spec": {
+            "oneOf": [
+                { "$ref": "#/$defs/requirement" },
+                { "$ref": "#/$defs/useCase" },
+                { "$ref": "#/$defs/interface" },
+                { "$ref": "#/$defs/snippet" },
+                { "$ref": "#/$defs/typeSpec" },
+                { "$ref": "#/$defs/mockup" },
+                { "$ref": "#/$defs/technology" }
+            ]
         },
-        "notes": {
-          "description": "Free-form notes, rendered as markdown.",
-          "$ref": "#/$defs/markdown"
+
+        "requirement": {
+            "description": "An atomic statement about the component.",
+            "type": "object",
+            "allOf": [{ "$ref": "#/$defs/specBase" }],
+            "properties": {
+                "type": { "const": "requirement" }
+            },
+            "unevaluatedProperties": false
+        },
+
+        "useCase": {
+            "description": "A sequence of actions pertinent to the component.",
+            "type": "object",
+            "allOf": [{ "$ref": "#/$defs/specBase" }],
+            "properties": {
+                "type": { "const": "useCase" },
+                "actors": {
+                    "description": "Ids of the actors taking part in the use case.",
+                    "$ref": "#/$defs/uuids"
+                },
+                "prerequisites": {
+                    "description": "Conditions or properties assumed to hold for the use case to apply.",
+                    "$ref": "#/$defs/statements"
+                },
+                "steps": {
+                    "description": "The steps of the use case. Linked through next and sibling, they form a directed acyclic graph with a single root, where the sequence starts.",
+                    "type": "array",
+                    "items": { "$ref": "#/$defs/step" }
+                }
+            },
+            "required": ["steps"],
+            "unevaluatedProperties": false
+        },
+        "step": {
+            "description": "One specific action of a use case.",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "Random UUID identifying the step within its use case.",
+                    "$ref": "#/$defs/uuid"
+                },
+                "description": {
+                    "description": "Short description of the action.",
+                    "type": "string"
+                },
+                "next": {
+                    "description": "Id of the step that follows. Pointing to a step of another branch merges into it. Without it, the sequence terminates here.",
+                    "$ref": "#/$defs/uuid"
+                },
+                "sibling": {
+                    "description": "Id of the first step of an alternative branch, taken instead of this step.",
+                    "$ref": "#/$defs/uuid"
+                }
+            },
+            "required": ["id", "description"],
+            "additionalProperties": false
+        },
+
+        "interface": {
+            "description": "A contract with inputs and outputs. Its types are the ones visible to its component: its own and the ones reaching it through flows.",
+            "type": "object",
+            "allOf": [{ "$ref": "#/$defs/specBase" }],
+            "properties": {
+                "type": { "const": "interface" },
+                "inputs": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "description": "The parameter's name. Inputs are always named.",
+                                "type": "string"
+                            },
+                            "description": { "type": "string" },
+                            "type": { "$ref": "#/$defs/typeExpression" }
+                        },
+                        "required": ["name", "type"],
+                        "additionalProperties": false
+                    }
+                },
+                "outputs": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "description": "The output's name, when it has one, e.g. for a named return value.",
+                                "type": "string"
+                            },
+                            "description": { "type": "string" },
+                            "type": { "$ref": "#/$defs/typeExpression" }
+                        },
+                        "required": ["type"],
+                        "additionalProperties": false
+                    }
+                },
+                "preconditions": {
+                    "description": "Conditions that hold before the interface is invoked.",
+                    "$ref": "#/$defs/statements"
+                },
+                "postconditions": {
+                    "description": "Conditions that hold after the interface is invoked.",
+                    "$ref": "#/$defs/statements"
+                },
+                "invariants": {
+                    "description": "Conditions that hold before and after the interface is invoked.",
+                    "$ref": "#/$defs/statements"
+                },
+                "protocols": {
+                    "description": "Protocols used to invoke the interface, e.g. HTTP or CLI.",
+                    "$ref": "#/$defs/statements"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+
+        "snippet": {
+            "description": "Business logic given as a code snippet, in pseudocode or a real language.",
+            "type": "object",
+            "allOf": [{ "$ref": "#/$defs/specBase" }],
+            "properties": {
+                "type": { "const": "snippet" },
+                "language": {
+                    "description": "Language the body is written in. Without it, the body is pseudocode.",
+                    "type": "string"
+                },
+                "body": {
+                    "description": "The code, as free-form text.",
+                    "type": "string"
+                }
+            },
+            "required": ["body"],
+            "unevaluatedProperties": false
+        },
+
+        "typeSpec": {
+            "description": "A custom type. Its name is unique only within its component, and it reaches other components through flows like any other spec.",
+            "type": "object",
+            "allOf": [{ "$ref": "#/$defs/specBase" }],
+            "properties": {
+                "type": { "const": "type" },
+                "definition": { "$ref": "#/$defs/typeExpression" }
+            },
+            "required": ["definition"],
+            "unevaluatedProperties": false
+        },
+        "typeExpression": {
+            "description": "The shape of a type, which may contain other type expressions. A type may refer to itself.",
+            "oneOf": [
+                { "$ref": "#/$defs/primitiveType" },
+                { "$ref": "#/$defs/referenceType" },
+                { "$ref": "#/$defs/structType" },
+                { "$ref": "#/$defs/unionType" },
+                { "$ref": "#/$defs/arrayType" },
+                { "$ref": "#/$defs/mergeType" },
+                { "$ref": "#/$defs/constantType" }
+            ]
+        },
+        "primitiveType": {
+            "type": "object",
+            "properties": {
+                "kind": { "const": "primitive" },
+                "name": {
+                    "description": "Free-form primitive name, e.g. string or int64, so the map isn't tied to one language's type system.",
+                    "type": "string"
+                }
+            },
+            "required": ["kind", "name"],
+            "additionalProperties": false
+        },
+        "referenceType": {
+            "type": "object",
+            "properties": {
+                "kind": { "const": "reference" },
+                "type": {
+                    "description": "Id of a type spec visible to the referencing spec's component.",
+                    "$ref": "#/$defs/uuid"
+                }
+            },
+            "required": ["kind", "type"],
+            "additionalProperties": false
+        },
+        "structType": {
+            "type": "object",
+            "properties": {
+                "kind": { "const": "struct" },
+                "fields": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": { "type": "string" },
+                            "description": { "type": "string" },
+                            "type": { "$ref": "#/$defs/typeExpression" },
+                            "optional": {
+                                "description": "Whether the field may be absent. Fields are required by default.",
+                                "type": "boolean"
+                            }
+                        },
+                        "required": ["name", "type"],
+                        "additionalProperties": false
+                    }
+                }
+            },
+            "required": ["kind", "fields"],
+            "additionalProperties": false
+        },
+        "unionType": {
+            "description": "One of several types.",
+            "type": "object",
+            "properties": {
+                "kind": { "const": "union" },
+                "of": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "description": {
+                                "description": "What this alternative stands for.",
+                                "type": "string"
+                            },
+                            "type": { "$ref": "#/$defs/typeExpression" }
+                        },
+                        "required": ["type"],
+                        "additionalProperties": false
+                    }
+                }
+            },
+            "required": ["kind", "of"],
+            "additionalProperties": false
+        },
+        "arrayType": {
+            "type": "object",
+            "properties": {
+                "kind": { "const": "array" },
+                "of": {
+                    "description": "Type of the array's elements.",
+                    "$ref": "#/$defs/typeExpression"
+                }
+            },
+            "required": ["kind", "of"],
+            "additionalProperties": false
+        },
+        "mergeType": {
+            "description": "All the fields of several structs, together.",
+            "type": "object",
+            "properties": {
+                "kind": { "const": "merge" },
+                "of": {
+                    "type": "array",
+                    "items": { "$ref": "#/$defs/typeExpression" }
+                }
+            },
+            "required": ["kind", "of"],
+            "additionalProperties": false
+        },
+        "constantType": {
+            "description": "A single value. Distinct from a custom type.",
+            "type": "object",
+            "properties": {
+                "kind": { "const": "constant" },
+                "value": {
+                    "description": "The value written as a raw literal, e.g. \"foo\" with its quotes, or 42.",
+                    "type": "string"
+                }
+            },
+            "required": ["kind", "value"],
+            "additionalProperties": false
+        },
+
+        "mockup": {
+            "description": "A visual reference for a piece of UI, from a rough wireframe to a high-fidelity design.",
+            "type": "object",
+            "allOf": [{ "$ref": "#/$defs/specBase" }],
+            "properties": {
+                "type": { "const": "mockup" },
+                "content": {
+                    "oneOf": [
+                        {
+                            "type": "object",
+                            "properties": {
+                                "kind": { "const": "image" },
+                                "resource": {
+                                    "description": "Id of the resource holding the image, in any format a browser can display (e.g. PNG, JPEG, SVG, WebP).",
+                                    "$ref": "#/$defs/uuid"
+                                }
+                            },
+                            "required": ["kind", "resource"],
+                            "additionalProperties": false
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "kind": { "const": "html" },
+                                "body": {
+                                    "description": "Inline HTML: a fragment of elements, rendered inside a blank HTML document, or a full HTML document. It is rendered isolated from the app displaying it, and its scripts are blocked from execution.",
+                                    "type": "string"
+                                }
+                            },
+                            "required": ["kind", "body"],
+                            "additionalProperties": false
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "kind": { "const": "html-file" },
+                                "resource": {
+                                    "description": "Id of the resource holding a full HTML document. It is rendered isolated from the app displaying it, and its scripts are blocked from execution.",
+                                    "$ref": "#/$defs/uuid"
+                                }
+                            },
+                            "required": ["kind", "resource"],
+                            "additionalProperties": false
+                        }
+                    ]
+                }
+            },
+            "required": ["content"],
+            "unevaluatedProperties": false
+        },
+
+        "technology": {
+            "description": "A technology, such as a language, framework or library, that the component is built with or must use.",
+            "type": "object",
+            "allOf": [{ "$ref": "#/$defs/specBase" }],
+            "properties": {
+                "type": { "const": "technology" },
+                "technology": {
+                    "description": "Name of the technology, e.g. TypeScript. Separate from the spec's own name.",
+                    "type": "string"
+                },
+                "version": {
+                    "description": "Version or version range of the technology, in free form.",
+                    "type": "string"
+                },
+                "documentation": {
+                    "description": "Ids of the resources documenting the technology.",
+                    "$ref": "#/$defs/uuids"
+                }
+            },
+            "required": ["technology"],
+            "unevaluatedProperties": false
+        },
+
+        "actor": {
+            "description": "Someone or something taking part in use cases.",
+            "type": "object",
+            "allOf": [{ "$ref": "#/$defs/item" }],
+            "properties": {
+                "type": { "const": "actor" }
+            },
+            "unevaluatedProperties": false
+        },
+
+        "resource": {
+            "description": "Supporting material: a file inside the project or a page at a URL. Resources don't take part in spec flows.",
+            "type": "object",
+            "allOf": [{ "$ref": "#/$defs/item" }],
+            "properties": {
+                "type": { "const": "resource" },
+                "location": {
+                    "description": "Path of a file inside the project, relative to the project root in POSIX format, or a URL.",
+                    "type": "string"
+                }
+            },
+            "required": ["location"],
+            "unevaluatedProperties": false
+        },
+
+        "decision": {
+            "description": "A choice made about the project, why it was made and why the other options weren't. Its status is derived, not stored: overridden if another decision overrides it, otherwise closed if it is marked closed or has a chosen option, otherwise open.",
+            "type": "object",
+            "allOf": [{ "$ref": "#/$defs/item" }],
+            "properties": {
+                "type": { "const": "decision" },
+                "closed": {
+                    "description": "Marks the decision closed, also when none of its options is chosen.",
+                    "type": "boolean"
+                },
+                "options": {
+                    "description": "The alternatives considered.",
+                    "type": "array",
+                    "items": { "$ref": "#/$defs/decisionOption" }
+                },
+                "chosenOption": {
+                    "description": "Id of the chosen option. Choosing an option closes the decision.",
+                    "$ref": "#/$defs/uuid"
+                },
+                "rationale": {
+                    "description": "Why the chosen option was picked over the others.",
+                    "type": "string"
+                },
+                "references": {
+                    "description": "Ids of the items pertinent to the decision.",
+                    "$ref": "#/$defs/uuids"
+                },
+                "overrides": {
+                    "description": "Ids of earlier conflicting decisions this one overrides. They stay in the map.",
+                    "$ref": "#/$defs/uuids"
+                }
+            },
+            "required": ["closed"],
+            "unevaluatedProperties": false
+        },
+        "decisionOption": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "Random UUID identifying the option within its decision.",
+                    "$ref": "#/$defs/uuid"
+                },
+                "name": { "type": "string" },
+                "description": { "type": "string" },
+                "rejectedBecause": {
+                    "description": "Why the option wasn't chosen.",
+                    "type": "string"
+                }
+            },
+            "required": ["id", "name", "description"],
+            "additionalProperties": false
+        },
+
+        "check": {
+            "oneOf": [{ "$ref": "#/$defs/review" }, { "$ref": "#/$defs/test" }]
+        },
+        "review": {
+            "description": "A manual check, assessed by a human or an agent. Its results and reviewers are not stored in the map.",
+            "type": "object",
+            "allOf": [{ "$ref": "#/$defs/item" }],
+            "properties": {
+                "type": { "const": "review" },
+                "criteria": {
+                    "description": "Statements the reviewed work must satisfy to pass.",
+                    "$ref": "#/$defs/statements"
+                },
+                "resources": {
+                    "description": "Ids of the resources to look at.",
+                    "$ref": "#/$defs/uuids"
+                },
+                "instructions": {
+                    "description": "How to carry out the review, as free-form text rendered as markdown.",
+                    "$ref": "#/$defs/markdown"
+                },
+                "reviewer": {
+                    "description": "Who must perform the review. Without it, either may.",
+                    "enum": ["human", "agent"]
+                }
+            },
+            "required": ["criteria"],
+            "unevaluatedProperties": false
+        },
+        "test": {
+            "description": "An automated, repeatable check run by a plugin. Its results are not stored in the map.",
+            "type": "object",
+            "allOf": [{ "$ref": "#/$defs/item" }],
+            "properties": {
+                "type": { "const": "test" },
+                "plugin": {
+                    "description": "Name of the plugin that runs the test, e.g. @pjama/vitest-test.",
+                    "type": "string"
+                },
+                "config": {
+                    "description": "Plugin-specific settings, validated by the plugin's own schema.",
+                    "type": "object"
+                }
+            },
+            "required": ["plugin"],
+            "unevaluatedProperties": false
+        },
+
+        "relationshipBase": {
+            "description": "A directed edge from a source item to a target item. Relationships are not items: they have no name or description.",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "Random UUID identifying the relationship.",
+                    "$ref": "#/$defs/uuid"
+                },
+                "type": {
+                    "description": "Type of the relationship, which decides what source and target are.",
+                    "type": "string"
+                },
+                "source": {
+                    "description": "Id of the item the edge starts from: the one that depends on the target.",
+                    "$ref": "#/$defs/uuid"
+                },
+                "target": {
+                    "description": "Id of the item the edge points to.",
+                    "$ref": "#/$defs/uuid"
+                },
+                "notes": {
+                    "description": "Free-form notes, rendered as markdown.",
+                    "$ref": "#/$defs/markdown"
+                }
+            },
+            "required": ["id", "type", "source", "target"]
+        },
+        "relationship": {
+            "oneOf": [
+                { "$ref": "#/$defs/containment" },
+                { "$ref": "#/$defs/dependency" },
+                { "$ref": "#/$defs/implementation" },
+                { "$ref": "#/$defs/enforcement" },
+                { "$ref": "#/$defs/derivation" }
+            ]
+        },
+        "containment": {
+            "description": "The source component (child) is part of the target component (parent). All specs pass both ways.",
+            "type": "object",
+            "allOf": [{ "$ref": "#/$defs/relationshipBase" }],
+            "properties": {
+                "type": { "const": "containment" }
+            },
+            "unevaluatedProperties": false
+        },
+        "dependency": {
+            "description": "The source component (consumer) uses the target component (producer). Only the selected specs pass.",
+            "type": "object",
+            "allOf": [{ "$ref": "#/$defs/relationshipBase" }],
+            "properties": {
+                "type": { "const": "dependency" },
+                "action": {
+                    "description": "The action the dependency represents. Without it, the action is \"uses\".",
+                    "type": "string"
+                },
+                "selectedSpecs": {
+                    "description": "Ids of the specs that pass, from both the consumer and the producer.",
+                    "$ref": "#/$defs/uuids"
+                }
+            },
+            "required": ["selectedSpecs"],
+            "unevaluatedProperties": false
+        },
+        "implementation": {
+            "description": "The source component (implementation) takes on the specs of the target component (definition). Specs pass from the definition to the implementation only.",
+            "type": "object",
+            "allOf": [{ "$ref": "#/$defs/relationshipBase" }],
+            "properties": {
+                "type": { "const": "implementation" },
+                "excludedSpecs": {
+                    "description": "Ids of the definition's specs that don't pass to the implementation.",
+                    "$ref": "#/$defs/uuids"
+                }
+            },
+            "required": ["excludedSpecs"],
+            "unevaluatedProperties": false
+        },
+        "enforcement": {
+            "description": "The source check enforces the target spec.",
+            "type": "object",
+            "allOf": [{ "$ref": "#/$defs/relationshipBase" }],
+            "properties": {
+                "type": { "const": "enforcement" }
+            },
+            "unevaluatedProperties": false
+        },
+        "derivation": {
+            "description": "The source spec (derived) is derived from the target spec (origin).",
+            "type": "object",
+            "allOf": [{ "$ref": "#/$defs/relationshipBase" }],
+            "properties": {
+                "type": { "const": "derivation" }
+            },
+            "unevaluatedProperties": false
         }
-      },
-      "required": ["id", "type", "source", "target"]
-    },
-    "relationship": {
-      "oneOf": [
-        { "$ref": "#/$defs/containment" },
-        { "$ref": "#/$defs/dependency" },
-        { "$ref": "#/$defs/implementation" },
-        { "$ref": "#/$defs/enforcement" },
-        { "$ref": "#/$defs/derivation" }
-      ]
-    },
-    "containment": {
-      "description": "The source component (child) is part of the target component (parent). All specs pass both ways.",
-      "type": "object",
-      "allOf": [{ "$ref": "#/$defs/relationshipBase" }],
-      "properties": {
-        "type": { "const": "containment" }
-      },
-      "unevaluatedProperties": false
-    },
-    "dependency": {
-      "description": "The source component (consumer) uses the target component (producer). Only the selected specs pass.",
-      "type": "object",
-      "allOf": [{ "$ref": "#/$defs/relationshipBase" }],
-      "properties": {
-        "type": { "const": "dependency" },
-        "action": {
-          "description": "The action the dependency represents. Without it, the action is \"uses\".",
-          "type": "string"
-        },
-        "selectedSpecs": {
-          "description": "Ids of the specs that pass, from both the consumer and the producer.",
-          "$ref": "#/$defs/uuids"
-        }
-      },
-      "required": ["selectedSpecs"],
-      "unevaluatedProperties": false
-    },
-    "implementation": {
-      "description": "The source component (implementation) takes on the specs of the target component (definition). Specs pass from the definition to the implementation only.",
-      "type": "object",
-      "allOf": [{ "$ref": "#/$defs/relationshipBase" }],
-      "properties": {
-        "type": { "const": "implementation" },
-        "excludedSpecs": {
-          "description": "Ids of the definition's specs that don't pass to the implementation.",
-          "$ref": "#/$defs/uuids"
-        }
-      },
-      "required": ["excludedSpecs"],
-      "unevaluatedProperties": false
-    },
-    "enforcement": {
-      "description": "The source check enforces the target spec.",
-      "type": "object",
-      "allOf": [{ "$ref": "#/$defs/relationshipBase" }],
-      "properties": {
-        "type": { "const": "enforcement" }
-      },
-      "unevaluatedProperties": false
-    },
-    "derivation": {
-      "description": "The source spec (derived) is derived from the target spec (origin).",
-      "type": "object",
-      "allOf": [{ "$ref": "#/$defs/relationshipBase" }],
-      "properties": {
-        "type": { "const": "derivation" }
-      },
-      "unevaluatedProperties": false
     }
-  }
 }
