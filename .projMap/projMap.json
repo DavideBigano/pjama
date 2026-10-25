@@ -471,7 +471,7 @@
         ]
       },
       "sourceLocation": [
-        "src/schemas/map.schema.json"
+        "src/libs/map/schema/map.schema.json"
       ],
       "technologies": [
         "JSON Schema"
@@ -818,18 +818,20 @@
     {
       "id": "COM-061",
       "label": "Dev tooling",
-      "summary": "Repo-level npm project that builds, typechecks, lints and tests Pjama's source.",
+      "summary": "Repo-level pnpm project that builds, typechecks, lints and tests Pjama's source.",
       "depth": "project setup",
       "level": "low-level",
       "specs": {
         "requirements": [
           "REQ-213",
           "REQ-217",
-          "REQ-228"
+          "REQ-228",
+          "REQ-235"
         ]
       },
       "technologies": [
-        "npm"
+        "pnpm",
+        "Nx"
       ],
       "resources": [
         "RES-001"
@@ -839,12 +841,14 @@
     {
       "id": "COM-062",
       "label": "Build",
-      "summary": "Bundles Pjama's source with Vite.",
+      "summary": "Bundles each project with Vite.",
       "depth": "config",
       "level": "low-level",
       "specs": {
         "requirements": [
           "REQ-214",
+          "REQ-241",
+          "REQ-242",
           "REQ-227"
         ],
         "interfaces": [
@@ -856,9 +860,6 @@
       ],
       "technologies": [
         "Vite"
-      ],
-      "sourceLocation": [
-        "vite.config.ts"
       ],
       "folder": "FOL-010"
     },
@@ -884,7 +885,7 @@
         "Vitest"
       ],
       "sourceLocation": [
-        "vite.config.ts"
+        "src/libs/map/vite.config.ts"
       ],
       "folder": "FOL-010"
     },
@@ -909,7 +910,8 @@
         "TypeScript"
       ],
       "sourceLocation": [
-        "tsconfig.json"
+        "tsconfig.base.json",
+        "src/libs/map/tsconfig.json"
       ],
       "folder": "FOL-010"
     },
@@ -949,7 +951,7 @@
     {
       "id": "COM-066",
       "label": "Claude memory",
-      "summary": "Project memory for Claude agents, describing the npm scripts and when to run them.",
+      "summary": "Project memory for Claude agents, describing the pnpm scripts and when to run them.",
       "depth": "document",
       "level": "low-level",
       "specs": {
@@ -969,24 +971,71 @@
     {
       "id": "COM-067",
       "label": "Package manifest",
-      "summary": "npm manifest and lockfile: dependencies and the scripts the tooling exposes.",
+      "summary": "Root manifest: workspace-wide dev dependencies and the scripts the tooling exposes.",
       "depth": "config",
       "level": "low-level",
       "specs": {
         "requirements": [
           "REQ-230",
-          "REQ-231",
-          "REQ-232"
+          "REQ-231"
         ]
       },
       "sourceLocation": [
-        "package.json",
-        "package-lock.json"
+        "package.json"
       ],
       "folder": "FOL-010",
       "technologies": [
-        "npm"
+        "npm package.json"
       ],
+      "partOf": [
+        "COM-061"
+      ]
+    },
+    {
+      "id": "COM-068",
+      "label": "Package manager",
+      "summary": "Installs and links the workspace packages with pnpm.",
+      "depth": "config",
+      "level": "low-level",
+      "specs": {
+        "requirements": [
+          "REQ-232",
+          "REQ-236",
+          "REQ-237"
+        ]
+      },
+      "sourceLocation": [
+        "pnpm-workspace.yaml",
+        "pnpm-lock.yaml"
+      ],
+      "technologies": [
+        "pnpm"
+      ],
+      "folder": "FOL-010",
+      "partOf": [
+        "COM-061"
+      ]
+    },
+    {
+      "id": "COM-069",
+      "label": "Task runner",
+      "summary": "Runs the projects' scripts across the workspace with Nx.",
+      "depth": "config",
+      "level": "low-level",
+      "specs": {
+        "requirements": [
+          "REQ-238",
+          "REQ-239",
+          "REQ-240"
+        ]
+      },
+      "sourceLocation": [
+        "nx.json"
+      ],
+      "technologies": [
+        "Nx"
+      ],
+      "folder": "FOL-010",
       "partOf": [
         "COM-061"
       ]
@@ -1482,6 +1531,47 @@
       "reliesOn": [
         "IF-005"
       ]
+    },
+    {
+      "id": "REL-063",
+      "label": "Typecheck runs each project's typecheck",
+      "summary": "",
+      "kind": "calls",
+      "from": "COM-064",
+      "to": "COM-069",
+      "reliesOn": [
+        "REQ-238"
+      ]
+    },
+    {
+      "id": "REL-064",
+      "label": "Test runs each project's tests",
+      "summary": "",
+      "kind": "calls",
+      "from": "COM-063",
+      "to": "COM-069",
+      "reliesOn": [
+        "REQ-238"
+      ]
+    },
+    {
+      "id": "REL-065",
+      "label": "Build runs each project's build",
+      "summary": "",
+      "kind": "calls",
+      "from": "COM-062",
+      "to": "COM-069",
+      "reliesOn": [
+        "REQ-238"
+      ]
+    },
+    {
+      "id": "REL-066",
+      "label": "Package manager reads the manifest",
+      "summary": "",
+      "kind": "reads",
+      "from": "COM-068",
+      "to": "COM-067"
     }
   ],
   "actors": [
@@ -2679,14 +2769,14 @@
     },
     {
       "id": "REQ-214",
-      "label": "Single bundle",
-      "summary": "The build writes a single file to `dist/`, with third-party dependencies included.",
+      "label": "Single-file apps",
+      "summary": "Each app builds to a single file in its `dist/`, with third-party dependencies included.",
       "verifiedBy": []
     },
     {
       "id": "REQ-215",
       "label": "Colocated tests",
-      "summary": "Vitest runs every `src/**/*.test.ts`, next to the code it covers.",
+      "summary": "Vitest runs every project's `*.test.ts` files, next to the code they cover.",
       "verifiedBy": []
     },
     {
@@ -2794,13 +2884,61 @@
     {
       "id": "REQ-233",
       "label": "Script guide",
-      "summary": "Lists each npm script and what it runs.",
+      "summary": "Lists each pnpm script and what it runs.",
       "verifiedBy": []
     },
     {
       "id": "REQ-234",
       "label": "Scripts over tools",
-      "summary": "Tells agents to run the npm scripts rather than calling the tools directly.",
+      "summary": "Tells agents to run the pnpm scripts rather than calling the tools directly.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-235",
+      "label": "Apps and libs",
+      "summary": "Apps live in `src/apps/` and libraries in `src/libs/`, one folder per project.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-236",
+      "label": "Workspace packages",
+      "summary": "Every project under `src/apps/` and `src/libs/` is a workspace package with its own `package.json`.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-237",
+      "label": "Declared dependencies",
+      "summary": "Each package declares the dependencies it imports, so it still installs and runs outside the workspace.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-238",
+      "label": "Project tasks",
+      "summary": "Runs the typecheck, test and build scripts of every project that defines them.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-239",
+      "label": "Cached tasks",
+      "summary": "Reruns a task only when its project's files or the shared TypeScript config changed.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-240",
+      "label": "Dependencies built first",
+      "summary": "Builds the workspace packages a project depends on before the project itself.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-241",
+      "label": "Libraries keep third-party imports",
+      "summary": "Each library builds to its `dist/`, bundling the private workspace packages it imports and leaving third-party and published packages as imports.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-242",
+      "label": "Declared library imports",
+      "summary": "Third-party and published packages a library imports are listed in its `dependencies`, or `peerDependencies` when the consumer provides them.",
       "verifiedBy": []
     }
   ],
@@ -3034,8 +3172,8 @@
       "label": "Typecheck script",
       "summary": "Typechecks source and tests.",
       "protocol": {
-        "name": "npm script",
-        "additionalSpecs": "npm run typecheck"
+        "name": "pnpm script",
+        "additionalSpecs": "pnpm run typecheck"
       },
       "verifiedBy": []
     },
@@ -3044,8 +3182,8 @@
       "label": "Lint script",
       "summary": "Lints, formats and sorts imports, applying all fixes.",
       "protocol": {
-        "name": "npm script",
-        "additionalSpecs": "npm run lint"
+        "name": "pnpm script",
+        "additionalSpecs": "pnpm run lint"
       },
       "verifiedBy": []
     },
@@ -3054,8 +3192,8 @@
       "label": "Test script",
       "summary": "Typechecks, lints, then runs the tests.",
       "protocol": {
-        "name": "npm script",
-        "additionalSpecs": "npm test"
+        "name": "pnpm script",
+        "additionalSpecs": "pnpm test"
       },
       "verifiedBy": []
     },
@@ -3064,8 +3202,8 @@
       "label": "Build script",
       "summary": "Typechecks, lints, then bundles the source.",
       "protocol": {
-        "name": "npm script",
-        "additionalSpecs": "npm run build"
+        "name": "pnpm script",
+        "additionalSpecs": "pnpm run build"
       },
       "verifiedBy": []
     }
@@ -3085,14 +3223,14 @@
       "label": "Map schema tests",
       "summary": "Validates sample maps against the map schema.",
       "type": "unit",
-      "location": "src/schemas/map.schema.test.ts"
+      "location": "src/libs/map/schema/map.schema.test.ts"
     },
     {
       "id": "T-002",
       "label": "Cross-item rules left out",
       "summary": "Maps breaking cross-item rules still pass the schema.",
       "type": "unit",
-      "location": "src/schemas/map.schema.test.ts",
+      "location": "src/libs/map/schema/map.schema.test.ts",
       "testName": "cross-item rules are left to the validator"
     },
     {
@@ -3100,7 +3238,7 @@
       "label": "Item lists required",
       "summary": "A map missing one of its item lists is rejected.",
       "type": "unit",
-      "location": "src/schemas/map.schema.test.ts",
+      "location": "src/libs/map/schema/map.schema.test.ts",
       "testName": "rejects a map without one of its item lists"
     },
     {
@@ -3108,7 +3246,7 @@
       "label": "No top-level types",
       "summary": "A top-level list of types is rejected.",
       "type": "unit",
-      "location": "src/schemas/map.schema.test.ts",
+      "location": "src/libs/map/schema/map.schema.test.ts",
       "testName": "rejects a top-level list of types"
     },
     {
@@ -3116,7 +3254,7 @@
       "label": "Spec list required",
       "summary": "A component without its spec list is rejected.",
       "type": "unit",
-      "location": "src/schemas/map.schema.test.ts",
+      "location": "src/libs/map/schema/map.schema.test.ts",
       "testName": "rejects a component without a spec list"
     },
     {
@@ -3124,7 +3262,7 @@
       "label": "Selected specs required",
       "summary": "A dependency without its selected specs is rejected.",
       "type": "unit",
-      "location": "src/schemas/map.schema.test.ts",
+      "location": "src/libs/map/schema/map.schema.test.ts",
       "testName": "rejects a dependency without its selected specs"
     },
     {
@@ -3132,7 +3270,7 @@
       "label": "Excluded specs required",
       "summary": "An implementation without its excluded specs is rejected.",
       "type": "unit",
-      "location": "src/schemas/map.schema.test.ts",
+      "location": "src/libs/map/schema/map.schema.test.ts",
       "testName": "rejects an implementation without its excluded specs"
     },
     {
@@ -3140,7 +3278,7 @@
       "label": "No stored review results",
       "summary": "A review carrying a result is rejected.",
       "type": "unit",
-      "location": "src/schemas/map.schema.test.ts",
+      "location": "src/libs/map/schema/map.schema.test.ts",
       "testName": "rejects a stored review result"
     },
     {
@@ -3148,7 +3286,7 @@
       "label": "No stored test results",
       "summary": "A test carrying a result is rejected.",
       "type": "unit",
-      "location": "src/schemas/map.schema.test.ts",
+      "location": "src/libs/map/schema/map.schema.test.ts",
       "testName": "rejects a stored test result"
     },
     {
@@ -3156,7 +3294,7 @@
       "label": "Unknown fields rejected",
       "summary": "An item with a field the schema does not define is rejected.",
       "type": "unit",
-      "location": "src/schemas/map.schema.test.ts",
+      "location": "src/libs/map/schema/map.schema.test.ts",
       "testName": "rejects fields that are not part of the item"
     },
     {
@@ -3164,7 +3302,7 @@
       "label": "Free plugin settings",
       "summary": "A test accepts any plugin configuration.",
       "type": "unit",
-      "location": "src/schemas/map.schema.test.ts",
+      "location": "src/libs/map/schema/map.schema.test.ts",
       "testName": "accepts any plugin configuration"
     },
     {
@@ -3172,7 +3310,7 @@
       "label": "Uppercase and lowercase UUIDs",
       "summary": "Map ids are accepted in either hex case.",
       "type": "unit",
-      "location": "src/schemas/map.schema.test.ts",
+      "location": "src/libs/map/schema/map.schema.test.ts",
       "testName": "accepts the id %s"
     }
   ],
