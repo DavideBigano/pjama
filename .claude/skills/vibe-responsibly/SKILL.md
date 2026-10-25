@@ -40,7 +40,11 @@ TypeScript, set up as an npm project. Vite builds the project; Vitest runs the t
 
 ### Code conventions
 
-**Testability and mockability** — Design functions to be easy to test and mock in isolation: inject dependencies rather than reaching for globals, keep side effects at the edges.
+**Testability and mockability** — Design functions to be easy to test and mock in isolation: let tests replace the functionality they call with module mocks (e.g. `vi.mock`). Keep side effects at the edges.
+
+**No dependency injection** — Unless the user asks for it, don't inject dependencies: functions import and call the functionality they need directly. Don't add parameters, factories or containers either. (Yes: [`import { readFile } from "node:fs/promises"` called inside `loadMap(path)`, mocked in tests with `vi.mock("node:fs/promises")`] / No: [`loadMap(path, readFile = fs.readFile)`])
+
+**Named exports and imports** — Don't use default exports or default imports. Export and import by name, unless a library or format only offers a default, or a tool requires one (e.g. JSON modules, config files such as `vite.config.ts`). (Yes: [`export function loadMap() {}` / `import { Ajv2020 } from "ajv/dist/2020"`] / No: [`export default function loadMap() {}` / `import Ajv2020 from "ajv/dist/2020"`])
 
 **Pure functions preferred** — Where the logic allows it, prefer pure functions (same input, same output, no side effect) over stateful ones.
 
@@ -91,7 +95,7 @@ elements/
 
 **Cover both directions** — Test both for the expected output, and for the regressions you want to guard against.
 
-**Minimize abstractions** — Default to duplicating setup and assertions across tests; write each test as if it were the only one. Abstract only when: (1) a pattern repeats across multiple test suites — extract it to a shared test-util function or a custom Vitest matcher; (2) a suite has more than a couple of tests and the pattern repeats across most of them — turn it into a function, scoped to where the repetition lives (inside the `describe` block if local to it, at module level if it spans the whole file); (3) a function is tested against multiple inputs — use `test.each`/`describe.each`. Always ask for user approval before committing to a test abstraction.
+**Minimize abstractions** — Default to duplicating setup and assertions across tests; write each test as if it were the only one. Abstract only when: (1) a pattern repeats across multiple test suites — extract it to a shared test-util function or a custom Vitest matcher; (2) a suite has more than a couple of tests and the pattern repeats across most of them — turn it into a function, scoped to where the repetition lives (inside the `describe` block if local to it, at module level if it spans the whole file); (3) a function is tested against multiple inputs — use `test.each`/`describe.each`, only to vary the values of the same target (yes: "propA accepts a, b and c"), never to parameterize which target is tested (no: a table over propA, propB, propC). Always ask for user approval before committing to a test abstraction.
 
 **Behavior vs graphical concerns** — For UI code, split what's tested by kind, not by file-under-test: behavior (state transitions, handlers, logic) belongs in classic unit tests (`file.test.ts`); anything graphical (position, presence, correctness of rendered text) belongs in screenshot/snapshot tests (`file.screenshot.test.ts`). Don't assert layout or rendered text inside a `file.test.ts`, and don't assert behavior inside a `file.screenshot.test.ts`.
 
