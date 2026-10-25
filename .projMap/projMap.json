@@ -4,6 +4,76 @@
   "label": "Pjama",
   "components": [
     {
+      "id": "COM-003",
+      "label": "Pjama editor",
+      "summary": "Standalone application for editing project maps",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-015",
+          "REQ-016",
+          "REQ-017",
+          "REQ-023",
+          "REQ-024",
+          "REQ-025",
+          "REQ-026",
+          "REQ-029"
+        ]
+      },
+      "partOf": [
+        "COM-001"
+      ],
+      "folder": "FOL-001"
+    },
+    {
+      "id": "COM-021",
+      "label": "Component page",
+      "summary": "",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-032"
+        ]
+      },
+      "partOf": [
+        "COM-019"
+      ],
+      "folder": "FOL-001"
+    },
+    {
+      "id": "COM-019",
+      "label": "List view",
+      "summary": "",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-027",
+          "REQ-028",
+          "REQ-030",
+          "REQ-031"
+        ]
+      },
+      "folder": "FOL-001",
+      "partOf": [
+        "COM-025"
+      ]
+    },
+    {
+      "id": "COM-020",
+      "label": "Graph view",
+      "summary": "",
+      "depth": "",
+      "level": "high-level",
+      "specs": {},
+      "folder": "FOL-001",
+      "partOf": [
+        "COM-025"
+      ]
+    },
+    {
       "id": "COM-001",
       "label": "Pjama",
       "summary": "Toolkit for keeping a project map, a structured description of a project's architecture and specs, shared by developers and AI agents.",
@@ -19,7 +89,8 @@
           "REQ-006",
           "REQ-007",
           "REQ-008",
-          "REQ-021"
+          "REQ-021",
+          "REQ-180"
         ],
         "useCases": [
           "UC-001",
@@ -29,7 +100,8 @@
           "UC-006",
           "UC-007"
         ]
-      }
+      },
+      "folder": "FOL-003"
     },
     {
       "id": "COM-002",
@@ -38,23 +110,6 @@
       "depth": "",
       "level": "high-level",
       "specs": {}
-    },
-    {
-      "id": "COM-003",
-      "label": "Pjama editor",
-      "summary": "Standalone application for editing project maps",
-      "depth": "",
-      "level": "high-level",
-      "specs": {
-        "requirements": [
-          "REQ-015",
-          "REQ-016",
-          "REQ-017"
-        ]
-      },
-      "partOf": [
-        "COM-001"
-      ]
     },
     {
       "id": "COM-004",
@@ -96,7 +151,20 @@
       "specs": {},
       "partOf": [
         "COM-001"
-      ]
+      ],
+      "folder": "FOL-004"
+    },
+    {
+      "id": "COM-009",
+      "label": "Verify topic",
+      "summary": "",
+      "depth": "",
+      "level": "high-level",
+      "specs": {},
+      "partOf": [
+        "COM-006"
+      ],
+      "folder": "FOL-004"
     },
     {
       "id": "COM-007",
@@ -115,18 +183,8 @@
       "specs": {},
       "partOf": [
         "COM-006"
-      ]
-    },
-    {
-      "id": "COM-009",
-      "label": "Verify topic",
-      "summary": "",
-      "depth": "",
-      "level": "high-level",
-      "specs": {},
-      "partOf": [
-        "COM-006"
-      ]
+      ],
+      "folder": "FOL-004"
     },
     {
       "id": "COM-010",
@@ -137,7 +195,8 @@
       "specs": {},
       "partOf": [
         "COM-006"
-      ]
+      ],
+      "folder": "FOL-004"
     },
     {
       "id": "COM-014",
@@ -148,7 +207,8 @@
       "specs": {},
       "partOf": [
         "COM-006"
-      ]
+      ],
+      "folder": "FOL-004"
     },
     {
       "id": "COM-015",
@@ -159,22 +219,48 @@
       "specs": {},
       "partOf": [
         "COM-006"
+      ],
+      "folder": "FOL-004"
+    },
+    {
+      "id": "COM-026",
+      "label": "Component model",
+      "summary": "A piece of the project. Is a container for specs.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-089",
+          "REQ-090",
+          "REQ-091",
+          "REQ-095"
+        ]
+      },
+      "folder": "FOL-008",
+      "partOf": [
+        "COM-016"
       ]
     },
     {
       "id": "COM-016",
-      "label": "Map schema",
-      "summary": "Defines the format of the project map file in the .pjama directory at the repo root.",
-      "depth": "schema",
+      "label": "Map model",
+      "summary": "Defines the model of the project map file in the .pjama directory at the repo root.",
+      "depth": "model",
       "level": "high-level",
       "specs": {
-        "interfaces": [
-          "IF-001"
+        "interfaces": [],
+        "requirements": [
+          "REQ-093",
+          "REQ-094",
+          "REQ-175",
+          "REQ-176",
+          "REQ-183"
         ]
       },
       "partOf": [
         "COM-001"
-      ]
+      ],
+      "folder": "FOL-005"
     },
     {
       "id": "COM-017",
@@ -191,26 +277,623 @@
         ]
       },
       "partOf": [
-        "COM-001"
+        "COM-005"
       ]
     },
     {
-      "id": "COM-018",
-      "label": "Log schema",
-      "summary": "Defines the format of the operation log file in .pjama.",
+      "id": "COM-022",
+      "label": "UI Elements",
+      "summary": "UI react components made to be reusable across components in the app.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-033",
+          "REQ-034"
+        ]
+      },
+      "technologies": [
+        "React"
+      ],
+      "folder": "FOL-002",
+      "partOf": [
+        "COM-025"
+      ]
+    },
+    {
+      "id": "COM-024",
+      "label": "Multi value text field",
+      "summary": "",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-035",
+          "REQ-036",
+          "REQ-037",
+          "REQ-038",
+          "REQ-039",
+          "REQ-040"
+        ]
+      },
+      "folder": "FOL-002",
+      "partOf": [
+        "COM-022"
+      ]
+    },
+    {
+      "id": "COM-025",
+      "label": "Editor UI",
+      "summary": "",
+      "depth": "",
+      "level": "high-level",
+      "specs": {},
+      "partOf": [
+        "COM-003"
+      ]
+    },
+    {
+      "id": "COM-027",
+      "label": "Spec model",
+      "summary": "A quality or a property of the component that contains it.",
+      "depth": "abstract",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-054",
+          "REQ-055",
+          "REQ-056",
+          "REQ-057",
+          "REQ-058",
+          "REQ-059",
+          "REQ-060",
+          "REQ-061",
+          "REQ-146",
+          "REQ-147",
+          "REQ-148",
+          "REQ-206"
+        ]
+      },
+      "folder": "FOL-007",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-028",
+      "label": "Relationship model",
+      "summary": "",
+      "depth": "abstract",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-041",
+          "REQ-098",
+          "REQ-130",
+          "REQ-144",
+          "REQ-173",
+          "REQ-174",
+          "REQ-192"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-029",
+      "label": "Containment model",
+      "summary": "Models a parent-child relationship. Signifies that the source is part of the target",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-042",
+          "REQ-043",
+          "REQ-044",
+          "REQ-099",
+          "REQ-100",
+          "REQ-124",
+          "REQ-127",
+          "REQ-131"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-030",
+      "label": "Dependency model",
+      "summary": "Models a consumer-producer relationship. Signifies that the source uses the target either entirely or part of it.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-045",
+          "REQ-046",
+          "REQ-047",
+          "REQ-048",
+          "REQ-050",
+          "REQ-097",
+          "REQ-128",
+          "REQ-132"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-031",
+      "label": "Implementation model",
+      "summary": "Models a definition-implementation relationship. Signifies that the source takes on the specs of the target.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-049",
+          "REQ-051",
+          "REQ-052",
+          "REQ-101",
+          "REQ-102",
+          "REQ-129",
+          "REQ-133",
+          "REQ-170"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-032",
+      "label": "Map schema file",
+      "summary": "Schema file that describes the structure of a Pjama map",
       "depth": "schema",
       "level": "high-level",
       "specs": {
-        "interfaces": [
-          "IF-003"
+        "requirements": [
+          "REQ-161",
+          "REQ-162",
+          "REQ-163",
+          "REQ-164",
+          "REQ-169",
+          "REQ-171",
+          "REQ-172",
+          "REQ-184",
+          "REQ-211",
+          "REQ-212"
         ]
       },
+      "sourceLocation": [
+        "src/schemas/map.schema.json"
+      ],
+      "technologies": [
+        "JSON Schema"
+      ],
+      "folder": "FOL-005"
+    },
+    {
+      "id": "COM-033",
+      "label": "Requirement model",
+      "summary": "",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-063",
+          "REQ-064"
+        ]
+      },
+      "folder": "FOL-007",
       "partOf": [
-        "COM-001"
+        "COM-016"
       ]
+    },
+    {
+      "id": "COM-034",
+      "label": "Use case model",
+      "summary": "A use case represents a sequence of actions pertinent to the component that contains it.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-069",
+          "REQ-070",
+          "REQ-071",
+          "REQ-072",
+          "REQ-073",
+          "REQ-074",
+          "REQ-075",
+          "REQ-149",
+          "REQ-150",
+          "REQ-181"
+        ]
+      },
+      "folder": "FOL-007",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-035",
+      "label": "Interface model",
+      "summary": "Represents a contract with an input and an output.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-078",
+          "REQ-079",
+          "REQ-081",
+          "REQ-082",
+          "REQ-087",
+          "REQ-088",
+          "REQ-185",
+          "REQ-204"
+        ]
+      },
+      "folder": "FOL-007",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-036",
+      "label": "Type model",
+      "summary": "Represents a type.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-076",
+          "REQ-077",
+          "REQ-080",
+          "REQ-139",
+          "REQ-177",
+          "REQ-178",
+          "REQ-202",
+          "REQ-203"
+        ]
+      },
+      "folder": "FOL-007",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-037",
+      "label": "Item model",
+      "summary": "Every object that lives in a map is an item.",
+      "depth": "abstract",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-066",
+          "REQ-067",
+          "REQ-068",
+          "REQ-121",
+          "REQ-145",
+          "REQ-179",
+          "REQ-191"
+        ]
+      },
+      "folder": "FOL-008",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-038",
+      "label": "Actor model",
+      "summary": "Represents a use case actor",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-083"
+        ]
+      },
+      "folder": "FOL-008",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-039",
+      "label": "Snippet model",
+      "summary": "Business logic given as a code snippet, in pseudocode or a real language.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-084",
+          "REQ-085"
+        ]
+      },
+      "folder": "FOL-008",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-040",
+      "label": "Resource model",
+      "summary": "Represents either a file or a page addressed by file path or URL.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-092",
+          "REQ-201",
+          "REQ-207"
+        ]
+      },
+      "folder": "FOL-008",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-041",
+      "label": "Check model",
+      "summary": "Checks that the actual result matches the one stated by the specs it verifies.",
+      "depth": "abstract",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-103",
+          "REQ-104",
+          "REQ-110",
+          "REQ-155"
+        ]
+      },
+      "folder": "FOL-009",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-042",
+      "label": "Decision model",
+      "summary": "Records a choice made about the project, why it was made and why the other ones weren't.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-114",
+          "REQ-115",
+          "REQ-116",
+          "REQ-117",
+          "REQ-118",
+          "REQ-120",
+          "REQ-123",
+          "REQ-182"
+        ]
+      },
+      "folder": "FOL-008",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-047",
+      "label": "Enforcement model",
+      "summary": "Models a check enforcing a spec.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-134",
+          "REQ-135",
+          "REQ-136"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-054",
+      "label": "Derivation model",
+      "summary": "Models a spec broken down into more granular specs.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-140",
+          "REQ-141",
+          "REQ-142",
+          "REQ-143"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-055",
+      "label": "Test model",
+      "summary": "",
+      "depth": "abstract",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-152",
+          "REQ-153",
+          "REQ-156",
+          "REQ-158",
+          "REQ-160"
+        ]
+      },
+      "folder": "FOL-009",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-056",
+      "label": "Review model",
+      "summary": "",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-157",
+          "REQ-159",
+          "REQ-186",
+          "REQ-188",
+          "REQ-189",
+          "REQ-190"
+        ]
+      },
+      "folder": "FOL-009",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-057",
+      "label": "Schema validator",
+      "summary": "Reusable module for validating the schema",
+      "depth": "module",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-165",
+          "REQ-166",
+          "REQ-167",
+          "REQ-168"
+        ]
+      }
+    },
+    {
+      "id": "COM-058",
+      "label": "Mockup model",
+      "summary": "A visual reference for a piece of UI, given as an image or as HTML.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-193",
+          "REQ-194",
+          "REQ-195",
+          "REQ-196",
+          "REQ-197",
+          "REQ-198",
+          "REQ-199",
+          "REQ-200"
+        ]
+      },
+      "folder": "FOL-007",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-060",
+      "label": "Technology model",
+      "summary": "A technology, such as a language, framework or library, that the component is built with or must use.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-208",
+          "REQ-209",
+          "REQ-210"
+        ]
+      },
+      "folder": "FOL-007",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-061",
+      "label": "Dev tooling",
+      "summary": "Repo-level npm project that builds, typechecks and tests Pjama's source.",
+      "depth": "project setup",
+      "level": "low-level",
+      "specs": {
+        "requirements": [
+          "REQ-213",
+          "REQ-214",
+          "REQ-215",
+          "REQ-216",
+          "REQ-217"
+        ]
+      },
+      "technologies": [
+        "npm",
+        "TypeScript",
+        "Vite",
+        "Vitest"
+      ],
+      "sourceLocation": [
+        "package.json",
+        "package-lock.json",
+        "tsconfig.json",
+        "vite.config.ts"
+      ],
+      "resources": [
+        "RES-001"
+      ],
+      "folder": "FOL-010"
     }
   ],
-  "folders": [],
+  "folders": [
+    {
+      "id": "FOL-001",
+      "label": "Editor"
+    },
+    {
+      "id": "FOL-002",
+      "label": "UI"
+    },
+    {
+      "id": "FOL-003",
+      "label": "Core"
+    },
+    {
+      "id": "FOL-004",
+      "label": "Skill"
+    },
+    {
+      "id": "FOL-005",
+      "label": "Schema"
+    },
+    {
+      "id": "FOL-006",
+      "label": "Relationships",
+      "parent": "FOL-005"
+    },
+    {
+      "id": "FOL-007",
+      "label": "Specs",
+      "parent": "FOL-005"
+    },
+    {
+      "id": "FOL-008",
+      "label": "Other items",
+      "parent": "FOL-005"
+    },
+    {
+      "id": "FOL-009",
+      "label": "Checks",
+      "parent": "FOL-005"
+    },
+    {
+      "id": "FOL-010",
+      "label": "Tooling"
+    }
+  ],
   "relations": [
     {
       "id": "REL-001",
@@ -274,32 +957,255 @@
       "summary": "",
       "kind": "uses",
       "from": "COM-005",
-      "to": "COM-016",
-      "reliesOn": [
-        "IF-001"
-      ]
+      "to": "COM-016"
     },
     {
       "id": "REL-009",
-      "label": "Daemon reads and writes the layout file",
+      "label": "Untitled relation",
       "summary": "",
-      "kind": "uses",
-      "from": "COM-005",
-      "to": "COM-017",
-      "reliesOn": [
-        "IF-002"
-      ]
+      "kind": "implements",
+      "from": "COM-029",
+      "to": "COM-028"
     },
     {
       "id": "REL-010",
-      "label": "Daemon reads and writes the log file",
+      "label": "Untitled relation",
       "summary": "",
-      "kind": "uses",
-      "from": "COM-005",
-      "to": "COM-018",
-      "reliesOn": [
-        "IF-003"
-      ]
+      "kind": "implements",
+      "from": "COM-030",
+      "to": "COM-028"
+    },
+    {
+      "id": "REL-011",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "implements",
+      "from": "COM-031",
+      "to": "COM-028"
+    },
+    {
+      "id": "REL-012",
+      "label": "Untitled relation",
+      "summary": "Implementation of the map schema as JSON Schema",
+      "kind": "implements",
+      "from": "COM-032",
+      "to": "COM-016"
+    },
+    {
+      "id": "REL-014",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "extends",
+      "from": "COM-035",
+      "to": "COM-027"
+    },
+    {
+      "id": "REL-015",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "extends",
+      "from": "COM-034",
+      "to": "COM-027"
+    },
+    {
+      "id": "REL-016",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "extends",
+      "from": "COM-033",
+      "to": "COM-027"
+    },
+    {
+      "id": "REL-018",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "extends",
+      "from": "COM-027",
+      "to": "COM-037"
+    },
+    {
+      "id": "REL-019",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "references",
+      "from": "COM-028",
+      "to": "COM-037"
+    },
+    {
+      "id": "REL-020",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "implements",
+      "from": "COM-026",
+      "to": "COM-037"
+    },
+    {
+      "id": "REL-022",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "implements",
+      "from": "COM-038",
+      "to": "COM-037"
+    },
+    {
+      "id": "REL-024",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "references",
+      "from": "COM-026",
+      "to": "COM-040"
+    },
+    {
+      "id": "REL-025",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "extends",
+      "from": "COM-036",
+      "to": "COM-027"
+    },
+    {
+      "id": "REL-026",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "implements",
+      "from": "COM-041",
+      "to": "COM-037"
+    },
+    {
+      "id": "REL-027",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "implements",
+      "from": "COM-042",
+      "to": "COM-037"
+    },
+    {
+      "id": "REL-029",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "implements",
+      "from": "COM-040",
+      "to": "COM-037"
+    },
+    {
+      "id": "REL-034",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "extends",
+      "from": "COM-039",
+      "to": "COM-027"
+    },
+    {
+      "id": "REL-035",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "implements",
+      "from": "COM-047",
+      "to": "COM-028"
+    },
+    {
+      "id": "REL-038",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "references",
+      "from": "COM-035",
+      "to": "COM-036"
+    },
+    {
+      "id": "REL-039",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "references",
+      "from": "COM-042",
+      "to": "COM-037"
+    },
+    {
+      "id": "REL-040",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "implements",
+      "from": "COM-054",
+      "to": "COM-028"
+    },
+    {
+      "id": "REL-041",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "implements",
+      "from": "COM-056",
+      "to": "COM-041"
+    },
+    {
+      "id": "REL-042",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "implements",
+      "from": "COM-055",
+      "to": "COM-041"
+    },
+    {
+      "id": "REL-043",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "references",
+      "from": "COM-026",
+      "to": "COM-027"
+    },
+    {
+      "id": "REL-044",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "references",
+      "from": "COM-027",
+      "to": "COM-041"
+    },
+    {
+      "id": "REL-045",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "validates",
+      "from": "COM-057",
+      "to": "COM-032"
+    },
+    {
+      "id": "REL-046",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "implements",
+      "from": "COM-057",
+      "to": "COM-016"
+    },
+    {
+      "id": "REL-047",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "extends",
+      "from": "COM-058",
+      "to": "COM-027"
+    },
+    {
+      "id": "REL-048",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "references",
+      "from": "COM-058",
+      "to": "COM-040"
+    },
+    {
+      "id": "REL-049",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "extends",
+      "from": "COM-060",
+      "to": "COM-027"
+    },
+    {
+      "id": "REL-050",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "references",
+      "from": "COM-060",
+      "to": "COM-040"
     }
   ],
   "actors": [
@@ -435,7 +1341,7 @@
     {
       "id": "REQ-017",
       "label": "Shows incoming changes",
-      "summary": "Changes made by others are marked where they appear, with their author.",
+      "summary": "Items and fields get highlighted when they change and marked as \"Unseen\" (similar to what happens with \"Unread\" emails).",
       "category": "usability",
       "verifiedBy": []
     },
@@ -451,6 +1357,1072 @@
       "label": "Layout stays local",
       "summary": "The layout file is never committed: it holds one user's editor state, not project information.",
       "category": "security",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-023",
+      "label": "Displays changes to review",
+      "summary": "When a change that needs to be reviewed comes to the editor, the user can either accept or reject it, one by one and in bulk.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-024",
+      "label": "Auto-review",
+      "summary": "Users can set that incoming changes pending for a review get automatically approved.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-025",
+      "label": "Editing capabilities",
+      "summary": "The editor allows the developer to create, delete and move all item types, allows to edit each field and reference present in any item.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-026",
+      "label": "Item pages",
+      "summary": "Each item has it's own page from where it's possible to edit all it's fields and references.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-027",
+      "label": "Lists all items",
+      "summary": "The page shows all items in a sidebar.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-028",
+      "label": "One item at a time",
+      "summary": "Only a single item's page is displayed at a time.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-029",
+      "label": "Item are links",
+      "summary": "All item names, references and ids that appear on screen are clickable links to that item page.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-030",
+      "label": "Sidebar folders",
+      "summary": "The developer can organize items in the sidebar trough folders.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-031",
+      "label": "Divided item sections",
+      "summary": "Items in the sidebar are divided by type.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-032",
+      "label": "Moving specs",
+      "summary": "Specs can be moved between components by drag-and-drop.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-033",
+      "label": "Elements must be reusable",
+      "summary": "Elements are made to be reusable across the entire editor and potentially other Pjama UIs.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-034",
+      "label": "Consistent UX",
+      "summary": "Elements serve to enforce a consistent UX across the UI and between other elements themselves.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-035",
+      "label": "Text input",
+      "summary": "The field allows for direct text input.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-036",
+      "label": "Cursor position on edit",
+      "summary": "On edit the cursor is placed at the end of the \"text\" in the field",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-037",
+      "label": "The field stores multiple values",
+      "summary": "The field must support storing multiple text values",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-038",
+      "label": "Value as pill",
+      "summary": "Values stored in the field are displayed as pills",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-039",
+      "label": "Autocomplete",
+      "summary": "While typing, the field proposes autocomplete options based on the other values that the field assumes across the map. Closer matches are proposed first.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-040",
+      "label": "Value pills removal",
+      "summary": "While in edit mode, value pills can be removed by a single click, by pressing backspace with the cursor after it or by pressing del with the cursor before it.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-041",
+      "label": "Directed edge",
+      "summary": "A relationship is a directed edge between a source node and a target node.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-042",
+      "label": "All specs pass",
+      "summary": "All the specs of the source can be seen by the target and vice versa",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-043",
+      "label": "Source is child",
+      "summary": "The source node is also called \"Child\".",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-044",
+      "label": "Target is parent",
+      "summary": "The target node is also called \"Parent\".",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-045",
+      "label": "Only selected specs pass",
+      "summary": "The selected specs of the source can be seen by the target and the selected specs of the target can be seen by the source.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-046",
+      "label": "Source is consumer",
+      "summary": "The source node is also called \"Consumer\".",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-047",
+      "label": "Target is producer",
+      "summary": "The target node is also called \"Producer\".",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-048",
+      "label": "Spec selection",
+      "summary": "The relationship must be able to select none. some or all specs from either node independently.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-049",
+      "label": "Target specs pass",
+      "summary": "All the specs of the target can be seen by the source, except the excluded ones, but not vice versa.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-050",
+      "label": "Allow no selection",
+      "summary": "Even if it doesn't make sense, the model must allow a dependency to not select any spec. This should be flagged in the lint skill as a smell.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-051",
+      "label": "Source is Implementation",
+      "summary": "The source node is also called \"Implementation\".",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-052",
+      "label": "Target is Definition",
+      "summary": "The target node is also called \"Definition\".",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-054",
+      "label": "Derived specs",
+      "summary": "A spec can be derived from one or more specs.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-055",
+      "label": "Allow underived",
+      "summary": "The schema must allow underived specs.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-056",
+      "label": "Flag underived",
+      "summary": "A semantic analysis of the map should flag an underived spec if it judges it's not foundational.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-057",
+      "label": "Top-level specs",
+      "summary": "An underived spec is generally considered as foundational to the system.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-058",
+      "label": "Single component",
+      "summary": "Each spec must be assigned to one and only one component.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-059",
+      "label": "Checkability",
+      "summary": "Each spec should be associated to one or more checks that ensure the spec is respected by the code.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-060",
+      "label": "Allow unchecked",
+      "summary": "The schema must allow unchecked specs.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-061",
+      "label": "Flag unchecked",
+      "summary": "A static analysis of the map should flag unchecked specs.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-063",
+      "label": "A requirement should be atomic",
+      "summary": "Requirements should make atomic statements. If a statement can be decomposed, each piece should become it's own requirement.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-064",
+      "label": "Flag non-atomic requirements",
+      "summary": "A semantic analysis of the map should flag requirements that it thinks could be decomposed.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-066",
+      "label": "Name",
+      "summary": "Each item has a name.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-067",
+      "label": "Description",
+      "summary": "Each item has a description",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-068",
+      "label": "Optional notes",
+      "summary": "All items may have free form notes.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-069",
+      "label": "Branches in the sequence",
+      "summary": "Each step of the sequence may branch into alternative sequences.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-070",
+      "label": "Merge the branches",
+      "summary": "Each branch may be merged into another sequence, usually the originating one.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-071",
+      "label": "Early termination",
+      "summary": "Each branch may terminate early compared to the other ones.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-072",
+      "label": "Actors",
+      "summary": "Each use case may have one or more actors.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-073",
+      "label": "Allow no actors",
+      "summary": "A schema must allow a use case to have no actors.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-074",
+      "label": "Flag no actors",
+      "summary": "A static analysis of the map should flag use cases without actors.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-075",
+      "label": "Prerequisites",
+      "summary": "A use case may have one, or more prerequisites that indicate conditions or properties that are assumed to be valid for the use case to apply.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-076",
+      "label": "Type kinds",
+      "summary": "A type can be a primitive, a struct, an array, a union (one of several types), a merge (all the properties of several structs) or a constant.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-077",
+      "label": "Custom definition",
+      "summary": "The user can define custom types.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-078",
+      "label": "Input and output",
+      "summary": "Interfaces should have inputs and an outputs.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-079",
+      "label": "Use types",
+      "summary": "Interfaces describe inputs and outputs through types.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-080",
+      "label": "Recursive types",
+      "summary": "A type can be defined recursively.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-081",
+      "label": "Preconditions, postconditions and invariants",
+      "summary": "An interface may state it's own pre- and postconditions and invariants.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-082",
+      "label": "Protocols",
+      "summary": "An interface may state the protocols that are used to invoke it.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-083",
+      "label": "Multiple uses",
+      "summary": "The same actor may be used in multiple use cases of the same schema.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-084",
+      "label": "Language",
+      "summary": "Snippets may be associated to a known language.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-085",
+      "label": "Code body",
+      "summary": "Snippets are given in a free form text-based body.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-087",
+      "label": "Allow missing inputs/outputs",
+      "summary": "The schema allows interfaces with missing inputs/outputs.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-088",
+      "label": "Flag missing inputs/outputs",
+      "summary": "A static analysis of the map should flag interfaces with no inputs/outputs.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-089",
+      "label": "Contains specs",
+      "summary": "A component may contain any number of specs.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-090",
+      "label": "Allow no specs",
+      "summary": "The schema allows components to have no specs.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-091",
+      "label": "Flag no specs",
+      "summary": "A static analysis of the map flags components without specs.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-092",
+      "label": "Path or URL",
+      "summary": "A resource can be addressed either via file path or URL.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-093",
+      "label": "Path format",
+      "summary": "Paths are given relative to the root of the project, in POSIX format.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-094",
+      "label": "Project root",
+      "summary": "The root of the project is defined in the map relatively to the position of the map.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-095",
+      "label": "Includes resources",
+      "summary": "A component may include any amount of resources.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-097",
+      "label": "Action",
+      "summary": "A dependency may state the action it represents. The default is \"uses\".",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-098",
+      "label": "No self-relationships",
+      "summary": "Source and target are different items.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-099",
+      "label": "Allow containment cycles",
+      "summary": "The schema allows containment relationships to form a cycle, where a component ends up, directly or indirectly, part of itself.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-100",
+      "label": "Flag containment cycles",
+      "summary": "A static analysis of the map flags containment cycles.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-101",
+      "label": "Allow implementation cycles",
+      "summary": "The schema allows implementation relationships to form a cycle, where a component ends up, directly or indirectly, implementing itself.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-102",
+      "label": "Flag implementation cycles",
+      "summary": "A static analysis of the map flags implementation cycles.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-103",
+      "label": "Enforces specs",
+      "summary": "A check enforces that one or more specs are respected in code.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-104",
+      "label": "No unlinked checks",
+      "summary": "A map must not contain checks not associated to any spec.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-110",
+      "label": "Results",
+      "summary": "Running a check produces a pass or fail result and a date+time.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-114",
+      "label": "Rationale",
+      "summary": "A decision states the reason that one option was chosen over the others.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-115",
+      "label": "Options",
+      "summary": "A decision may list possible alternative options.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-116",
+      "label": "References",
+      "summary": "A decision may reference the items pertinent to it.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-117",
+      "label": "Allow no references",
+      "summary": "The schema allows decisions that reference no item.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-118",
+      "label": "Flag no references",
+      "summary": "A static analysis of the map may flag decisions that don't reference any item.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-120",
+      "label": "Override",
+      "summary": "A decision may override a previous conflicting one, and both stay in the map.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-121",
+      "label": "Identified by UUID",
+      "summary": "Items are identified by a random UUID.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-123",
+      "label": "Derived status",
+      "summary": "A decision's status is derived: overridden if another decision overrides it, otherwise closed if it is marked closed or has a chosen option, otherwise open.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-124",
+      "label": "Containment is transitive",
+      "summary": "If A is part of B and B is part of C then A is also part of C.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-127",
+      "label": "Many-to-one",
+      "summary": "Source to target relate N:1 (A child can have only one parent.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-128",
+      "label": "Many-to-many",
+      "summary": "Source to target relate N:N.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-129",
+      "label": "Many-to-many",
+      "summary": "Source to target relate N:N.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-130",
+      "label": "Item to item",
+      "summary": "Source and target are two items.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-131",
+      "label": "Component nodes",
+      "summary": "Source and target are two components.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-132",
+      "label": "Component nodes",
+      "summary": "Source and target are two components.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-133",
+      "label": "Component nodes",
+      "summary": "Source and target are two components.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-134",
+      "label": "Check-to-spec",
+      "summary": "Source is a check. Target is a spec.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-135",
+      "label": "Many-to-many",
+      "summary": "Source to target relate N:N.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-136",
+      "label": "Flag many-to-one",
+      "summary": "A semantic analysis of the map should flag a check if it determines it covers separated aspects from different specs.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-137",
+      "label": "Use-case-to-actor",
+      "summary": "Source is a use case, target is an actor.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-138",
+      "label": "Many-to-many",
+      "summary": "Source to target relate N:N.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-139",
+      "label": "Custom != constant",
+      "summary": "Custom types are different from constants and the two should be clearly differentiated when displayed.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-140",
+      "label": "Spec-to-spec",
+      "summary": "Both source and target are specs.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-141",
+      "label": "Many-to-many",
+      "summary": "Source to target relate N:N.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-142",
+      "label": "Source is derived",
+      "summary": "The source node is also called \"Derived\".",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-143",
+      "label": "Target is origin",
+      "summary": "The target node is also called \"Origin\".",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-144",
+      "label": "Relationship types",
+      "summary": "There are different types of relationships.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-145",
+      "label": "Item types",
+      "summary": "There are different types of items.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-146",
+      "label": "Spec types",
+      "summary": "There are different types of specs.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-147",
+      "label": "Spec categories",
+      "summary": "Specs may be assigned to a category, a free-form string. A map's categories are the set of those used across its specs.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-148",
+      "label": "Validation failure cascade",
+      "summary": "A spec that fails validation impact all specs it's derived from.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-149",
+      "label": "Sequence of steps",
+      "summary": "A use case is structured as a sequence of steps.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-150",
+      "label": "Step structure",
+      "summary": "A step consists in a short description of one specific action.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-152",
+      "label": "Extensible",
+      "summary": "Tests can be defined by the user through plugins.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-153",
+      "label": "Modular validation",
+      "summary": "A static analysis of the map must take into account schemas provided by the loaded plugins, if present.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-155",
+      "label": "Check states",
+      "summary": "Checks can be in 3 states: \"Not checked\", \"Passing\" and \"Failing\".",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-156",
+      "label": "Not checked until execution",
+      "summary": "A test is marked as \"Not checked\" until it's related code is run. At which point will be either \"Passing\" or \"Failing\".",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-157",
+      "label": "Manual check",
+      "summary": "Reviews are meant to be manual checks that must be assesed by a human or an agent. Because of this reviews are not easily repeatable.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-158",
+      "label": "Automated checks",
+      "summary": "Tests are meant to be linked to code and scripts and thus represent a check that is automated and easily repeatable.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-159",
+      "label": "Reviewers",
+      "summary": "\"Passing\" and \"failing\" reviews are associated to the user or agent that performed them.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-160",
+      "label": "Test and plugins",
+      "summary": "Tests are associated to their plugin to match them easily to their automated validation.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-161",
+      "label": "Map model structure",
+      "summary": "Uses the specifications given in the map model to define it's structure.",
+      "verifiedBy": [
+        "T-001"
+      ]
+    },
+    {
+      "id": "REQ-162",
+      "label": "Basic type validation",
+      "summary": "The schema performs only basic type validation: no cardinality, reference or cross-item checks.",
+      "verifiedBy": [
+        "T-002"
+      ]
+    },
+    {
+      "id": "REQ-163",
+      "label": "Item lists",
+      "summary": "Components, relationships, checks, resources, decisions and actors live in their respective lists.",
+      "verifiedBy": [
+        "T-003",
+        "T-004"
+      ]
+    },
+    {
+      "id": "REQ-164",
+      "label": "Spec lists",
+      "summary": "Each component holds its specs in its own list.",
+      "verifiedBy": [
+        "T-005"
+      ]
+    },
+    {
+      "id": "REQ-165",
+      "label": "Strict structural validation",
+      "summary": "The tool enforces the base structure of the schema plus the numerosity constraints of relationships",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-166",
+      "label": "Not a static analysis",
+      "summary": "The validator doesn't operate as a linter/statical analyzer. All the flagged checks described in the model are out of scope.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-167",
+      "label": "Pass/fail output",
+      "summary": "The output of the validator is strictly pass-or-fail",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-168",
+      "label": "Error messages",
+      "summary": "Failing outputs are implemented as errors carrying specific information on the reason the validation failed.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-169",
+      "label": "Selected specs in dependencies",
+      "summary": "Each dependency relationship has one list that contains all it's selected specs from both nodes.",
+      "verifiedBy": [
+        "T-006"
+      ]
+    },
+    {
+      "id": "REQ-170",
+      "label": "Spec exclusion",
+      "summary": "An implementation may exclude any of the definition's specs. Excluded specs don't pass to the source.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-171",
+      "label": "Excluded specs in implementations",
+      "summary": "Each implementation relationship has one list that contains the definition specs it excludes.",
+      "verifiedBy": [
+        "T-007"
+      ]
+    },
+    {
+      "id": "REQ-172",
+      "label": "No check results",
+      "summary": "Check results, states and reviewers are not stored in the map.",
+      "verifiedBy": [
+        "T-008",
+        "T-009"
+      ]
+    },
+    {
+      "id": "REQ-173",
+      "label": "Identified by UUID",
+      "summary": "Relationships are identified by a random UUID.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-174",
+      "label": "Optional notes",
+      "summary": "Relationships may have free form notes.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-175",
+      "label": "Map identity",
+      "summary": "A map has a UUID, a name and a slug.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-176",
+      "label": "Map slug",
+      "summary": "The slug is derived from the map name: diacritics dropped, other symbols removed, spaces collapsed, letters lowercased and spaces turned into hyphens.",
+      "verifiedBy": [],
+      "notes": "The slug is derived from the map name by dropping diacritics (keeping the base letter), removing all other symbols except letters, digits and spaces, collapsing repeated spaces, lowercasing all letters and turning the remaining spaces into hyphens."
+    },
+    {
+      "id": "REQ-177",
+      "label": "User-defined primitives",
+      "summary": "Primitive names are free-form, so the map isn't tied to one language's type system.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-178",
+      "label": "Literal constants",
+      "summary": "Constants are written as literals.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-179",
+      "label": "Unique ids",
+      "summary": "Item ids should never collide.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-180",
+      "label": "Portable across systems",
+      "summary": "A map works the same on every operating system the repository is checked out on.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-181",
+      "label": "Steps form a rooted DAG",
+      "summary": "The steps of a use case form a directed acyclic graph with a single root, where the sequence starts.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-182",
+      "label": "Close without choosing",
+      "summary": "A decision may be marked closed without choosing an option, when none of its options is correct.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-183",
+      "label": "Schema version",
+      "summary": "A map states the schema version it is written in, as v<MAJ>.<MIN>.<PATCH>.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-184",
+      "label": "Field descriptions",
+      "summary": "The schema carries JSON Schema descriptions that convey what a field means beyond its type, e.g. that an input's name is the parameter's name.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-185",
+      "label": "Parameter names",
+      "summary": "Interface inputs are always named. Outputs may be unnamed.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-186",
+      "label": "Criteria",
+      "summary": "A review states its pass criteria as a list of statements.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-188",
+      "label": "Resources",
+      "summary": "A review may list the resources to look at.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-189",
+      "label": "Required reviewer",
+      "summary": "A review may require to be performed by a human or by an agent.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-190",
+      "label": "Free-form instructions",
+      "summary": "A review may give instructions on how to carry it out as free-form text, rendered as markdown.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-191",
+      "label": "Markdown notes",
+      "summary": "Item notes are free-form text, rendered as markdown.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-192",
+      "label": "Markdown notes",
+      "summary": "Relationship notes are free-form text, rendered as markdown.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-193",
+      "label": "Visual reference",
+      "summary": "A mockup shows how a piece of UI should look, from a rough wireframe to a high-fidelity design.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-194",
+      "label": "Image, HTML or HTML file",
+      "summary": "A mockup is given as an image, as inline HTML or as an HTML file.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-195",
+      "label": "Image resources",
+      "summary": "An image mockup points to a resource, in any image format a browser can display (e.g. PNG, JPEG, SVG, WebP).",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-196",
+      "label": "Inline HTML",
+      "summary": "An HTML mockup is given as an inline body, either a fragment of elements or a full HTML document.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-197",
+      "label": "Wrapped fragments",
+      "summary": "An HTML fragment is rendered inside a blank HTML document.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-198",
+      "label": "Isolated rendering",
+      "summary": "HTML mockups are rendered isolated from the app displaying them, so their markup and styles can't affect it.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-199",
+      "label": "HTML file resources",
+      "summary": "An HTML file mockup points to a resource holding a full HTML document.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-200",
+      "label": "No scripts",
+      "summary": "Scripts in HTML mockups, inline or from a file, are never executed.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-201",
+      "label": "Project files only",
+      "summary": "A resource path points to a file inside the project.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-202",
+      "label": "Type visibility",
+      "summary": "A spec may only reference types visible to its component: the ones it owns and the ones reaching it through flows.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-203",
+      "label": "Scoped names",
+      "summary": "Type names are unique only within their component. Two components may each define a type with the same name.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-204",
+      "label": "Visible types",
+      "summary": "An interface's inputs and outputs only use types visible to its component.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-206",
+      "label": "Constraints",
+      "summary": "A spec states a constraint on the component that holds it.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-207",
+      "label": "Supporting material",
+      "summary": "Resources are standalone supporting material. They don't take part in spec flows.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-208",
+      "label": "Named technology",
+      "summary": "A technology spec states the name of the technology it's about, separately from the spec's own name.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-209",
+      "label": "Version",
+      "summary": "A technology spec may state the version or version range of the technology, in free form.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-210",
+      "label": "Documentation",
+      "summary": "A technology spec may reference resources documenting the technology.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-211",
+      "label": "Closed structures",
+      "summary": "The schema rejects fields it doesn't define, except in plugin-specific settings.",
+      "verifiedBy": [
+        "T-010",
+        "T-011"
+      ]
+    },
+    {
+      "id": "REQ-212",
+      "label": "Case-insensitive UUIDs",
+      "summary": "The schema accepts UUIDs written in either uppercase or lowercase hex.",
+      "verifiedBy": [
+        "T-012"
+      ]
+    },
+    {
+      "id": "REQ-213",
+      "label": "Sources in src",
+      "summary": "Source code lives in `src/`.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-214",
+      "label": "Single bundle",
+      "summary": "The build writes a single file to `dist/`, with third-party dependencies included.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-215",
+      "label": "Colocated tests",
+      "summary": "Vitest runs every `src/**/*.test.ts`, next to the code it covers.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-216",
+      "label": "Strict typecheck",
+      "summary": "Source and tests typecheck under TypeScript strict mode.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-217",
+      "label": "Generated files stay local",
+      "summary": "`node_modules/` and `dist/` are never committed.",
       "verifiedBy": []
     }
   ],
@@ -662,15 +2634,6 @@
   ],
   "interfaces": [
     {
-      "id": "IF-001",
-      "label": "Map file",
-      "summary": "The project map: components, relations and their specs, stored as JSON in .pjama.",
-      "protocol": {
-        "name": "JSON file"
-      },
-      "verifiedBy": []
-    },
-    {
       "id": "IF-002",
       "label": "Layout file",
       "summary": "Editor state for one user (e.g. graph node positions), stored as JSON in .pjama.",
@@ -689,8 +2652,112 @@
       "verifiedBy": []
     }
   ],
-  "resources": [],
-  "tests": [],
+  "resources": [
+    {
+      "id": "RES-001",
+      "label": "vibe-responsibly skill",
+      "summary": "Project, code and testing conventions the setup follows.",
+      "type": "skill",
+      "location": ".claude/skills/vibe-responsibly/SKILL.md"
+    }
+  ],
+  "tests": [
+    {
+      "id": "T-001",
+      "label": "Map schema tests",
+      "summary": "Validates sample maps against the map schema.",
+      "type": "unit",
+      "location": "src/schemas/map.schema.test.ts"
+    },
+    {
+      "id": "T-002",
+      "label": "Cross-item rules left out",
+      "summary": "Maps breaking cross-item rules still pass the schema.",
+      "type": "unit",
+      "location": "src/schemas/map.schema.test.ts",
+      "testName": "cross-item rules are left to the validator"
+    },
+    {
+      "id": "T-003",
+      "label": "Item lists required",
+      "summary": "A map missing one of its item lists is rejected.",
+      "type": "unit",
+      "location": "src/schemas/map.schema.test.ts",
+      "testName": "rejects a map without one of its item lists"
+    },
+    {
+      "id": "T-004",
+      "label": "No top-level types",
+      "summary": "A top-level list of types is rejected.",
+      "type": "unit",
+      "location": "src/schemas/map.schema.test.ts",
+      "testName": "rejects a top-level list of types"
+    },
+    {
+      "id": "T-005",
+      "label": "Spec list required",
+      "summary": "A component without its spec list is rejected.",
+      "type": "unit",
+      "location": "src/schemas/map.schema.test.ts",
+      "testName": "rejects a component without a spec list"
+    },
+    {
+      "id": "T-006",
+      "label": "Selected specs required",
+      "summary": "A dependency without its selected specs is rejected.",
+      "type": "unit",
+      "location": "src/schemas/map.schema.test.ts",
+      "testName": "rejects a dependency without its selected specs"
+    },
+    {
+      "id": "T-007",
+      "label": "Excluded specs required",
+      "summary": "An implementation without its excluded specs is rejected.",
+      "type": "unit",
+      "location": "src/schemas/map.schema.test.ts",
+      "testName": "rejects an implementation without its excluded specs"
+    },
+    {
+      "id": "T-008",
+      "label": "No stored review results",
+      "summary": "A review carrying a result is rejected.",
+      "type": "unit",
+      "location": "src/schemas/map.schema.test.ts",
+      "testName": "rejects a stored review result"
+    },
+    {
+      "id": "T-009",
+      "label": "No stored test results",
+      "summary": "A test carrying a result is rejected.",
+      "type": "unit",
+      "location": "src/schemas/map.schema.test.ts",
+      "testName": "rejects a stored test result"
+    },
+    {
+      "id": "T-010",
+      "label": "Unknown fields rejected",
+      "summary": "An item with a field the schema does not define is rejected.",
+      "type": "unit",
+      "location": "src/schemas/map.schema.test.ts",
+      "testName": "rejects fields that are not part of the item"
+    },
+    {
+      "id": "T-011",
+      "label": "Free plugin settings",
+      "summary": "A test accepts any plugin configuration.",
+      "type": "unit",
+      "location": "src/schemas/map.schema.test.ts",
+      "testName": "accepts any plugin configuration"
+    },
+    {
+      "id": "T-012",
+      "label": "Uppercase and lowercase UUIDs",
+      "summary": "Map ids are accepted in either hex case.",
+      "type": "unit",
+      "location": "src/schemas/map.schema.test.ts",
+      "testName": "accepts the id %s"
+    }
+  ],
   "decisions": [
     {
       "id": "D-001",
@@ -701,6 +2768,74 @@
         "REQ-021",
         "UC-004",
         "UC-005"
+      ]
+    },
+    {
+      "id": "D-002",
+      "label": "Plain random UUIDs as item ids",
+      "summary": "Items are identified by plain random UUIDs with no type prefix. An item's type lives only in its `type` field.",
+      "notes": "**Status:** closed.\n\n**Chosen: plain random UUIDs (v4).** They can't overflow, stay stable when an item's type changes, keep the standard `uuid` format and don't duplicate the `type` field. The CLIs, scripts and MCPs that will work on the map resolve ids by themselves, and the field holding a reference almost always implies the type it points to.\n\n**Rejected options:**\n- **Progressive prefixed ids** (e.g. `REQ-001`, the projMap format). A fixed-width counter eventually overflows, and progressive ids collide when a map is edited concurrently or merged.\n- **Type-prefixed UUIDs** (e.g. `req_<uuid>`). The prefix fixes an item's type forever, so changing a spec's kind means a new id and rewriting every reference to it. It duplicates the `type` field, which it can then disagree with, and it drops the standard `uuid` format. The schema check it enables only covers the shape of a reference, not its existence, and reference checks are out of the schema's scope anyway (REQ-162).",
+      "references": [
+        "COM-037",
+        "REQ-121",
+        "REQ-179",
+        "REQ-162"
+      ]
+    },
+    {
+      "id": "D-003",
+      "label": "Decision options identified by UUIDs",
+      "summary": "Each option of a decision carries its own UUID, and the chosen option is referenced by it.",
+      "notes": "**Status:** closed.\n\n**Chosen: a UUID per option.** The reference to the chosen option survives reordering, renaming and deleting the other options.\n\n**Rejected options:**\n- **Index into the options list.** Reordering or deleting an option silently makes the decision point to a different choice, and nothing in the index tells tooling what it originally meant.\n- **Option name.** Renaming an option breaks the reference, and names aren't guaranteed to be unique within a decision.",
+      "references": [
+        "COM-042",
+        "REQ-115",
+        "REQ-123"
+      ]
+    },
+    {
+      "id": "D-004",
+      "label": "How reviews point at what to look at",
+      "summary": "Whether a review derives what to look at from the graph, lists it explicitly, or both.",
+      "notes": "**Status:** open. To be decided through use.\n\n**Context:** a review's subject can be derived from the graph (review → enforced specs → host components → their resources). But a resource is not always in the right component: resources are accessories to the system, with far fewer guardrails against misuse than components and specs.\n\n**Interim:** the review lists the resources to look at, with nothing derived from the graph (REQ-188).\n\n**Options:**\n- **Derived only.** Nothing to keep in sync, and granularity follows the map (D-001): a review that needs a single file calls for a finer component. Relies on resources being attached to the right components.\n- **Explicit only.** The review lists what to look at. Precise, but the list goes stale silently when the map changes, and it is a second, unmapped way to say where things are.\n- **Derived plus additional resources.** The derived subject covers the common case, the explicit list covers resources that don't sit in the right component. Risks becoming the default way to point reviews at files, bypassing the map.",
+      "references": [
+        "COM-056",
+        "COM-040",
+        "REQ-095",
+        "REQ-188",
+        "D-001"
+      ]
+    },
+    {
+      "id": "D-005",
+      "label": "Resources are project files or URLs",
+      "summary": "A resource either points to a file inside the project, by path, or to a web page, by URL. The map stores no files of its own.",
+      "notes": "**Status:** closed.\n\n**Chosen: project files and URLs only.** Pjama is local-first: the map lives in the repository with the files it points to, so every resource it references by path is there on every machine the repository is checked out on.\n\n**Rejected options:**\n- **Attachments stored with the map** (files dragged into a resource and kept in an assets folder next to the map), alongside links. It would make maps easier to move, but having two modes means two sets of consequences: whether the file follows its original, what happens when it's moved, what deleting the resource deletes. Prototyping the creation flow showed those consequences are confusing, and making them clear clutters the UI.\n- **Any path on the filesystem.** Paths outside the project don't exist on other machines, which breaks the map for everyone else.\n\n**Consequence: importing files from outside the project.** When a user brings in a file from outside the project, the UI asks where in the project to put a copy, offering `.pjama/assets/` as the default when the user doesn't want to choose. The copy is then a normal project file, and the resource links to it by path.",
+      "references": [
+        "COM-040",
+        "REQ-092",
+        "REQ-093",
+        "REQ-180",
+        "REQ-201",
+        "REQ-001",
+        "COM-003"
+      ]
+    },
+    {
+      "id": "D-006",
+      "label": "Types are specs",
+      "summary": "Types are specs with a single owner component and are shared through flows, instead of living in a map-wide list.",
+      "notes": "**Status:** closed.\n\n**Chosen: types as single-owner specs.** A type belongs to the component that defines it and reaches other components through flows like any other spec. Types stay compartmentalized: a component's local types (e.g. React props) don't flood a global namespace, and encapsulation keeps them private.\n\n**Where shared types live:**\n- A concept with a clear authority (e.g. `Order`) lives in the component owning the concept, and others import it or see it through emergence.\n- System-wide vocabulary (e.g. `Uuid`, `Money`) lives in the system's root component and reaches everything through refinement.\n- A contract between peers (e.g. a wire format) lives in a component for that contract, imported by each side.\n- Two components needing the same type either depend on one another (one owns, the other imports; a missing edge is a gap in the map) or share a contract component. When they are meant to diverge, one copies the type as a one-off action: the copy is independent and not linked to the original. Tracing a copy's origin is an open point (see `docs/implementation.md`).\n\n**Rejected options:**\n- **A map-wide list of types.** No ownership, and every local type ends up in one global namespace.\n- **Multiple owners for shared types.** A spec would have more than one origin, so deactivations, opt-outs and failure cascades would have no single place to apply.\n- **A catch-all component for shared types** (like a `types.ts`). It is named after what it holds rather than what it describes, and becomes a drawer. A contract component is different: it is a real part of the system that can change, break and be checked.\n- **Referencing a type across components with no edge between them.** It hides a coupling the map should show.\n- **Copy plus a derivation back to the original.** Derivation means breaking a spec down into more granular ones, and its failure cascade (REQ-148) would wrongly reach the original.",
+      "references": [
+        "COM-036",
+        "COM-035",
+        "COM-027",
+        "REQ-058",
+        "REQ-163",
+        "REQ-202",
+        "REQ-203",
+        "REQ-204",
+        "REQ-148"
       ]
     }
   ]
