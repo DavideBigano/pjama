@@ -818,34 +818,178 @@
     {
       "id": "COM-061",
       "label": "Dev tooling",
-      "summary": "Repo-level npm project that builds, typechecks and tests Pjama's source.",
+      "summary": "Repo-level npm project that builds, typechecks, lints and tests Pjama's source.",
       "depth": "project setup",
       "level": "low-level",
       "specs": {
         "requirements": [
           "REQ-213",
-          "REQ-214",
-          "REQ-215",
-          "REQ-216",
-          "REQ-217"
+          "REQ-217",
+          "REQ-228"
         ]
       },
       "technologies": [
-        "npm",
-        "TypeScript",
-        "Vite",
-        "Vitest"
-      ],
-      "sourceLocation": [
-        "package.json",
-        "package-lock.json",
-        "tsconfig.json",
-        "vite.config.ts"
+        "npm"
       ],
       "resources": [
         "RES-001"
       ],
       "folder": "FOL-010"
+    },
+    {
+      "id": "COM-062",
+      "label": "Build",
+      "summary": "Bundles Pjama's source with Vite.",
+      "depth": "config",
+      "level": "low-level",
+      "specs": {
+        "requirements": [
+          "REQ-214",
+          "REQ-227"
+        ],
+        "interfaces": [
+          "IF-007"
+        ]
+      },
+      "partOf": [
+        "COM-061"
+      ],
+      "technologies": [
+        "Vite"
+      ],
+      "sourceLocation": [
+        "vite.config.ts"
+      ],
+      "folder": "FOL-010"
+    },
+    {
+      "id": "COM-063",
+      "label": "Test runner",
+      "summary": "Runs the colocated tests with Vitest.",
+      "depth": "config",
+      "level": "low-level",
+      "specs": {
+        "requirements": [
+          "REQ-215",
+          "REQ-226"
+        ],
+        "interfaces": [
+          "IF-006"
+        ]
+      },
+      "partOf": [
+        "COM-061"
+      ],
+      "technologies": [
+        "Vitest"
+      ],
+      "sourceLocation": [
+        "vite.config.ts"
+      ],
+      "folder": "FOL-010"
+    },
+    {
+      "id": "COM-064",
+      "label": "Typecheck",
+      "summary": "Typechecks source and tests with TypeScript.",
+      "depth": "config",
+      "level": "low-level",
+      "specs": {
+        "requirements": [
+          "REQ-216"
+        ],
+        "interfaces": [
+          "IF-004"
+        ]
+      },
+      "partOf": [
+        "COM-061"
+      ],
+      "technologies": [
+        "TypeScript"
+      ],
+      "sourceLocation": [
+        "tsconfig.json"
+      ],
+      "folder": "FOL-010"
+    },
+    {
+      "id": "COM-065",
+      "label": "Lint and format",
+      "summary": "Lints and formats source and config files with Biome.",
+      "depth": "config",
+      "level": "low-level",
+      "specs": {
+        "requirements": [
+          "REQ-218",
+          "REQ-219",
+          "REQ-220",
+          "REQ-221",
+          "REQ-222",
+          "REQ-223",
+          "REQ-224",
+          "REQ-225",
+          "REQ-229"
+        ],
+        "interfaces": [
+          "IF-005"
+        ]
+      },
+      "partOf": [
+        "COM-061"
+      ],
+      "technologies": [
+        "Biome"
+      ],
+      "sourceLocation": [
+        "biome.json"
+      ],
+      "folder": "FOL-010"
+    },
+    {
+      "id": "COM-066",
+      "label": "Claude memory",
+      "summary": "Project memory for Claude agents, describing the npm scripts and when to run them.",
+      "depth": "document",
+      "level": "low-level",
+      "specs": {
+        "requirements": [
+          "REQ-233",
+          "REQ-234"
+        ]
+      },
+      "sourceLocation": [
+        "CLAUDE.md"
+      ],
+      "folder": "FOL-010",
+      "partOf": [
+        "COM-061"
+      ]
+    },
+    {
+      "id": "COM-067",
+      "label": "Package manifest",
+      "summary": "npm manifest and lockfile: dependencies and the scripts the tooling exposes.",
+      "depth": "config",
+      "level": "low-level",
+      "specs": {
+        "requirements": [
+          "REQ-230",
+          "REQ-231",
+          "REQ-232"
+        ]
+      },
+      "sourceLocation": [
+        "package.json",
+        "package-lock.json"
+      ],
+      "folder": "FOL-010",
+      "technologies": [
+        "npm"
+      ],
+      "partOf": [
+        "COM-061"
+      ]
     }
   ],
   "folders": [
@@ -1206,6 +1350,138 @@
       "kind": "references",
       "from": "COM-060",
       "to": "COM-040"
+    },
+    {
+      "id": "REL-051",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "uses",
+      "from": "COM-067",
+      "to": "COM-064",
+      "reliesOn": [
+        "IF-004"
+      ]
+    },
+    {
+      "id": "REL-052",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "uses",
+      "from": "COM-067",
+      "to": "COM-065",
+      "reliesOn": [
+        "IF-005"
+      ]
+    },
+    {
+      "id": "REL-053",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "uses",
+      "from": "COM-067",
+      "to": "COM-063",
+      "reliesOn": [
+        "IF-006"
+      ]
+    },
+    {
+      "id": "REL-054",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "uses",
+      "from": "COM-067",
+      "to": "COM-062",
+      "reliesOn": [
+        "IF-007"
+      ]
+    },
+    {
+      "id": "REL-055",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "uses",
+      "from": "COM-066",
+      "to": "COM-063",
+      "reliesOn": [
+        "IF-006"
+      ]
+    },
+    {
+      "id": "REL-056",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "uses",
+      "from": "COM-066",
+      "to": "COM-062",
+      "reliesOn": [
+        "IF-007"
+      ]
+    },
+    {
+      "id": "REL-057",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "uses",
+      "from": "COM-066",
+      "to": "COM-064",
+      "reliesOn": [
+        "IF-004"
+      ]
+    },
+    {
+      "id": "REL-058",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "uses",
+      "from": "COM-066",
+      "to": "COM-065",
+      "reliesOn": [
+        "IF-005"
+      ]
+    },
+    {
+      "id": "REL-059",
+      "label": "Test script runs the typecheck first",
+      "summary": "",
+      "kind": "calls",
+      "from": "COM-063",
+      "to": "COM-064",
+      "reliesOn": [
+        "IF-004"
+      ]
+    },
+    {
+      "id": "REL-060",
+      "label": "Test script runs the lint first",
+      "summary": "",
+      "kind": "calls",
+      "from": "COM-063",
+      "to": "COM-065",
+      "reliesOn": [
+        "IF-005"
+      ]
+    },
+    {
+      "id": "REL-061",
+      "label": "Build script runs the typecheck first",
+      "summary": "",
+      "kind": "calls",
+      "from": "COM-062",
+      "to": "COM-064",
+      "reliesOn": [
+        "IF-004"
+      ]
+    },
+    {
+      "id": "REL-062",
+      "label": "Build script runs the lint first",
+      "summary": "",
+      "kind": "calls",
+      "from": "COM-062",
+      "to": "COM-065",
+      "reliesOn": [
+        "IF-005"
+      ]
     }
   ],
   "actors": [
@@ -2416,13 +2692,115 @@
     {
       "id": "REQ-216",
       "label": "Strict typecheck",
-      "summary": "Source and tests typecheck under TypeScript strict mode.",
+      "summary": "Source and tests typecheck under TypeScript strict mode (noEmit).",
       "verifiedBy": []
     },
     {
       "id": "REQ-217",
       "label": "Generated files stay local",
       "summary": "`node_modules/` and `dist/` are never committed.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-218",
+      "label": "Linted and formatted",
+      "summary": "Source and config files pass Biome lint and format checks.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-219",
+      "label": "Named exports enforced",
+      "summary": "The linter rejects default exports, except where a tool requires one and the exception is marked inline.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-220",
+      "label": "Excluded files",
+      "summary": "Markdown, package files, the project map (`.projMap/`) and skills (`.claude/`) are not checked, nor are files ignored by git.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-221",
+      "label": "Recommended rules",
+      "summary": "The linter applies Biome's recommended rules.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-222",
+      "label": "Space indentation",
+      "summary": "Files are indented with 4 spaces.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-223",
+      "label": "Single quotes",
+      "summary": "JavaScript and TypeScript strings use single quotes.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-224",
+      "label": "Line width",
+      "summary": "Lines wrap at 80 columns.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-225",
+      "label": "Sorted imports",
+      "summary": "Imports are kept sorted.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-226",
+      "label": "Checked before testing",
+      "summary": "The test script runs the typecheck and lint before the tests, and stops at the first failure.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-227",
+      "label": "Checked before building",
+      "summary": "The build script runs the typecheck and lint before bundling, and stops at the first failure.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-228",
+      "label": "No watch mode",
+      "summary": "Scripts run once and exit.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-229",
+      "label": "Unsafe fixes applied",
+      "summary": "Linting applies all fixes, unsafe ones included.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-230",
+      "label": "Script definitions",
+      "summary": "Defines the test, build, typecheck and lint scripts.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-231",
+      "label": "Exact Biome version",
+      "summary": "Biome is pinned to an exact version, so formatting stays the same across installs.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-232",
+      "label": "Locked dependencies",
+      "summary": "Installs are reproducible from the committed lockfile.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-233",
+      "label": "Script guide",
+      "summary": "Lists each npm script and what it runs.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-234",
+      "label": "Scripts over tools",
+      "summary": "Tells agents to run the npm scripts rather than calling the tools directly.",
       "verifiedBy": []
     }
   ],
@@ -2648,6 +3026,46 @@
       "summary": "The history of operations applied to the map, stored as JSON in .pjama.",
       "protocol": {
         "name": "JSON file"
+      },
+      "verifiedBy": []
+    },
+    {
+      "id": "IF-004",
+      "label": "Typecheck script",
+      "summary": "Typechecks source and tests.",
+      "protocol": {
+        "name": "npm script",
+        "additionalSpecs": "npm run typecheck"
+      },
+      "verifiedBy": []
+    },
+    {
+      "id": "IF-005",
+      "label": "Lint script",
+      "summary": "Lints, formats and sorts imports, applying all fixes.",
+      "protocol": {
+        "name": "npm script",
+        "additionalSpecs": "npm run lint"
+      },
+      "verifiedBy": []
+    },
+    {
+      "id": "IF-006",
+      "label": "Test script",
+      "summary": "Typechecks, lints, then runs the tests.",
+      "protocol": {
+        "name": "npm script",
+        "additionalSpecs": "npm test"
+      },
+      "verifiedBy": []
+    },
+    {
+      "id": "IF-007",
+      "label": "Build script",
+      "summary": "Typechecks, lints, then bundles the source.",
+      "protocol": {
+        "name": "npm script",
+        "additionalSpecs": "npm run build"
       },
       "verifiedBy": []
     }

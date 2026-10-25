@@ -29,3 +29,5 @@
 - verified specs visible from the spec card
 - copy/paste/duplication spec options
 - movable spec cards
+
+- [ ] Make the files written by the editor compatible with formatters like biome, prettier and eslint
