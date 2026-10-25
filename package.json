@@ -4,17 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "npm run typecheck && npm run lint && vitest run",
-    "typecheck": "tsc --noEmit",
+    "test": "pnpm run typecheck && pnpm run lint && nx run-many -t test",
+    "typecheck": "nx run-many -t typecheck",
     "lint": "biome check --write --unsafe",
-    "build": "npm run typecheck && npm run lint && vite build"
+    "build": "pnpm run typecheck && pnpm run lint && nx run-many -t build"
   },
   "devDependencies": {
     "@biomejs/biome": "2.6.3",
-    "@types/node": "^26.6.5",
-    "ajv": "^8.20.0",
-    "typescript": "^7.0.2",
-    "vite": "^8.3.5",
-    "vitest": "^5.0.5"
-  }
+    "nx": "23.3.0"
+  },
+  "packageManager": "pnpm@10.30.3"
 }
