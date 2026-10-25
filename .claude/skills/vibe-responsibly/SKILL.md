@@ -1,6 +1,6 @@
 ---
 name: vibe-responsibly
-description: Coding conventions to apply when implementing a spec or request for a piece of code/software. Applies testability/pure-function/naming/JSDoc conventions, TypeScript/npm/Vite/Vitest project setup, build output layout, and four-tier test conventions (unit/integration/e2e/screenshot). Invoke explicitly via /vibe-responsibly when handing off a spec — not auto-triggered.
+description: Coding conventions to apply when implementing a spec or request for a piece of code/software. Applies testability/pure-function/naming/JSDoc conventions, TypeScript/pnpm/Vite/Vitest project setup, build output layout, and four-tier test conventions (unit/integration/e2e/screenshot). Invoke explicitly via /vibe-responsibly when handing off a spec — not auto-triggered.
 user-invocable: true
 skillmancy-version: "0.2.0"
 ---
@@ -36,7 +36,9 @@ If mid-implementation something arises that these conventions or the spec don't 
 
 ### Project conventions
 
-TypeScript, set up as an npm project. Vite builds the project; Vitest runs the tests. Source lives in `src/`, build output in `dist/`, bundled as a single output file with third-party dependencies included.
+TypeScript, set up as an Nx monorepo on pnpm workspaces. Apps live in `src/apps/`, libraries in `src/libs/`, one folder per project, each a workspace package with its own `package.json` declaring the dependencies it imports. Vite builds each project into its own `dist/`; Vitest runs the tests.
+- **Apps** — bundled as a single output file, third-party dependencies included.
+- **Libraries** — bundle the private workspace packages they import (listed in `devDependencies`, since consumers never install them). Third-party and published workspace packages stay as imports, never bundled: list them in `dependencies`, or in `peerDependencies` when the consumer must provide its own copy (e.g. React).
 
 ### Code conventions
 
