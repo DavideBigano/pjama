@@ -233,12 +233,15 @@
           "REQ-089",
           "REQ-090",
           "REQ-091",
-          "REQ-095"
+          "REQ-095",
+          "REQ-251",
+          "REQ-252",
+          "REQ-253"
         ]
       },
       "folder": "FOL-008",
       "partOf": [
-        "COM-016"
+        "COM-106"
       ]
     },
     {
@@ -254,7 +257,13 @@
           "REQ-094",
           "REQ-175",
           "REQ-176",
-          "REQ-183"
+          "REQ-183",
+          "REQ-244",
+          "REQ-245",
+          "REQ-246",
+          "REQ-247",
+          "REQ-248",
+          "REQ-249"
         ]
       },
       "partOf": [
@@ -351,12 +360,15 @@
           "REQ-146",
           "REQ-147",
           "REQ-148",
-          "REQ-206"
+          "REQ-206",
+          "REQ-254",
+          "REQ-255",
+          "REQ-256"
         ]
       },
       "folder": "FOL-007",
       "partOf": [
-        "COM-016"
+        "COM-106"
       ]
     },
     {
@@ -371,9 +383,14 @@
           "REQ-098",
           "REQ-130",
           "REQ-144",
-          "REQ-173",
           "REQ-174",
-          "REQ-192"
+          "REQ-192",
+          "REQ-269",
+          "REQ-270",
+          "REQ-271",
+          "REQ-272",
+          "REQ-273",
+          "REQ-274"
         ]
       },
       "folder": "FOL-006",
@@ -401,7 +418,7 @@
       },
       "folder": "FOL-006",
       "partOf": [
-        "COM-016"
+        "COM-105"
       ]
     },
     {
@@ -424,7 +441,7 @@
       },
       "folder": "FOL-006",
       "partOf": [
-        "COM-016"
+        "COM-105"
       ]
     },
     {
@@ -447,7 +464,7 @@
       },
       "folder": "FOL-006",
       "partOf": [
-        "COM-016"
+        "COM-105"
       ]
     },
     {
@@ -461,13 +478,12 @@
           "REQ-161",
           "REQ-162",
           "REQ-163",
-          "REQ-164",
-          "REQ-169",
-          "REQ-171",
           "REQ-172",
           "REQ-184",
           "REQ-211",
-          "REQ-212"
+          "REQ-212",
+          "REQ-356",
+          "REQ-362"
         ]
       },
       "sourceLocation": [
@@ -492,7 +508,7 @@
       },
       "folder": "FOL-007",
       "partOf": [
-        "COM-016"
+        "COM-106"
       ]
     },
     {
@@ -511,13 +527,12 @@
           "REQ-074",
           "REQ-075",
           "REQ-149",
-          "REQ-150",
           "REQ-181"
         ]
       },
       "folder": "FOL-007",
       "partOf": [
-        "COM-016"
+        "COM-106"
       ]
     },
     {
@@ -540,7 +555,7 @@
       },
       "folder": "FOL-007",
       "partOf": [
-        "COM-016"
+        "COM-106"
       ]
     },
     {
@@ -563,7 +578,7 @@
       },
       "folder": "FOL-007",
       "partOf": [
-        "COM-016"
+        "COM-106"
       ]
     },
     {
@@ -574,13 +589,10 @@
       "level": "high-level",
       "specs": {
         "requirements": [
-          "REQ-066",
-          "REQ-067",
-          "REQ-068",
           "REQ-121",
           "REQ-145",
           "REQ-179",
-          "REQ-191"
+          "REQ-250"
         ]
       },
       "folder": "FOL-008",
@@ -596,12 +608,15 @@
       "level": "high-level",
       "specs": {
         "requirements": [
-          "REQ-083"
+          "REQ-083",
+          "REQ-266",
+          "REQ-267",
+          "REQ-268"
         ]
       },
       "folder": "FOL-008",
       "partOf": [
-        "COM-016"
+        "COM-106"
       ]
     },
     {
@@ -618,7 +633,7 @@
       },
       "folder": "FOL-008",
       "partOf": [
-        "COM-016"
+        "COM-106"
       ]
     },
     {
@@ -631,12 +646,17 @@
         "requirements": [
           "REQ-092",
           "REQ-201",
-          "REQ-207"
+          "REQ-207",
+          "REQ-260",
+          "REQ-261",
+          "REQ-262",
+          "REQ-354",
+          "REQ-355"
         ]
       },
       "folder": "FOL-008",
       "partOf": [
-        "COM-016"
+        "COM-106"
       ]
     },
     {
@@ -650,12 +670,15 @@
           "REQ-103",
           "REQ-104",
           "REQ-110",
-          "REQ-155"
+          "REQ-155",
+          "REQ-257",
+          "REQ-258",
+          "REQ-259"
         ]
       },
       "folder": "FOL-009",
       "partOf": [
-        "COM-016"
+        "COM-106"
       ]
     },
     {
@@ -673,12 +696,15 @@
           "REQ-118",
           "REQ-120",
           "REQ-123",
-          "REQ-182"
+          "REQ-182",
+          "REQ-263",
+          "REQ-264",
+          "REQ-265"
         ]
       },
       "folder": "FOL-008",
       "partOf": [
-        "COM-016"
+        "COM-106"
       ]
     },
     {
@@ -696,7 +722,7 @@
       },
       "folder": "FOL-006",
       "partOf": [
-        "COM-016"
+        "COM-105"
       ]
     },
     {
@@ -715,7 +741,7 @@
       },
       "folder": "FOL-006",
       "partOf": [
-        "COM-016"
+        "COM-105"
       ]
     },
     {
@@ -735,7 +761,7 @@
       },
       "folder": "FOL-009",
       "partOf": [
-        "COM-016"
+        "COM-106"
       ]
     },
     {
@@ -756,7 +782,7 @@
       },
       "folder": "FOL-009",
       "partOf": [
-        "COM-016"
+        "COM-106"
       ]
     },
     {
@@ -777,7 +803,7 @@
     {
       "id": "COM-058",
       "label": "Mockup model",
-      "summary": "A visual reference for a piece of UI, given as an image or as HTML.",
+      "summary": "A visual reference for a piece of UI, given as a resource or as inline HTML.",
       "depth": "",
       "level": "high-level",
       "specs": {
@@ -788,13 +814,13 @@
           "REQ-196",
           "REQ-197",
           "REQ-198",
-          "REQ-199",
-          "REQ-200"
+          "REQ-200",
+          "REQ-359"
         ]
       },
       "folder": "FOL-007",
       "partOf": [
-        "COM-016"
+        "COM-106"
       ]
     },
     {
@@ -812,7 +838,7 @@
       },
       "folder": "FOL-007",
       "partOf": [
-        "COM-016"
+        "COM-106"
       ]
     },
     {
@@ -1039,6 +1065,643 @@
       "partOf": [
         "COM-061"
       ]
+    },
+    {
+      "id": "COM-071",
+      "label": "Interface statement model",
+      "summary": "A precondition, postcondition, invariant or protocol of an interface, given as text.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-275"
+        ]
+      },
+      "folder": "FOL-008",
+      "partOf": [
+        "COM-104"
+      ]
+    },
+    {
+      "id": "COM-072",
+      "label": "Step model",
+      "summary": "One specific action of a use case.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-276"
+        ]
+      },
+      "folder": "FOL-008",
+      "partOf": [
+        "COM-104"
+      ]
+    },
+    {
+      "id": "COM-073",
+      "label": "Option model",
+      "summary": "An alternative considered by a decision.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-277",
+          "REQ-278"
+        ]
+      },
+      "folder": "FOL-008",
+      "partOf": [
+        "COM-104"
+      ]
+    },
+    {
+      "id": "COM-074",
+      "label": "Parameter model",
+      "summary": "An input or output of an interface.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-279",
+          "REQ-280",
+          "REQ-281"
+        ]
+      },
+      "folder": "FOL-008",
+      "partOf": [
+        "COM-104"
+      ]
+    },
+    {
+      "id": "COM-075",
+      "label": "Spec-to-component model",
+      "summary": "A spec held by a component.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-282",
+          "REQ-283",
+          "REQ-284",
+          "REQ-285"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-103"
+      ]
+    },
+    {
+      "id": "COM-076",
+      "label": "Step-to-use-case model",
+      "summary": "A step of a use case.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-286",
+          "REQ-287",
+          "REQ-288"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-099"
+      ]
+    },
+    {
+      "id": "COM-077",
+      "label": "Option-to-decision model",
+      "summary": "An option considered by a decision.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-289",
+          "REQ-290",
+          "REQ-291",
+          "REQ-292"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-100"
+      ]
+    },
+    {
+      "id": "COM-078",
+      "label": "Input-to-interface model",
+      "summary": "An input of an interface.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-293",
+          "REQ-294",
+          "REQ-295",
+          "REQ-296"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-098"
+      ]
+    },
+    {
+      "id": "COM-079",
+      "label": "Output-to-interface model",
+      "summary": "An output of an interface.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-297",
+          "REQ-298",
+          "REQ-299",
+          "REQ-300"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-098"
+      ]
+    },
+    {
+      "id": "COM-080",
+      "label": "Prerequisite-to-use-case model",
+      "summary": "A prerequisite of a use case.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-301",
+          "REQ-302",
+          "REQ-303",
+          "REQ-304"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-099"
+      ]
+    },
+    {
+      "id": "COM-081",
+      "label": "Precondition-to-interface model",
+      "summary": "A precondition of an interface.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-305",
+          "REQ-306",
+          "REQ-307",
+          "REQ-308"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-098"
+      ]
+    },
+    {
+      "id": "COM-082",
+      "label": "Postcondition-to-interface model",
+      "summary": "A postcondition of an interface.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-309",
+          "REQ-310",
+          "REQ-311",
+          "REQ-312"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-098"
+      ]
+    },
+    {
+      "id": "COM-083",
+      "label": "Invariant-to-interface model",
+      "summary": "An invariant of an interface.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-313",
+          "REQ-314",
+          "REQ-315",
+          "REQ-316"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-098"
+      ]
+    },
+    {
+      "id": "COM-084",
+      "label": "Protocol-to-interface model",
+      "summary": "A protocol used to invoke an interface.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-317",
+          "REQ-318",
+          "REQ-319",
+          "REQ-320"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-098"
+      ]
+    },
+    {
+      "id": "COM-085",
+      "label": "Criterion-to-review model",
+      "summary": "A pass criterion of a review.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-321",
+          "REQ-322",
+          "REQ-323",
+          "REQ-324"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-101"
+      ]
+    },
+    {
+      "id": "COM-086",
+      "label": "Component-to-resource model",
+      "summary": "A resource supporting a component.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-325",
+          "REQ-326",
+          "REQ-327"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-102"
+      ]
+    },
+    {
+      "id": "COM-087",
+      "label": "Use-case-to-actor model",
+      "summary": "An actor taking part in a use case.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-328",
+          "REQ-329",
+          "REQ-330"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-099"
+      ]
+    },
+    {
+      "id": "COM-088",
+      "label": "Technology-to-documentation model",
+      "summary": "A resource documenting a technology.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-331",
+          "REQ-332",
+          "REQ-333"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-102"
+      ]
+    },
+    {
+      "id": "COM-089",
+      "label": "Decision-to-reference model",
+      "summary": "An item pertinent to a decision.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-334",
+          "REQ-335",
+          "REQ-336"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-100"
+      ]
+    },
+    {
+      "id": "COM-090",
+      "label": "Decision-to-override model",
+      "summary": "An earlier decision overridden by a decision.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-337",
+          "REQ-338",
+          "REQ-339"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-100"
+      ]
+    },
+    {
+      "id": "COM-091",
+      "label": "Decision-to-chosen-option model",
+      "summary": "The option chosen by a decision.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-340",
+          "REQ-341"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-100"
+      ]
+    },
+    {
+      "id": "COM-092",
+      "label": "Review-to-resource model",
+      "summary": "A resource to look at during a review.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-342",
+          "REQ-343",
+          "REQ-344"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-101"
+      ]
+    },
+    {
+      "id": "COM-093",
+      "label": "Dependency-to-selected-spec model",
+      "summary": "A spec passing through a dependency.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-345",
+          "REQ-346"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-103"
+      ]
+    },
+    {
+      "id": "COM-094",
+      "label": "Implementation-to-excluded-spec model",
+      "summary": "A definition spec an implementation excludes.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-347",
+          "REQ-348"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-103"
+      ]
+    },
+    {
+      "id": "COM-095",
+      "label": "Step-to-next model",
+      "summary": "The step that follows a step.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-349",
+          "REQ-350"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-099"
+      ]
+    },
+    {
+      "id": "COM-096",
+      "label": "Step-to-sibling model",
+      "summary": "The first step of an alternative branch, taken instead of a step.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-351",
+          "REQ-352"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-099"
+      ]
+    },
+    {
+      "id": "COM-097",
+      "label": "Mockup-to-resource model",
+      "summary": "The resource a mockup shows.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-357",
+          "REQ-358"
+        ]
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-102"
+      ]
+    },
+    {
+      "id": "COM-098",
+      "label": "Interface relationship models",
+      "summary": "Relationships linking an interface to its parameters and statements.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": []
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-099",
+      "label": "Use case relationship models",
+      "summary": "Relationships linking a use case to its steps, prerequisites and actors, and steps to each other.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": []
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-100",
+      "label": "Decision relationship models",
+      "summary": "Relationships linking a decision to its options, chosen option, references and overrides.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": []
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-101",
+      "label": "Review relationship models",
+      "summary": "Relationships linking a review to its criteria and resources.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": []
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-102",
+      "label": "Resource relationship models",
+      "summary": "Relationships linking components, technologies and mockups to resources.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": []
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-103",
+      "label": "Spec membership relationship models",
+      "summary": "Relationships placing a spec in a component, or in a dependency's or implementation's selection.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": []
+      },
+      "folder": "FOL-006",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-104",
+      "label": "Secondary item models",
+      "summary": "Items that exist only in function of another item: interface statements and parameters, use case prerequisites and steps, decision options and review criteria.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": []
+      },
+      "folder": "FOL-008",
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-105",
+      "label": "Primary relationship models",
+      "summary": "",
+      "depth": "",
+      "level": "high-level",
+      "specs": {},
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-106",
+      "label": "Primary item models",
+      "summary": "",
+      "depth": "",
+      "level": "high-level",
+      "specs": {},
+      "partOf": [
+        "COM-016"
+      ]
+    },
+    {
+      "id": "COM-107",
+      "label": "Use case prerequisite model",
+      "summary": "A condition assumed to hold for a use case to apply, given as text.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-360"
+        ]
+      },
+      "folder": "FOL-008",
+      "partOf": [
+        "COM-104"
+      ]
+    },
+    {
+      "id": "COM-108",
+      "label": "Review criterion model",
+      "summary": "A pass criterion of a review, given as text.",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-361"
+        ]
+      },
+      "folder": "FOL-008",
+      "partOf": [
+        "COM-104"
+      ]
     }
   ],
   "folders": [
@@ -1153,30 +1816,6 @@
       "to": "COM-016"
     },
     {
-      "id": "REL-009",
-      "label": "Untitled relation",
-      "summary": "",
-      "kind": "implements",
-      "from": "COM-029",
-      "to": "COM-028"
-    },
-    {
-      "id": "REL-010",
-      "label": "Untitled relation",
-      "summary": "",
-      "kind": "implements",
-      "from": "COM-030",
-      "to": "COM-028"
-    },
-    {
-      "id": "REL-011",
-      "label": "Untitled relation",
-      "summary": "",
-      "kind": "implements",
-      "from": "COM-031",
-      "to": "COM-028"
-    },
-    {
       "id": "REL-012",
       "label": "Untitled relation",
       "summary": "Implementation of the map schema as JSON Schema",
@@ -1209,22 +1848,6 @@
       "to": "COM-027"
     },
     {
-      "id": "REL-018",
-      "label": "Untitled relation",
-      "summary": "",
-      "kind": "extends",
-      "from": "COM-027",
-      "to": "COM-037"
-    },
-    {
-      "id": "REL-019",
-      "label": "Untitled relation",
-      "summary": "",
-      "kind": "references",
-      "from": "COM-028",
-      "to": "COM-037"
-    },
-    {
       "id": "REL-020",
       "label": "Untitled relation",
       "summary": "",
@@ -1239,14 +1862,6 @@
       "kind": "implements",
       "from": "COM-038",
       "to": "COM-037"
-    },
-    {
-      "id": "REL-024",
-      "label": "Untitled relation",
-      "summary": "",
-      "kind": "references",
-      "from": "COM-026",
-      "to": "COM-040"
     },
     {
       "id": "REL-025",
@@ -1289,36 +1904,12 @@
       "to": "COM-027"
     },
     {
-      "id": "REL-035",
-      "label": "Untitled relation",
-      "summary": "",
-      "kind": "implements",
-      "from": "COM-047",
-      "to": "COM-028"
-    },
-    {
       "id": "REL-038",
       "label": "Untitled relation",
       "summary": "",
       "kind": "references",
-      "from": "COM-035",
+      "from": "COM-074",
       "to": "COM-036"
-    },
-    {
-      "id": "REL-039",
-      "label": "Untitled relation",
-      "summary": "",
-      "kind": "references",
-      "from": "COM-042",
-      "to": "COM-037"
-    },
-    {
-      "id": "REL-040",
-      "label": "Untitled relation",
-      "summary": "",
-      "kind": "implements",
-      "from": "COM-054",
-      "to": "COM-028"
     },
     {
       "id": "REL-041",
@@ -1335,14 +1926,6 @@
       "kind": "implements",
       "from": "COM-055",
       "to": "COM-041"
-    },
-    {
-      "id": "REL-043",
-      "label": "Untitled relation",
-      "summary": "",
-      "kind": "references",
-      "from": "COM-026",
-      "to": "COM-027"
     },
     {
       "id": "REL-044",
@@ -1377,28 +1960,12 @@
       "to": "COM-027"
     },
     {
-      "id": "REL-048",
-      "label": "Untitled relation",
-      "summary": "",
-      "kind": "references",
-      "from": "COM-058",
-      "to": "COM-040"
-    },
-    {
       "id": "REL-049",
       "label": "Untitled relation",
       "summary": "",
       "kind": "extends",
       "from": "COM-060",
       "to": "COM-027"
-    },
-    {
-      "id": "REL-050",
-      "label": "Untitled relation",
-      "summary": "",
-      "kind": "references",
-      "from": "COM-060",
-      "to": "COM-040"
     },
     {
       "id": "REL-051",
@@ -1572,6 +2139,86 @@
       "kind": "reads",
       "from": "COM-068",
       "to": "COM-067"
+    },
+    {
+      "id": "REL-067",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "implements",
+      "from": "COM-028",
+      "to": "COM-037"
+    },
+    {
+      "id": "REL-094",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "implements",
+      "from": "COM-098",
+      "to": "COM-028"
+    },
+    {
+      "id": "REL-095",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "implements",
+      "from": "COM-099",
+      "to": "COM-028"
+    },
+    {
+      "id": "REL-096",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "implements",
+      "from": "COM-100",
+      "to": "COM-028"
+    },
+    {
+      "id": "REL-097",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "implements",
+      "from": "COM-101",
+      "to": "COM-028"
+    },
+    {
+      "id": "REL-098",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "implements",
+      "from": "COM-102",
+      "to": "COM-028"
+    },
+    {
+      "id": "REL-099",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "implements",
+      "from": "COM-103",
+      "to": "COM-028"
+    },
+    {
+      "id": "REL-100",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "implements",
+      "from": "COM-104",
+      "to": "COM-037"
+    },
+    {
+      "id": "REL-101",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "implements",
+      "from": "COM-105",
+      "to": "COM-028"
+    },
+    {
+      "id": "REL-102",
+      "label": "Untitled relation",
+      "summary": "",
+      "kind": "extends",
+      "from": "COM-027",
+      "to": "COM-037"
     }
   ],
   "actors": [
@@ -1963,24 +2610,6 @@
       "id": "REQ-064",
       "label": "Flag non-atomic requirements",
       "summary": "A semantic analysis of the map should flag requirements that it thinks could be decomposed.",
-      "verifiedBy": []
-    },
-    {
-      "id": "REQ-066",
-      "label": "Name",
-      "summary": "Each item has a name.",
-      "verifiedBy": []
-    },
-    {
-      "id": "REQ-067",
-      "label": "Description",
-      "summary": "Each item has a description",
-      "verifiedBy": []
-    },
-    {
-      "id": "REQ-068",
-      "label": "Optional notes",
-      "summary": "All items may have free form notes.",
       "verifiedBy": []
     },
     {
@@ -2382,13 +3011,7 @@
     {
       "id": "REQ-149",
       "label": "Sequence of steps",
-      "summary": "A use case is structured as a sequence of steps.",
-      "verifiedBy": []
-    },
-    {
-      "id": "REQ-150",
-      "label": "Step structure",
-      "summary": "A step consists in a short description of one specific action.",
+      "summary": "A use case is structured as a sequence of steps, linked through next and sibling relationships.",
       "verifiedBy": []
     },
     {
@@ -2457,19 +3080,11 @@
     },
     {
       "id": "REQ-163",
-      "label": "Item lists",
-      "summary": "Components, relationships, checks, resources, decisions and actors live in their respective lists.",
+      "label": "Items and relationships",
+      "summary": "Items and relationships live in two top-level lists.",
       "verifiedBy": [
         "T-003",
         "T-004"
-      ]
-    },
-    {
-      "id": "REQ-164",
-      "label": "Spec lists",
-      "summary": "Each component holds its specs in its own list.",
-      "verifiedBy": [
-        "T-005"
       ]
     },
     {
@@ -2497,26 +3112,10 @@
       "verifiedBy": []
     },
     {
-      "id": "REQ-169",
-      "label": "Selected specs in dependencies",
-      "summary": "Each dependency relationship has one list that contains all it's selected specs from both nodes.",
-      "verifiedBy": [
-        "T-006"
-      ]
-    },
-    {
       "id": "REQ-170",
       "label": "Spec exclusion",
       "summary": "An implementation may exclude any of the definition's specs. Excluded specs don't pass to the source.",
       "verifiedBy": []
-    },
-    {
-      "id": "REQ-171",
-      "label": "Excluded specs in implementations",
-      "summary": "Each implementation relationship has one list that contains the definition specs it excludes.",
-      "verifiedBy": [
-        "T-007"
-      ]
     },
     {
       "id": "REQ-172",
@@ -2526,12 +3125,6 @@
         "T-008",
         "T-009"
       ]
-    },
-    {
-      "id": "REQ-173",
-      "label": "Identified by UUID",
-      "summary": "Relationships are identified by a random UUID.",
-      "verifiedBy": []
     },
     {
       "id": "REQ-174",
@@ -2631,12 +3224,6 @@
       "verifiedBy": []
     },
     {
-      "id": "REQ-191",
-      "label": "Markdown notes",
-      "summary": "Item notes are free-form text, rendered as markdown.",
-      "verifiedBy": []
-    },
-    {
       "id": "REQ-192",
       "label": "Markdown notes",
       "summary": "Relationship notes are free-form text, rendered as markdown.",
@@ -2650,14 +3237,14 @@
     },
     {
       "id": "REQ-194",
-      "label": "Image, HTML or HTML file",
-      "summary": "A mockup is given as an image, as inline HTML or as an HTML file.",
+      "label": "Resource or inline HTML",
+      "summary": "A mockup shows either a resource, through a mockup-to-resource relationship, or inline HTML.",
       "verifiedBy": []
     },
     {
       "id": "REQ-195",
-      "label": "Image resources",
-      "summary": "An image mockup points to a resource, in any image format a browser can display (e.g. PNG, JPEG, SVG, WebP).",
+      "label": "Resource content",
+      "summary": "A resource mockup shows the resource as an image or as an HTML document, depending on its format.",
       "verifiedBy": []
     },
     {
@@ -2676,12 +3263,6 @@
       "id": "REQ-198",
       "label": "Isolated rendering",
       "summary": "HTML mockups are rendered isolated from the app displaying them, so their markup and styles can't affect it.",
-      "verifiedBy": []
-    },
-    {
-      "id": "REQ-199",
-      "label": "HTML file resources",
-      "summary": "An HTML file mockup points to a resource holding a full HTML document.",
       "verifiedBy": []
     },
     {
@@ -2940,6 +3521,729 @@
       "label": "Declared library imports",
       "summary": "Third-party and published packages a library imports are listed in its `dependencies`, or `peerDependencies` when the consumer provides them.",
       "verifiedBy": []
+    },
+    {
+      "id": "REQ-244",
+      "label": "Items and relationships",
+      "summary": "A map holds its content in two collections: items and relationships.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-245",
+      "label": "References are relationships",
+      "summary": "Every reference from one item to another is a relationship, except references inside atomic values.",
+      "verifiedBy": [
+        "T-005",
+        "T-006",
+        "T-007"
+      ]
+    },
+    {
+      "id": "REQ-246",
+      "label": "Atomic objects",
+      "summary": "Type expressions and test configs are atomic values: they are read and written as a whole.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-247",
+      "label": "Identity fields",
+      "summary": "Id and type are required on every item, source and target on every relationship. Every other field is optional.",
+      "verifiedBy": [
+        "T-013",
+        "T-014"
+      ]
+    },
+    {
+      "id": "REQ-248",
+      "label": "Namespaced types",
+      "summary": "Item and relationship types are namespaced, e.g. @pjama/component.",
+      "verifiedBy": [
+        "T-015"
+      ]
+    },
+    {
+      "id": "REQ-249",
+      "label": "Versioned with the schema",
+      "summary": "Item and relationship types are versioned together with the map's schema version.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-250",
+      "label": "Fixed type",
+      "summary": "An item's type never changes.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-251",
+      "label": "Name",
+      "summary": "A component has a name.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-252",
+      "label": "Description",
+      "summary": "A component has a description.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-253",
+      "label": "Markdown notes",
+      "summary": "A component may have free-form notes, rendered as markdown.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-254",
+      "label": "Name",
+      "summary": "A spec has a name.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-255",
+      "label": "Description",
+      "summary": "A spec has a description.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-256",
+      "label": "Markdown notes",
+      "summary": "A spec may have free-form notes, rendered as markdown.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-257",
+      "label": "Name",
+      "summary": "A check has a name.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-258",
+      "label": "Description",
+      "summary": "A check has a description.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-259",
+      "label": "Markdown notes",
+      "summary": "A check may have free-form notes, rendered as markdown.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-260",
+      "label": "Name",
+      "summary": "A resource has a name.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-261",
+      "label": "Description",
+      "summary": "A resource has a description.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-262",
+      "label": "Markdown notes",
+      "summary": "A resource may have free-form notes, rendered as markdown.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-263",
+      "label": "Name",
+      "summary": "A decision has a name.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-264",
+      "label": "Description",
+      "summary": "A decision has a description.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-265",
+      "label": "Markdown notes",
+      "summary": "A decision may have free-form notes, rendered as markdown.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-266",
+      "label": "Name",
+      "summary": "A actor has a name.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-267",
+      "label": "Description",
+      "summary": "A actor has a description.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-268",
+      "label": "Markdown notes",
+      "summary": "A actor may have free-form notes, rendered as markdown.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-269",
+      "label": "Relationship endpoints",
+      "summary": "Source and target may be relationships, since relationships are items.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-270",
+      "label": "Ordered types",
+      "summary": "A relationship type may be ordered: its relationships are ordered among those sharing the same source, or the same target, as the type states.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-271",
+      "label": "Position",
+      "summary": "A relationship of an ordered type may carry a position, a fractional key that sorts it among its siblings.",
+      "verifiedBy": [
+        "T-016"
+      ]
+    },
+    {
+      "id": "REQ-272",
+      "label": "Unbounded positions",
+      "summary": "Positions have no length limit, so a new position always fits between two others.",
+      "verifiedBy": [
+        "T-017"
+      ]
+    },
+    {
+      "id": "REQ-273",
+      "label": "Code-unit order",
+      "summary": "Positions compare by plain code unit, never by locale, so the order is the same on every system.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-274",
+      "label": "Unpositioned last",
+      "summary": "Relationships without a position sort after the positioned ones, ordered among themselves by id.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-275",
+      "label": "Text",
+      "summary": "An interface statement is given as a single piece of text.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-276",
+      "label": "Text",
+      "summary": "A step's text is a short description of one specific action.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-277",
+      "label": "Text",
+      "summary": "An option is described by a single piece of text.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-278",
+      "label": "Rejection reason",
+      "summary": "An option may state why it wasn't chosen.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-279",
+      "label": "Parameter name",
+      "summary": "A parameter may have a name.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-280",
+      "label": "Comment",
+      "summary": "A parameter may have a comment.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-281",
+      "label": "Typed",
+      "summary": "A parameter's shape is given as a type expression.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-282",
+      "label": "Spec-to-component",
+      "summary": "Source is a spec, target is a component.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-283",
+      "label": "Owned source",
+      "summary": "A spec exists only in function of its component.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-284",
+      "label": "Many-to-one",
+      "summary": "Source to target relate N:1.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-285",
+      "label": "Ordered",
+      "summary": "A component's specs are ordered.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-286",
+      "label": "Step-to-use-case",
+      "summary": "Source is a step, target is a use case.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-287",
+      "label": "Owned source",
+      "summary": "A step exists only in function of its use case.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-288",
+      "label": "Many-to-one",
+      "summary": "Source to target relate N:1.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-289",
+      "label": "Option-to-decision",
+      "summary": "Source is an option, target is a decision.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-290",
+      "label": "Owned source",
+      "summary": "An option exists only in function of its decision.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-291",
+      "label": "Many-to-one",
+      "summary": "Source to target relate N:1.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-292",
+      "label": "Ordered",
+      "summary": "A decision's options are ordered.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-293",
+      "label": "Input-to-interface",
+      "summary": "Source is a parameter, target is an interface.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-294",
+      "label": "Owned source",
+      "summary": "An input exists only in function of its interface.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-295",
+      "label": "Many-to-one",
+      "summary": "Source to target relate N:1.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-296",
+      "label": "Ordered",
+      "summary": "An interface's inputs are ordered.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-297",
+      "label": "Output-to-interface",
+      "summary": "Source is a parameter, target is an interface.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-298",
+      "label": "Owned source",
+      "summary": "An output exists only in function of its interface.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-299",
+      "label": "Many-to-one",
+      "summary": "Source to target relate N:1.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-300",
+      "label": "Ordered",
+      "summary": "An interface's outputs are ordered.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-301",
+      "label": "Prerequisite-to-use-case",
+      "summary": "Source is a use case prerequisite, target is a use case.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-302",
+      "label": "Owned source",
+      "summary": "A prerequisite exists only in function of its use case.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-303",
+      "label": "Many-to-one",
+      "summary": "Source to target relate N:1.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-304",
+      "label": "Ordered",
+      "summary": "A use case's prerequisites are ordered.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-305",
+      "label": "Precondition-to-interface",
+      "summary": "Source is an interface statement, target is an interface.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-306",
+      "label": "Owned source",
+      "summary": "A precondition exists only in function of its interface.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-307",
+      "label": "Many-to-one",
+      "summary": "Source to target relate N:1.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-308",
+      "label": "Ordered",
+      "summary": "An interface's preconditions are ordered.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-309",
+      "label": "Postcondition-to-interface",
+      "summary": "Source is an interface statement, target is an interface.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-310",
+      "label": "Owned source",
+      "summary": "A postcondition exists only in function of its interface.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-311",
+      "label": "Many-to-one",
+      "summary": "Source to target relate N:1.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-312",
+      "label": "Ordered",
+      "summary": "An interface's postconditions are ordered.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-313",
+      "label": "Invariant-to-interface",
+      "summary": "Source is an interface statement, target is an interface.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-314",
+      "label": "Owned source",
+      "summary": "An invariant exists only in function of its interface.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-315",
+      "label": "Many-to-one",
+      "summary": "Source to target relate N:1.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-316",
+      "label": "Ordered",
+      "summary": "An interface's invariants are ordered.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-317",
+      "label": "Protocol-to-interface",
+      "summary": "Source is an interface statement, target is an interface.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-318",
+      "label": "Owned source",
+      "summary": "A protocol exists only in function of its interface.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-319",
+      "label": "Many-to-one",
+      "summary": "Source to target relate N:1.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-320",
+      "label": "Ordered",
+      "summary": "An interface's protocols are ordered.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-321",
+      "label": "Criterion-to-review",
+      "summary": "Source is a review criterion, target is a review.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-322",
+      "label": "Owned source",
+      "summary": "A criterion exists only in function of its review.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-323",
+      "label": "Many-to-one",
+      "summary": "Source to target relate N:1.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-324",
+      "label": "Ordered",
+      "summary": "A review's criteria are ordered.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-325",
+      "label": "Component-to-resource",
+      "summary": "Source is a component, target is a resource.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-326",
+      "label": "Many-to-many",
+      "summary": "Source to target relate N:N.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-327",
+      "label": "Ordered",
+      "summary": "A component's resources are ordered.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-328",
+      "label": "Use-case-to-actor",
+      "summary": "Source is a use case, target is an actor.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-329",
+      "label": "Many-to-many",
+      "summary": "Source to target relate N:N.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-330",
+      "label": "Ordered",
+      "summary": "A use case's actors are ordered.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-331",
+      "label": "Technology-to-documentation",
+      "summary": "Source is a technology, target is a resource.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-332",
+      "label": "Many-to-many",
+      "summary": "Source to target relate N:N.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-333",
+      "label": "Ordered",
+      "summary": "A technology's documentation is ordered.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-334",
+      "label": "Decision-to-reference",
+      "summary": "Source is a decision, target is any item.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-335",
+      "label": "Many-to-many",
+      "summary": "Source to target relate N:N.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-336",
+      "label": "Ordered",
+      "summary": "A decision's references are ordered.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-337",
+      "label": "Decision-to-override",
+      "summary": "Source is a decision, target is a decision.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-338",
+      "label": "Many-to-many",
+      "summary": "Source to target relate N:N.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-339",
+      "label": "Ordered",
+      "summary": "A decision's overrides are ordered.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-340",
+      "label": "Decision-to-chosen-option",
+      "summary": "Source is a decision, target is one of its options.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-341",
+      "label": "Many-to-one",
+      "summary": "Source to target relate N:1.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-342",
+      "label": "Review-to-resource",
+      "summary": "Source is a review, target is a resource.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-343",
+      "label": "Many-to-many",
+      "summary": "Source to target relate N:N.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-344",
+      "label": "Ordered",
+      "summary": "A review's resources are ordered.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-345",
+      "label": "Dependency-to-selected-spec",
+      "summary": "Source is a dependency, target is a spec of its consumer or producer.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-346",
+      "label": "Many-to-many",
+      "summary": "Source to target relate N:N.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-347",
+      "label": "Implementation-to-excluded-spec",
+      "summary": "Source is an implementation, target is a spec of its definition.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-348",
+      "label": "Many-to-many",
+      "summary": "Source to target relate N:N.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-349",
+      "label": "Step-to-next",
+      "summary": "Source is a step, target is a step of the same use case.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-350",
+      "label": "Many-to-one",
+      "summary": "Source to target relate N:1.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-351",
+      "label": "Step-to-sibling",
+      "summary": "Source is a step, target is a step of the same use case.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-352",
+      "label": "Many-to-one",
+      "summary": "Source to target relate N:1.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-354",
+      "label": "Media type from location",
+      "summary": "A project file's media type is inferred from its extension.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-355",
+      "label": "Offline previews",
+      "summary": "A URL resource may preview with an icon or thumbnail from the page, falling back to a generic icon without network access.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-356",
+      "label": "Machine-readable",
+      "summary": "The schema keeps the map machine-readable, so tools never fail on a structurally broken map. Other checks belong to validation scripts.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-357",
+      "label": "Mockup-to-resource",
+      "summary": "Source is a mockup, target is a resource.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-358",
+      "label": "Many-to-one",
+      "summary": "Source to target relate N:1.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-359",
+      "label": "Inline HTML first",
+      "summary": "When a mockup has both, its inline HTML is shown.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-360",
+      "label": "Text",
+      "summary": "A use case prerequisite is given as a single piece of text.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-361",
+      "label": "Text",
+      "summary": "A review criterion is given as a single piece of text.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-362",
+      "label": "Pinned schema version",
+      "summary": "The schema accepts only maps written in its own schema version.",
+      "verifiedBy": [
+        "T-018"
+      ]
     }
   ],
   "useCases": [
@@ -3235,43 +4539,43 @@
     },
     {
       "id": "T-003",
-      "label": "Item lists required",
-      "summary": "A map missing one of its item lists is rejected.",
+      "label": "Collections required",
+      "summary": "A map missing its items or relationships collection is rejected.",
       "type": "unit",
       "location": "src/libs/map/schema/map.schema.test.ts",
-      "testName": "rejects a map without one of its item lists"
+      "testName": "rejects a map without its %s collection"
     },
     {
       "id": "T-004",
-      "label": "No top-level types",
-      "summary": "A top-level list of types is rejected.",
+      "label": "No per-type collections",
+      "summary": "A top-level collection for a single item type is rejected.",
       "type": "unit",
       "location": "src/libs/map/schema/map.schema.test.ts",
-      "testName": "rejects a top-level list of types"
+      "testName": "rejects a collection per item type"
     },
     {
       "id": "T-005",
-      "label": "Spec list required",
-      "summary": "A component without its spec list is rejected.",
+      "label": "No nested specs",
+      "summary": "A component holding its own spec list is rejected.",
       "type": "unit",
       "location": "src/libs/map/schema/map.schema.test.ts",
-      "testName": "rejects a component without a spec list"
+      "testName": "rejects a component holding its own spec list"
     },
     {
       "id": "T-006",
-      "label": "Selected specs required",
-      "summary": "A dependency without its selected specs is rejected.",
+      "label": "No selected specs field",
+      "summary": "A dependency holding its selected specs is rejected.",
       "type": "unit",
       "location": "src/libs/map/schema/map.schema.test.ts",
-      "testName": "rejects a dependency without its selected specs"
+      "testName": "rejects selected specs held by the dependency"
     },
     {
       "id": "T-007",
-      "label": "Excluded specs required",
-      "summary": "An implementation without its excluded specs is rejected.",
+      "label": "No excluded specs field",
+      "summary": "An implementation holding its excluded specs is rejected.",
       "type": "unit",
       "location": "src/libs/map/schema/map.schema.test.ts",
-      "testName": "rejects an implementation without its excluded specs"
+      "testName": "rejects excluded specs held by the implementation"
     },
     {
       "id": "T-008",
@@ -3312,6 +4616,54 @@
       "type": "unit",
       "location": "src/libs/map/schema/map.schema.test.ts",
       "testName": "accepts the id %s"
+    },
+    {
+      "id": "T-013",
+      "label": "Items need only id and type",
+      "summary": "Every item type is accepted with only its id and type.",
+      "type": "unit",
+      "location": "src/libs/map/schema/map.schema.test.ts",
+      "testName": "accepts a %s with only its id and type"
+    },
+    {
+      "id": "T-014",
+      "label": "Relationships need only identity fields",
+      "summary": "Every relationship type is accepted with only its id, type, source and target.",
+      "type": "unit",
+      "location": "src/libs/map/schema/map.schema.test.ts",
+      "testName": "accepts a %s with only its identity fields"
+    },
+    {
+      "id": "T-015",
+      "label": "Namespaced types required",
+      "summary": "An item type without its namespace is rejected.",
+      "type": "unit",
+      "location": "src/libs/map/schema/map.schema.test.ts",
+      "testName": "rejects an item type without its namespace"
+    },
+    {
+      "id": "T-016",
+      "label": "Positions on ordered types only",
+      "summary": "A position on a relationship of an unordered type is rejected.",
+      "type": "unit",
+      "location": "src/libs/map/schema/map.schema.test.ts",
+      "testName": "rejects a position on a relationship of an unordered type"
+    },
+    {
+      "id": "T-017",
+      "label": "Unbounded positions",
+      "summary": "A position of any length is accepted.",
+      "type": "unit",
+      "location": "src/libs/map/schema/map.schema.test.ts",
+      "testName": "accepts a position of any length"
+    },
+    {
+      "id": "T-018",
+      "label": "Other schema versions rejected",
+      "summary": "A map written in any other schema version is rejected.",
+      "type": "unit",
+      "location": "src/libs/map/schema/map.schema.test.ts",
+      "testName": "rejects the schema version %s"
     }
   ],
   "decisions": [
@@ -3330,7 +4682,7 @@
       "id": "D-002",
       "label": "Plain random UUIDs as item ids",
       "summary": "Items are identified by plain random UUIDs with no type prefix. An item's type lives only in its `type` field.",
-      "notes": "**Status:** closed.\n\n**Chosen: plain random UUIDs (v4).** They can't overflow, stay stable when an item's type changes, keep the standard `uuid` format and don't duplicate the `type` field. The CLIs, scripts and MCPs that will work on the map resolve ids by themselves, and the field holding a reference almost always implies the type it points to.\n\n**Rejected options:**\n- **Progressive prefixed ids** (e.g. `REQ-001`, the projMap format). A fixed-width counter eventually overflows, and progressive ids collide when a map is edited concurrently or merged.\n- **Type-prefixed UUIDs** (e.g. `req_<uuid>`). The prefix fixes an item's type forever, so changing a spec's kind means a new id and rewriting every reference to it. It duplicates the `type` field, which it can then disagree with, and it drops the standard `uuid` format. The schema check it enables only covers the shape of a reference, not its existence, and reference checks are out of the schema's scope anyway (REQ-162).",
+      "notes": "**Status:** closed.\n\n**Chosen: plain random UUIDs (v4).** They can't overflow, keep the standard `uuid` format and don't duplicate the `type` field. The CLIs, scripts and MCPs that will work on the map resolve ids by themselves, and the field holding a reference almost always implies the type it points to.\n\n**Rejected options:**\n- **Progressive prefixed ids** (e.g. `REQ-001`, the projMap format). A fixed-width counter eventually overflows, and progressive ids collide when a map is edited concurrently or merged.\n- **Type-prefixed UUIDs** (e.g. `req_<uuid>`). It duplicates the `type` field, which it can then disagree with, and it drops the standard `uuid` format. The schema check it enables only covers the shape of a reference, not its existence, and reference checks are out of the schema's scope anyway (REQ-162).",
       "references": [
         "COM-037",
         "REQ-121",
@@ -3392,6 +4744,45 @@
         "REQ-203",
         "REQ-204",
         "REQ-148"
+      ]
+    },
+    {
+      "id": "D-007",
+      "label": "Flat map",
+      "summary": "A map is two flat collections, items and relationships. Every reference outside an atomic value is a relationship.",
+      "notes": "**Status:** closed.\n\n**Chosen: items and relationships only.** Specs, steps, options, parameters and statements are items; whatever linked them (nesting, id lists, id fields) is a relationship. Every edit is then a create, delete, set or unset on one entity, deleting an item deletes the relationships touching it, and the file, the edit model and an in-memory store share one shape.\n\n**Rejected options:**\n- **Nested lists** (specs inside components, steps inside use cases). Each nesting level needs its own list operations, and diffing an external edit means first working out where nested things went.\n- **Id arrays as fields** (e.g. `selectedSpecs`). Deleting an item means finding and editing every array that mentions it, and references come in two forms.\n- **One collection per item kind.** Splitting by kind, or by importance, is a presentation concern whose boundary moves; promoting a type would be a migration.",
+      "references": [
+        "COM-016",
+        "COM-028",
+        "COM-032"
+      ]
+    },
+    {
+      "id": "D-008",
+      "label": "Identity and optional fields",
+      "summary": "Fields are either identity fields, required with no default, or optional. Nothing has a default value.",
+      "notes": "**Status:** closed.\n\n**Chosen: two tiers.** Identity fields (id, type, source, target) carry entity-defining information and can't be preset. Everything else is optional: absent means unset, and the UI shows a placeholder (e.g. \"Untitled component\"). Creating an entity needs only its identity fields, and empty and absent stop being two ways of saying the same thing.\n\n**Rejected options:**\n- **Required fields with defaults.** Every type would need defaults defined, and readers must handle missing optional fields anyway.",
+      "references": [
+        "COM-016",
+        "COM-037"
+      ]
+    },
+    {
+      "id": "D-009",
+      "label": "Ordered relationship types",
+      "summary": "Orderability is a property of a relationship type. Ordered relationships carry an optional fractional position, never rebalanced.",
+      "notes": "**Status:** closed.\n\n**Chosen: variable-length fractional keys on the relationship.** Inserting or reordering is one set on one relationship; concurrent inserts at the same spot both succeed. Keys grow only when a gap is exhausted, and lists are user-ordered and short, so no rebalancing is ever needed and no edit happens outside the normal channels. The position sits on the relationship, next to the reference to what it orders within, so moving a spec to another component is a single relationship edit.\n\n**Rejected options:**\n- **Ordered list fields.** Elements need value identity, duplicates must be forbidden and inserts anchor to neighbours.\n- **Fixed-width keys with rebalancing.** Rebalancing rewrites every sibling's key, an edit no user made.\n- **Orderability per relationship.** Two relationships of the same type could disagree.",
+      "references": [
+        "COM-028"
+      ]
+    },
+    {
+      "id": "D-010",
+      "label": "No type registry yet",
+      "summary": "Item and relationship types are defined by the map model and versioned with the schema. A registry waits for extensibility.",
+      "notes": "**Status:** closed, until extensibility work starts.\n\n**Chosen: types live in the map model.** Type definitions, orderability, allowed endpoints and dependent types are written in the map model's specs and checked by validation scripts.\n\n**Deferred:** a type registry, per-type versions with accepted version ranges, inline user-defined types, keeping entities of unknown types untouched, and migrating types between versions.",
+      "references": [
+        "COM-016"
       ]
     }
   ]

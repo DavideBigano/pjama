@@ -5,380 +5,655 @@
     "name": "Café Orders",
     "slug": "cafe-orders",
     "root": "..",
-    "components": [
+    "items": [
         {
             "id": "b4782d11-b3d5-462c-952a-fc35284ee377",
-            "type": "component",
+            "type": "@pjama/component",
             "name": "Orders app",
             "description": "Web app for placing café orders.",
-            "notes": "Built **mobile first**.",
-            "resources": ["6260bc44-6ae3-4aa9-b293-c6672d6fc296"],
-            "specs": [
-                {
-                    "id": "4a32087d-77b0-45a3-97b5-a944b46e0d1d",
-                    "type": "requirement",
-                    "name": "Fast start",
-                    "description": "The app is usable within two seconds of opening.",
-                    "category": "performance"
-                },
-                {
-                    "id": "ba9b9667-fd2f-4bfa-94c9-2a4d168414ad",
-                    "type": "useCase",
-                    "name": "Log in",
-                    "description": "A customer logs in to see their orders.",
-                    "actors": ["9407da5f-4f1e-46ed-8f71-1dfbd47fecc8"],
-                    "prerequisites": ["The customer has an account"],
-                    "steps": [
-                        {
-                            "id": "d88eedfc-f81a-4c0a-9c01-febc63921893",
-                            "description": "Customer opens the app",
-                            "next": "1beff181-8c13-4ccb-b052-43bab9d1c143"
-                        },
-                        {
-                            "id": "1beff181-8c13-4ccb-b052-43bab9d1c143",
-                            "description": "Customer enters their credentials",
-                            "next": "d25548a0-49fd-4eb4-bcac-1f8cf7221b5f",
-                            "sibling": "5ae8d829-04f2-455b-a5ae-9c7a20f702e3"
-                        },
-                        {
-                            "id": "5ae8d829-04f2-455b-a5ae-9c7a20f702e3",
-                            "description": "Customer signs in with a passkey",
-                            "next": "d25548a0-49fd-4eb4-bcac-1f8cf7221b5f"
-                        },
-                        {
-                            "id": "d25548a0-49fd-4eb4-bcac-1f8cf7221b5f",
-                            "description": "App shows the orders"
-                        }
-                    ]
-                },
-                {
-                    "id": "17757408-e8b5-4d0f-a200-f0940192c621",
-                    "type": "mockup",
-                    "name": "Login form",
-                    "description": "Wireframe of the login form.",
-                    "content": {
-                        "kind": "html",
-                        "body": "<form><input name=\"email\"><button>Log in</button></form>"
-                    }
-                },
-                {
-                    "id": "59543ac5-eaa3-4bb6-bbcf-c513e9c2a512",
-                    "type": "mockup",
-                    "name": "Dashboard",
-                    "description": "High-fidelity dashboard design.",
-                    "content": {
-                        "kind": "image",
-                        "resource": "29275ff3-fb55-46cb-a1fa-2045f5bcd48c"
-                    }
-                },
-                {
-                    "id": "fc4b9d4c-9201-4b95-b160-da4e8c6aecb0",
-                    "type": "mockup",
-                    "name": "Settings page",
-                    "description": "Prototype of the settings page.",
-                    "content": {
-                        "kind": "html-file",
-                        "resource": "da2518ef-63c5-475f-9ae2-9ddf3f4de841"
-                    }
-                },
-                {
-                    "id": "fb7917b9-d4a2-48ef-bbae-d8bb425c08c8",
-                    "type": "technology",
-                    "name": "Written in TypeScript",
-                    "description": "The app is written in TypeScript.",
-                    "technology": "TypeScript",
-                    "version": "^5.4",
-                    "documentation": ["6e6415bf-8909-4733-9edf-b41618df93e1"]
-                }
-            ]
+            "notes": "Built **mobile first**."
         },
         {
             "id": "7221a477-270c-4a69-ac91-09833532b5ea",
-            "type": "component",
+            "type": "@pjama/component",
             "name": "Orders API",
-            "description": "HTTP API behind the app.",
-            "specs": [
-                {
-                    "id": "6b6a89d2-a762-49c8-8b1a-d3da78b9a986",
-                    "type": "requirement",
-                    "name": "Authenticated access",
-                    "description": "Every endpoint but login requires a session."
-                },
-                {
-                    "id": "7323a02c-0316-4d05-9723-4b25b60e33f8",
-                    "type": "type",
-                    "name": "Role",
-                    "description": "What a user may do.",
-                    "definition": {
-                        "kind": "union",
-                        "of": [
-                            {
-                                "description": "Places orders",
-                                "type": {
-                                    "kind": "constant",
-                                    "value": "\"customer\""
-                                }
-                            },
-                            {
-                                "description": "Prepares orders",
-                                "type": {
-                                    "kind": "constant",
-                                    "value": "\"barista\""
-                                }
-                            }
-                        ]
-                    }
-                },
-                {
-                    "id": "badeebfc-0639-4e4a-8991-8471fc9f80f5",
-                    "type": "type",
-                    "name": "User",
-                    "description": "A logged-in user.",
-                    "definition": {
-                        "kind": "merge",
-                        "of": [
-                            {
-                                "kind": "struct",
-                                "fields": [
-                                    {
-                                        "name": "email",
-                                        "type": {
-                                            "kind": "primitive",
-                                            "name": "string"
-                                        }
-                                    },
-                                    {
-                                        "name": "role",
-                                        "description": "Decides the screens shown",
-                                        "type": {
-                                            "kind": "reference",
-                                            "type": "7323a02c-0316-4d05-9723-4b25b60e33f8"
-                                        }
-                                    },
-                                    {
-                                        "name": "referrer",
-                                        "type": {
-                                            "kind": "reference",
-                                            "type": "badeebfc-0639-4e4a-8991-8471fc9f80f5"
-                                        },
-                                        "optional": true
-                                    }
-                                ]
-                            },
-                            {
-                                "kind": "struct",
-                                "fields": [
-                                    {
-                                        "name": "tags",
-                                        "type": {
-                                            "kind": "array",
-                                            "of": {
-                                                "kind": "primitive",
-                                                "name": "string"
-                                            }
-                                        }
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                },
-                {
-                    "id": "7aaa6560-8bfe-483e-ad93-2aefe07b745f",
-                    "type": "interface",
-                    "name": "Login endpoint",
-                    "description": "Starts a session.",
-                    "inputs": [
-                        {
-                            "name": "email",
-                            "type": {
-                                "kind": "primitive",
-                                "name": "string"
-                            }
-                        },
-                        {
-                            "name": "password",
-                            "description": "Plain text, sent over TLS only",
-                            "type": {
-                                "kind": "primitive",
-                                "name": "string"
-                            }
-                        }
-                    ],
-                    "outputs": [
-                        {
-                            "type": {
-                                "kind": "reference",
-                                "type": "badeebfc-0639-4e4a-8991-8471fc9f80f5"
-                            }
-                        },
-                        {
-                            "name": "token",
-                            "type": {
-                                "kind": "primitive",
-                                "name": "string"
-                            }
-                        }
-                    ],
-                    "preconditions": ["The account exists"],
-                    "postconditions": ["A session is open"],
-                    "invariants": ["Passwords are never logged"],
-                    "protocols": ["HTTP POST /login"]
-                },
-                {
-                    "id": "29bd2ae6-bb24-412a-983f-7683d936079d",
-                    "type": "snippet",
-                    "name": "Password check",
-                    "description": "How a password is checked.",
-                    "body": "if hash(password, salt) == stored then ok else fail"
-                }
-            ]
+            "description": "HTTP API behind the app."
         },
         {
             "id": "4fa6de50-4f2f-4473-b845-2ccf04ad1e11",
-            "type": "component",
+            "type": "@pjama/component",
             "name": "Order store",
-            "description": "Persists orders.",
-            "specs": []
+            "description": "Persists orders."
         },
         {
             "id": "1c0dba18-f25f-4689-8028-1fda26bdab64",
-            "type": "component",
+            "type": "@pjama/component",
             "name": "Payment gateway",
-            "description": "Takes card payments.",
-            "specs": []
-        }
-    ],
-    "relationships": [
-        {
-            "id": "f60c6c31-21d8-40d6-af76-8066130aa4f2",
-            "type": "containment",
-            "source": "4fa6de50-4f2f-4473-b845-2ccf04ad1e11",
-            "target": "7221a477-270c-4a69-ac91-09833532b5ea"
+            "description": "Takes card payments."
         },
-        {
-            "id": "33c3ab36-4232-4d17-86c8-98d04bd2b18c",
-            "type": "dependency",
-            "source": "b4782d11-b3d5-462c-952a-fc35284ee377",
-            "target": "7221a477-270c-4a69-ac91-09833532b5ea",
-            "action": "calls",
-            "selectedSpecs": [
-                "7aaa6560-8bfe-483e-ad93-2aefe07b745f",
-                "badeebfc-0639-4e4a-8991-8471fc9f80f5"
-            ],
-            "notes": "Only for login."
-        },
-        {
-            "id": "af685dbf-8c90-43dd-a078-b8739ca1670f",
-            "type": "implementation",
-            "source": "1c0dba18-f25f-4689-8028-1fda26bdab64",
-            "target": "7221a477-270c-4a69-ac91-09833532b5ea",
-            "excludedSpecs": ["29bd2ae6-bb24-412a-983f-7683d936079d"]
-        },
-        {
-            "id": "00486d43-fb52-4017-b10a-2243b4487912",
-            "type": "enforcement",
-            "source": "7ee74f84-fb8a-4fb6-aa51-30873920a974",
-            "target": "6b6a89d2-a762-49c8-8b1a-d3da78b9a986"
-        },
-        {
-            "id": "9b2541a3-979c-4655-ba39-3066265bfa57",
-            "type": "derivation",
-            "source": "6b6a89d2-a762-49c8-8b1a-d3da78b9a986",
-            "target": "4a32087d-77b0-45a3-97b5-a944b46e0d1d"
-        }
-    ],
-    "checks": [
-        {
-            "id": "ae6140bd-3c43-4a04-9f25-648d071b3f86",
-            "type": "review",
-            "name": "Login form review",
-            "description": "The login form matches the mockup.",
-            "criteria": ["Fields match the mockup", "Errors are shown inline"],
-            "resources": ["6260bc44-6ae3-4aa9-b293-c6672d6fc296"],
-            "instructions": "1. Open the app\n2. Compare with the *Login form* mockup",
-            "reviewer": "human"
-        },
-        {
-            "id": "7ee74f84-fb8a-4fb6-aa51-30873920a974",
-            "type": "test",
-            "name": "Session tests",
-            "description": "Endpoints reject requests without a session.",
-            "plugin": "@pjama/vitest-test",
-            "config": {
-                "file": "api/session.test.ts"
-            }
-        }
-    ],
-    "resources": [
         {
             "id": "6260bc44-6ae3-4aa9-b293-c6672d6fc296",
-            "type": "resource",
+            "type": "@pjama/resource",
             "name": "Style guide",
             "description": "Brand colours and type.",
             "location": "docs/style-guide.md"
         },
         {
             "id": "29275ff3-fb55-46cb-a1fa-2045f5bcd48c",
-            "type": "resource",
+            "type": "@pjama/resource",
             "name": "Dashboard design",
             "description": "Exported design.",
             "location": "design/dashboard.png"
         },
         {
             "id": "da2518ef-63c5-475f-9ae2-9ddf3f4de841",
-            "type": "resource",
+            "type": "@pjama/resource",
             "name": "Settings prototype",
             "description": "Clickable prototype.",
             "location": "design/settings.html"
         },
         {
             "id": "6e6415bf-8909-4733-9edf-b41618df93e1",
-            "type": "resource",
+            "type": "@pjama/resource",
             "name": "TypeScript handbook",
             "description": "Official docs.",
             "location": "https://www.typescriptlang.org/docs/"
-        }
-    ],
-    "decisions": [
+        },
+        {
+            "id": "9407da5f-4f1e-46ed-8f71-1dfbd47fecc8",
+            "type": "@pjama/actor",
+            "name": "Customer",
+            "description": "Someone ordering coffee."
+        },
+        {
+            "id": "4a32087d-77b0-45a3-97b5-a944b46e0d1d",
+            "type": "@pjama/requirement",
+            "name": "Fast start",
+            "description": "The app is usable within two seconds of opening.",
+            "category": "performance"
+        },
+        {
+            "id": "ba9b9667-fd2f-4bfa-94c9-2a4d168414ad",
+            "type": "@pjama/use-case",
+            "name": "Log in",
+            "description": "A customer logs in to see their orders."
+        },
+        {
+            "id": "8e0297fb-6df3-4f10-b987-f50a7ab7cbaa",
+            "type": "@pjama/use-case-prerequisite",
+            "text": "The customer has an account"
+        },
+        {
+            "id": "d88eedfc-f81a-4c0a-9c01-febc63921893",
+            "type": "@pjama/use-case-step",
+            "text": "Customer opens the app"
+        },
+        {
+            "id": "1beff181-8c13-4ccb-b052-43bab9d1c143",
+            "type": "@pjama/use-case-step",
+            "text": "Customer enters their credentials"
+        },
+        {
+            "id": "5ae8d829-04f2-455b-a5ae-9c7a20f702e3",
+            "type": "@pjama/use-case-step",
+            "text": "Customer signs in with a passkey"
+        },
+        {
+            "id": "d25548a0-49fd-4eb4-bcac-1f8cf7221b5f",
+            "type": "@pjama/use-case-step",
+            "text": "App shows the orders"
+        },
+        {
+            "id": "17757408-e8b5-4d0f-a200-f0940192c621",
+            "type": "@pjama/mockup",
+            "name": "Login form",
+            "description": "Wireframe of the login form.",
+            "html": "<form><input name=\"email\"><button>Log in</button></form>"
+        },
+        {
+            "id": "59543ac5-eaa3-4bb6-bbcf-c513e9c2a512",
+            "type": "@pjama/mockup",
+            "name": "Dashboard",
+            "description": "High-fidelity dashboard design."
+        },
+        {
+            "id": "fc4b9d4c-9201-4b95-b160-da4e8c6aecb0",
+            "type": "@pjama/mockup",
+            "name": "Settings page",
+            "description": "Prototype of the settings page."
+        },
+        {
+            "id": "fb7917b9-d4a2-48ef-bbae-d8bb425c08c8",
+            "type": "@pjama/technology",
+            "name": "Written in TypeScript",
+            "description": "The app is written in TypeScript.",
+            "technology": "TypeScript",
+            "version": "^5.4"
+        },
+        {
+            "id": "6b6a89d2-a762-49c8-8b1a-d3da78b9a986",
+            "type": "@pjama/requirement",
+            "name": "Authenticated access",
+            "description": "Every endpoint but login requires a session."
+        },
+        {
+            "id": "7323a02c-0316-4d05-9723-4b25b60e33f8",
+            "type": "@pjama/type",
+            "name": "Role",
+            "description": "What a user may do.",
+            "definition": {
+                "kind": "union",
+                "of": [
+                    {
+                        "comment": "Places orders",
+                        "type": {
+                            "kind": "constant",
+                            "value": "\"customer\""
+                        }
+                    },
+                    {
+                        "comment": "Prepares orders",
+                        "type": {
+                            "kind": "constant",
+                            "value": "\"barista\""
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "id": "badeebfc-0639-4e4a-8991-8471fc9f80f5",
+            "type": "@pjama/type",
+            "name": "User",
+            "description": "A logged-in user.",
+            "definition": {
+                "kind": "merge",
+                "of": [
+                    {
+                        "kind": "struct",
+                        "fields": [
+                            {
+                                "name": "email",
+                                "type": {
+                                    "kind": "primitive",
+                                    "name": "string"
+                                }
+                            },
+                            {
+                                "name": "role",
+                                "comment": "Decides the screens shown",
+                                "type": {
+                                    "kind": "reference",
+                                    "type": "7323a02c-0316-4d05-9723-4b25b60e33f8"
+                                }
+                            },
+                            {
+                                "name": "referrer",
+                                "type": {
+                                    "kind": "reference",
+                                    "type": "badeebfc-0639-4e4a-8991-8471fc9f80f5"
+                                },
+                                "optional": true
+                            }
+                        ]
+                    },
+                    {
+                        "kind": "struct",
+                        "fields": [
+                            {
+                                "name": "tags",
+                                "type": {
+                                    "kind": "array",
+                                    "of": {
+                                        "kind": "primitive",
+                                        "name": "string"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": "7aaa6560-8bfe-483e-ad93-2aefe07b745f",
+            "type": "@pjama/interface",
+            "name": "Login endpoint",
+            "description": "Starts a session."
+        },
+        {
+            "id": "58e31700-0f04-477c-84ae-3a59dca3d7e2",
+            "type": "@pjama/interface-parameter",
+            "paramName": "email",
+            "definition": {
+                "kind": "primitive",
+                "name": "string"
+            }
+        },
+        {
+            "id": "e1b906f4-ecba-4283-a36b-b51343ab0612",
+            "type": "@pjama/interface-parameter",
+            "paramName": "password",
+            "comment": "Plain text, sent over TLS only",
+            "definition": {
+                "kind": "primitive",
+                "name": "string"
+            }
+        },
+        {
+            "id": "95f8ce5c-5b29-47b7-992e-cedf1a8fd14f",
+            "type": "@pjama/interface-parameter",
+            "definition": {
+                "kind": "reference",
+                "type": "badeebfc-0639-4e4a-8991-8471fc9f80f5"
+            }
+        },
+        {
+            "id": "b8109892-d15b-4170-9291-d161a69ceb1f",
+            "type": "@pjama/interface-parameter",
+            "paramName": "token",
+            "definition": {
+                "kind": "primitive",
+                "name": "string"
+            }
+        },
+        {
+            "id": "2a7216a3-41b3-4714-882b-d2b31531839c",
+            "type": "@pjama/interface-statement",
+            "text": "The account exists"
+        },
+        {
+            "id": "42f64bf4-9481-4814-bfc0-79a11a83725f",
+            "type": "@pjama/interface-statement",
+            "text": "A session is open"
+        },
+        {
+            "id": "523c6b3b-a4b9-4d81-9fbf-7cd99b49f482",
+            "type": "@pjama/interface-statement",
+            "text": "Passwords are never logged"
+        },
+        {
+            "id": "fd2bba70-9126-42e1-be4e-4b9977d6c382",
+            "type": "@pjama/interface-statement",
+            "text": "HTTP POST /login"
+        },
+        {
+            "id": "29bd2ae6-bb24-412a-983f-7683d936079d",
+            "type": "@pjama/snippet",
+            "name": "Password check",
+            "description": "How a password is checked.",
+            "body": "if hash(password, salt) == stored then ok else fail"
+        },
+        {
+            "id": "ae6140bd-3c43-4a04-9f25-648d071b3f86",
+            "type": "@pjama/review",
+            "name": "Login form review",
+            "description": "The login form matches the mockup.",
+            "instructions": "1. Open the app\n2. Compare with the *Login form* mockup",
+            "reviewer": "human"
+        },
+        {
+            "id": "741e16f0-d552-4c7b-8f4d-d993efdfa295",
+            "type": "@pjama/review-criterion",
+            "text": "Fields match the mockup"
+        },
+        {
+            "id": "78e9df11-0292-40c5-835e-de440181d5f5",
+            "type": "@pjama/review-criterion",
+            "text": "Errors are shown inline"
+        },
+        {
+            "id": "7ee74f84-fb8a-4fb6-aa51-30873920a974",
+            "type": "@pjama/test",
+            "name": "Session tests",
+            "description": "Endpoints reject requests without a session.",
+            "plugin": "@pjama/vitest-test",
+            "config": {
+                "file": "api/session.test.ts"
+            }
+        },
         {
             "id": "32b9174c-7cab-4f9f-833c-834ea2ae1afa",
-            "type": "decision",
+            "type": "@pjama/decision",
             "name": "Order database",
             "description": "Where orders are stored.",
             "closed": false,
-            "options": [
-                {
-                    "id": "6a8e0693-a6d7-409c-9a45-efa5a1d154d6",
-                    "name": "PostgreSQL",
-                    "description": "Hosted Postgres."
-                },
-                {
-                    "id": "9963b9c4-1762-424f-a6e2-6f3959e3dbda",
-                    "name": "SQLite",
-                    "description": "Embedded file.",
-                    "rejectedBecause": "Several API instances write at once."
-                }
-            ],
-            "chosenOption": "6a8e0693-a6d7-409c-9a45-efa5a1d154d6",
-            "rationale": "Handles concurrent writers.",
-            "references": ["4fa6de50-4f2f-4473-b845-2ccf04ad1e11"],
-            "overrides": ["0139f3aa-2c00-4e47-96bd-7bbafe133348"]
+            "rationale": "Handles concurrent writers."
         },
         {
             "id": "0139f3aa-2c00-4e47-96bd-7bbafe133348",
-            "type": "decision",
+            "type": "@pjama/decision",
             "name": "Keep orders in memory",
             "description": "First prototype choice.",
             "closed": true
+        },
+        {
+            "id": "6a8e0693-a6d7-409c-9a45-efa5a1d154d6",
+            "type": "@pjama/decision-option",
+            "text": "Hosted PostgreSQL."
+        },
+        {
+            "id": "9963b9c4-1762-424f-a6e2-6f3959e3dbda",
+            "type": "@pjama/decision-option",
+            "text": "Embedded SQLite file.",
+            "rejectedBecause": "Several API instances write at once."
         }
     ],
-    "actors": [
+    "relationships": [
         {
-            "id": "9407da5f-4f1e-46ed-8f71-1dfbd47fecc8",
-            "type": "actor",
-            "name": "Customer",
-            "description": "Someone ordering coffee."
+            "id": "01dd0cfa-670b-46cb-979c-96272250a047",
+            "type": "@pjama/component-to-resource",
+            "source": "b4782d11-b3d5-462c-952a-fc35284ee377",
+            "target": "6260bc44-6ae3-4aa9-b293-c6672d6fc296"
+        },
+        {
+            "id": "74b77eb7-caab-47c8-8260-3fd9e4bfd865",
+            "type": "@pjama/spec-to-component",
+            "source": "4a32087d-77b0-45a3-97b5-a944b46e0d1d",
+            "target": "b4782d11-b3d5-462c-952a-fc35284ee377",
+            "position": "a"
+        },
+        {
+            "id": "2ab86a3f-f6c5-4b6f-80b5-9c932b5f531e",
+            "type": "@pjama/spec-to-component",
+            "source": "ba9b9667-fd2f-4bfa-94c9-2a4d168414ad",
+            "target": "b4782d11-b3d5-462c-952a-fc35284ee377",
+            "position": "b"
+        },
+        {
+            "id": "32e56a16-0d2f-4b39-8ee9-10ea8c2d21ec",
+            "type": "@pjama/use-case-to-actor",
+            "source": "ba9b9667-fd2f-4bfa-94c9-2a4d168414ad",
+            "target": "9407da5f-4f1e-46ed-8f71-1dfbd47fecc8"
+        },
+        {
+            "id": "4046e644-ffa1-40dd-9c6e-089b057da6a3",
+            "type": "@pjama/prerequisite-to-use-case",
+            "source": "8e0297fb-6df3-4f10-b987-f50a7ab7cbaa",
+            "target": "ba9b9667-fd2f-4bfa-94c9-2a4d168414ad"
+        },
+        {
+            "id": "462eda7d-5678-4050-8c34-6ea107357e07",
+            "type": "@pjama/step-to-use-case",
+            "source": "d88eedfc-f81a-4c0a-9c01-febc63921893",
+            "target": "ba9b9667-fd2f-4bfa-94c9-2a4d168414ad"
+        },
+        {
+            "id": "8004a00b-038f-4077-a7f2-76137272f9c1",
+            "type": "@pjama/step-to-use-case",
+            "source": "1beff181-8c13-4ccb-b052-43bab9d1c143",
+            "target": "ba9b9667-fd2f-4bfa-94c9-2a4d168414ad"
+        },
+        {
+            "id": "30030a7c-7ef3-41e5-b684-f0a1a471f39a",
+            "type": "@pjama/step-to-use-case",
+            "source": "5ae8d829-04f2-455b-a5ae-9c7a20f702e3",
+            "target": "ba9b9667-fd2f-4bfa-94c9-2a4d168414ad"
+        },
+        {
+            "id": "b60bb159-763d-44c8-b767-6823cad97fc1",
+            "type": "@pjama/step-to-use-case",
+            "source": "d25548a0-49fd-4eb4-bcac-1f8cf7221b5f",
+            "target": "ba9b9667-fd2f-4bfa-94c9-2a4d168414ad"
+        },
+        {
+            "id": "146ba04e-0c0a-472f-b583-16f9896afd07",
+            "type": "@pjama/step-to-next",
+            "source": "d88eedfc-f81a-4c0a-9c01-febc63921893",
+            "target": "1beff181-8c13-4ccb-b052-43bab9d1c143"
+        },
+        {
+            "id": "2e5443c4-b871-4a4f-8a8f-d1b627bd44b0",
+            "type": "@pjama/step-to-next",
+            "source": "1beff181-8c13-4ccb-b052-43bab9d1c143",
+            "target": "d25548a0-49fd-4eb4-bcac-1f8cf7221b5f"
+        },
+        {
+            "id": "2ffc3a29-8586-45d5-b540-68c1d4e85421",
+            "type": "@pjama/step-to-sibling",
+            "source": "1beff181-8c13-4ccb-b052-43bab9d1c143",
+            "target": "5ae8d829-04f2-455b-a5ae-9c7a20f702e3"
+        },
+        {
+            "id": "bef1d3fa-e028-4aa2-bafa-c7003e1bdbc1",
+            "type": "@pjama/step-to-next",
+            "source": "5ae8d829-04f2-455b-a5ae-9c7a20f702e3",
+            "target": "d25548a0-49fd-4eb4-bcac-1f8cf7221b5f"
+        },
+        {
+            "id": "866cfdf8-ff52-4224-a2c7-fb0f7034f20a",
+            "type": "@pjama/spec-to-component",
+            "source": "17757408-e8b5-4d0f-a200-f0940192c621",
+            "target": "b4782d11-b3d5-462c-952a-fc35284ee377",
+            "position": "c"
+        },
+        {
+            "id": "c32a4b3e-3ad7-4bc3-99d3-36884b647018",
+            "type": "@pjama/spec-to-component",
+            "source": "59543ac5-eaa3-4bb6-bbcf-c513e9c2a512",
+            "target": "b4782d11-b3d5-462c-952a-fc35284ee377",
+            "position": "d"
+        },
+        {
+            "id": "fd4126a9-f388-4ef9-84aa-eadc2189f2d6",
+            "type": "@pjama/mockup-to-resource",
+            "source": "59543ac5-eaa3-4bb6-bbcf-c513e9c2a512",
+            "target": "29275ff3-fb55-46cb-a1fa-2045f5bcd48c"
+        },
+        {
+            "id": "de52fa73-d3b1-48c6-8908-548bb4184ce4",
+            "type": "@pjama/spec-to-component",
+            "source": "fc4b9d4c-9201-4b95-b160-da4e8c6aecb0",
+            "target": "b4782d11-b3d5-462c-952a-fc35284ee377",
+            "position": "e"
+        },
+        {
+            "id": "5f3adf7c-9de9-40e2-bc3e-00aba977433d",
+            "type": "@pjama/mockup-to-resource",
+            "source": "fc4b9d4c-9201-4b95-b160-da4e8c6aecb0",
+            "target": "da2518ef-63c5-475f-9ae2-9ddf3f4de841"
+        },
+        {
+            "id": "4514b8f8-35ad-4382-9128-7c303a340b54",
+            "type": "@pjama/spec-to-component",
+            "source": "fb7917b9-d4a2-48ef-bbae-d8bb425c08c8",
+            "target": "b4782d11-b3d5-462c-952a-fc35284ee377",
+            "position": "f"
+        },
+        {
+            "id": "253d32fc-b87f-4377-a339-f330bc6d7366",
+            "type": "@pjama/technology-to-documentation",
+            "source": "fb7917b9-d4a2-48ef-bbae-d8bb425c08c8",
+            "target": "6e6415bf-8909-4733-9edf-b41618df93e1"
+        },
+        {
+            "id": "bf7b9717-183d-4a3b-88ca-19b81eb63c67",
+            "type": "@pjama/spec-to-component",
+            "source": "6b6a89d2-a762-49c8-8b1a-d3da78b9a986",
+            "target": "7221a477-270c-4a69-ac91-09833532b5ea",
+            "position": "a"
+        },
+        {
+            "id": "77dff622-9426-461f-a2b1-7521d7260944",
+            "type": "@pjama/spec-to-component",
+            "source": "7323a02c-0316-4d05-9723-4b25b60e33f8",
+            "target": "7221a477-270c-4a69-ac91-09833532b5ea",
+            "position": "b"
+        },
+        {
+            "id": "18efebc4-65ad-43c4-a7e9-2b06f9b12b79",
+            "type": "@pjama/spec-to-component",
+            "source": "badeebfc-0639-4e4a-8991-8471fc9f80f5",
+            "target": "7221a477-270c-4a69-ac91-09833532b5ea",
+            "position": "c"
+        },
+        {
+            "id": "83e25eae-9beb-4489-a6ec-199129121a6e",
+            "type": "@pjama/spec-to-component",
+            "source": "7aaa6560-8bfe-483e-ad93-2aefe07b745f",
+            "target": "7221a477-270c-4a69-ac91-09833532b5ea",
+            "position": "d"
+        },
+        {
+            "id": "2e5aadeb-3fd5-4906-b294-8fdeee86ada0",
+            "type": "@pjama/input-to-interface",
+            "source": "58e31700-0f04-477c-84ae-3a59dca3d7e2",
+            "target": "7aaa6560-8bfe-483e-ad93-2aefe07b745f",
+            "position": "a"
+        },
+        {
+            "id": "51c8a8a0-c23a-43ba-933c-7a530b21c45f",
+            "type": "@pjama/input-to-interface",
+            "source": "e1b906f4-ecba-4283-a36b-b51343ab0612",
+            "target": "7aaa6560-8bfe-483e-ad93-2aefe07b745f",
+            "position": "b"
+        },
+        {
+            "id": "cba827cf-b4ac-4d5f-8614-eae0f612b0da",
+            "type": "@pjama/output-to-interface",
+            "source": "95f8ce5c-5b29-47b7-992e-cedf1a8fd14f",
+            "target": "7aaa6560-8bfe-483e-ad93-2aefe07b745f",
+            "position": "a"
+        },
+        {
+            "id": "caf43f88-a34d-4098-a55c-fefda29dc930",
+            "type": "@pjama/output-to-interface",
+            "source": "b8109892-d15b-4170-9291-d161a69ceb1f",
+            "target": "7aaa6560-8bfe-483e-ad93-2aefe07b745f",
+            "position": "b"
+        },
+        {
+            "id": "064616d7-e9d5-429f-94c9-b04acb2407af",
+            "type": "@pjama/precondition-to-interface",
+            "source": "2a7216a3-41b3-4714-882b-d2b31531839c",
+            "target": "7aaa6560-8bfe-483e-ad93-2aefe07b745f"
+        },
+        {
+            "id": "c9453e6f-da71-4731-bae1-b23e9003814c",
+            "type": "@pjama/postcondition-to-interface",
+            "source": "42f64bf4-9481-4814-bfc0-79a11a83725f",
+            "target": "7aaa6560-8bfe-483e-ad93-2aefe07b745f"
+        },
+        {
+            "id": "d95c3b40-e288-43ee-9b45-2a976c03af08",
+            "type": "@pjama/invariant-to-interface",
+            "source": "523c6b3b-a4b9-4d81-9fbf-7cd99b49f482",
+            "target": "7aaa6560-8bfe-483e-ad93-2aefe07b745f"
+        },
+        {
+            "id": "daff7aad-ddfe-48e7-bb9b-b803fe14001e",
+            "type": "@pjama/protocol-to-interface",
+            "source": "fd2bba70-9126-42e1-be4e-4b9977d6c382",
+            "target": "7aaa6560-8bfe-483e-ad93-2aefe07b745f"
+        },
+        {
+            "id": "de6bbec6-90b3-4862-a396-36470d6b15d3",
+            "type": "@pjama/spec-to-component",
+            "source": "29bd2ae6-bb24-412a-983f-7683d936079d",
+            "target": "7221a477-270c-4a69-ac91-09833532b5ea",
+            "position": "e"
+        },
+        {
+            "id": "04bb6204-1720-4bb8-bf8c-df38e8780a2b",
+            "type": "@pjama/criterion-to-review",
+            "source": "741e16f0-d552-4c7b-8f4d-d993efdfa295",
+            "target": "ae6140bd-3c43-4a04-9f25-648d071b3f86",
+            "position": "a"
+        },
+        {
+            "id": "5c920a86-02b3-44c9-8919-a716059bb8ee",
+            "type": "@pjama/criterion-to-review",
+            "source": "78e9df11-0292-40c5-835e-de440181d5f5",
+            "target": "ae6140bd-3c43-4a04-9f25-648d071b3f86",
+            "position": "b"
+        },
+        {
+            "id": "5bee64aa-5cd0-4144-9bb8-01f3112fd9c0",
+            "type": "@pjama/review-to-resource",
+            "source": "ae6140bd-3c43-4a04-9f25-648d071b3f86",
+            "target": "6260bc44-6ae3-4aa9-b293-c6672d6fc296"
+        },
+        {
+            "id": "428af166-7f6f-4af9-ba64-ee75d7fd951e",
+            "type": "@pjama/option-to-decision",
+            "source": "6a8e0693-a6d7-409c-9a45-efa5a1d154d6",
+            "target": "32b9174c-7cab-4f9f-833c-834ea2ae1afa",
+            "position": "a"
+        },
+        {
+            "id": "1b28316d-cf10-4fec-9dd0-17b3b5833bc6",
+            "type": "@pjama/option-to-decision",
+            "source": "9963b9c4-1762-424f-a6e2-6f3959e3dbda",
+            "target": "32b9174c-7cab-4f9f-833c-834ea2ae1afa",
+            "position": "b"
+        },
+        {
+            "id": "178b9185-10b3-4b5c-870e-13c0842e7bd5",
+            "type": "@pjama/decision-to-chosen-option",
+            "source": "32b9174c-7cab-4f9f-833c-834ea2ae1afa",
+            "target": "6a8e0693-a6d7-409c-9a45-efa5a1d154d6"
+        },
+        {
+            "id": "b1f44e8d-fb41-4dcc-866e-c68fe23b62ee",
+            "type": "@pjama/decision-to-reference",
+            "source": "32b9174c-7cab-4f9f-833c-834ea2ae1afa",
+            "target": "4fa6de50-4f2f-4473-b845-2ccf04ad1e11"
+        },
+        {
+            "id": "20227f0d-abe9-45fe-b2e0-9f2cf8e32bff",
+            "type": "@pjama/decision-to-override",
+            "source": "32b9174c-7cab-4f9f-833c-834ea2ae1afa",
+            "target": "0139f3aa-2c00-4e47-96bd-7bbafe133348"
+        },
+        {
+            "id": "3be1f0c6-d752-4f84-9f21-fe5ae5e73d14",
+            "type": "@pjama/containment",
+            "source": "4fa6de50-4f2f-4473-b845-2ccf04ad1e11",
+            "target": "7221a477-270c-4a69-ac91-09833532b5ea"
+        },
+        {
+            "id": "321aeda9-2705-44ea-ac6d-6ef6164214b6",
+            "type": "@pjama/dependency",
+            "source": "b4782d11-b3d5-462c-952a-fc35284ee377",
+            "target": "7221a477-270c-4a69-ac91-09833532b5ea",
+            "action": "calls",
+            "notes": "Only for login."
+        },
+        {
+            "id": "e2e88d04-cce5-423e-beab-29532e08ba01",
+            "type": "@pjama/dependency-to-selected-spec",
+            "source": "321aeda9-2705-44ea-ac6d-6ef6164214b6",
+            "target": "7aaa6560-8bfe-483e-ad93-2aefe07b745f"
+        },
+        {
+            "id": "0cb46837-f93f-4ddf-8794-2659428d0886",
+            "type": "@pjama/dependency-to-selected-spec",
+            "source": "321aeda9-2705-44ea-ac6d-6ef6164214b6",
+            "target": "badeebfc-0639-4e4a-8991-8471fc9f80f5"
+        },
+        {
+            "id": "fb341468-a82c-434d-b82b-09951f07dd6c",
+            "type": "@pjama/implementation",
+            "source": "1c0dba18-f25f-4689-8028-1fda26bdab64",
+            "target": "7221a477-270c-4a69-ac91-09833532b5ea"
+        },
+        {
+            "id": "3f1fd533-98b3-4817-83e6-a3824535f489",
+            "type": "@pjama/implementation-to-excluded-spec",
+            "source": "fb341468-a82c-434d-b82b-09951f07dd6c",
+            "target": "29bd2ae6-bb24-412a-983f-7683d936079d"
+        },
+        {
+            "id": "328b26b2-fb63-465e-944e-fa4ddf63766b",
+            "type": "@pjama/enforcement",
+            "source": "7ee74f84-fb8a-4fb6-aa51-30873920a974",
+            "target": "6b6a89d2-a762-49c8-8b1a-d3da78b9a986"
+        },
+        {
+            "id": "54cbedd0-9275-423b-8fb0-9785a95c2574",
+            "type": "@pjama/derivation",
+            "source": "6b6a89d2-a762-49c8-8b1a-d3da78b9a986",
+            "target": "4a32087d-77b0-45a3-97b5-a944b46e0d1d"
         }
     ]
 }

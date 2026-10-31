@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "title": "Pjama map",
-    "description": "A Pjama project map: the components of a project, the specs they hold and the relationships between them. This schema checks types only: cardinality, references between items and other cross-item rules are checked by the schema validator, not here.",
+    "description": "A Pjama project map: its items and the relationships between them, in two flat collections. Every reference from one item to another is a relationship, except references inside atomic values (type expressions and test configs). This schema only keeps the map machine-readable: cardinality, references between items and other cross-item rules are checked by the map validator, not here.",
     "type": "object",
     "properties": {
         "$schema": {
@@ -9,9 +9,8 @@
             "type": "string"
         },
         "schemaVersion": {
-            "description": "Version of the map model the map is written in, as v<MAJ>.<MIN>.<PATCH>.",
-            "type": "string",
-            "pattern": "^v\\d+\\.\\d+\\.\\d+$"
+            "description": "Version of the map model the map is written in, as v<MAJ>.<MIN>.<PATCH>. Item and relationship types are versioned together with it. This schema only accepts maps written in its own version.",
+            "const": "v0.1.0"
         },
         "id": {
             "description": "Random UUID identifying the map.",
@@ -30,35 +29,19 @@
             "description": "Path from the folder holding the map to the root of the project, in POSIX format. Every other path in the map is relative to this root.",
             "type": "string"
         },
-        "components": {
-            "description": "Every component of the map.",
+        "items": {
+            "description": "Every item of the map, of any type, except relationships.",
             "type": "array",
-            "items": { "$ref": "#/$defs/component" }
+            "items": {
+                "$ref": "#/$defs/anyItem"
+            }
         },
         "relationships": {
             "description": "Every relationship of the map, of any type.",
             "type": "array",
-            "items": { "$ref": "#/$defs/relationship" }
-        },
-        "checks": {
-            "description": "Every check of the map, of any type. Check results, states and reviewers are not stored in the map.",
-            "type": "array",
-            "items": { "$ref": "#/$defs/check" }
-        },
-        "resources": {
-            "description": "Every resource of the map.",
-            "type": "array",
-            "items": { "$ref": "#/$defs/resource" }
-        },
-        "decisions": {
-            "description": "Every decision of the map.",
-            "type": "array",
-            "items": { "$ref": "#/$defs/decision" }
-        },
-        "actors": {
-            "description": "Every actor of the map, shared by the use cases that list them.",
-            "type": "array",
-            "items": { "$ref": "#/$defs/actor" }
+            "items": {
+                "$ref": "#/$defs/anyRelationship"
+            }
         }
     },
     "required": [
@@ -67,12 +50,8 @@
         "name",
         "slug",
         "root",
-        "components",
-        "relationships",
-        "checks",
-        "resources",
-        "decisions",
-        "actors"
+        "items",
+        "relationships"
     ],
     "additionalProperties": false,
     "$defs": {
@@ -81,21 +60,12 @@
             "type": "string",
             "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
         },
-        "uuids": {
-            "type": "array",
-            "items": { "$ref": "#/$defs/uuid" }
-        },
         "markdown": {
             "description": "Free-form text, rendered as markdown.",
             "type": "string"
         },
-        "statements": {
-            "type": "array",
-            "items": { "type": "string" }
-        },
-
         "item": {
-            "description": "Fields shared by every object that lives in the map.",
+            "description": "Fields shared by every item. Only id and type are required: every other field of an item is optional.",
             "type": "object",
             "properties": {
                 "id": {
@@ -103,43 +73,41 @@
                     "$ref": "#/$defs/uuid"
                 },
                 "type": {
-                    "description": "Type of the item, which decides its other fields.",
+                    "description": "Namespaced type of the item, which decides its other fields. It never changes.",
+                    "type": "string"
+                }
+            },
+            "required": ["id", "type"]
+        },
+        "describedItem": {
+            "description": "Fields shared by the primary items: components, specs, checks, resources, decisions and actors.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/item"
+                }
+            ],
+            "properties": {
+                "name": {
                     "type": "string"
                 },
-                "name": { "type": "string" },
-                "description": { "type": "string" },
+                "description": {
+                    "type": "string"
+                },
                 "notes": {
                     "description": "Free-form notes, rendered as markdown.",
                     "$ref": "#/$defs/markdown"
                 }
-            },
-            "required": ["id", "type", "name", "description"]
+            }
         },
-
-        "component": {
-            "description": "A piece of the project, holding its own specs.",
-            "type": "object",
-            "allOf": [{ "$ref": "#/$defs/item" }],
-            "properties": {
-                "type": { "const": "component" },
-                "specs": {
-                    "description": "The specs the component holds. Each spec belongs to this component only, and reaches other components through relationships.",
-                    "type": "array",
-                    "items": { "$ref": "#/$defs/spec" }
-                },
-                "resources": {
-                    "description": "Ids of the resources supporting the component. Resources don't take part in spec flows.",
-                    "$ref": "#/$defs/uuids"
-                }
-            },
-            "required": ["specs"],
-            "unevaluatedProperties": false
-        },
-
         "specBase": {
-            "description": "Fields shared by every spec. A spec states a constraint on the component that holds it.",
+            "description": "Fields shared by every spec. A spec states a constraint on the component holding it, linked through a spec-to-component relationship.",
             "type": "object",
-            "allOf": [{ "$ref": "#/$defs/item" }],
+            "allOf": [
+                {
+                    "$ref": "#/$defs/describedItem"
+                }
+            ],
             "properties": {
                 "category": {
                     "description": "Free-form category. The map's categories are the set of those used across its specs.",
@@ -147,140 +115,139 @@
                 }
             }
         },
-        "spec": {
+        "anyItem": {
             "oneOf": [
-                { "$ref": "#/$defs/requirement" },
-                { "$ref": "#/$defs/useCase" },
-                { "$ref": "#/$defs/interface" },
-                { "$ref": "#/$defs/snippet" },
-                { "$ref": "#/$defs/typeSpec" },
-                { "$ref": "#/$defs/mockup" },
-                { "$ref": "#/$defs/technology" }
+                {
+                    "$ref": "#/$defs/component"
+                },
+                {
+                    "$ref": "#/$defs/requirement"
+                },
+                {
+                    "$ref": "#/$defs/useCase"
+                },
+                {
+                    "$ref": "#/$defs/interface"
+                },
+                {
+                    "$ref": "#/$defs/snippet"
+                },
+                {
+                    "$ref": "#/$defs/typeSpec"
+                },
+                {
+                    "$ref": "#/$defs/mockup"
+                },
+                {
+                    "$ref": "#/$defs/technology"
+                },
+                {
+                    "$ref": "#/$defs/actor"
+                },
+                {
+                    "$ref": "#/$defs/resource"
+                },
+                {
+                    "$ref": "#/$defs/decision"
+                },
+                {
+                    "$ref": "#/$defs/review"
+                },
+                {
+                    "$ref": "#/$defs/test"
+                },
+                {
+                    "$ref": "#/$defs/interfaceStatement"
+                },
+                {
+                    "$ref": "#/$defs/useCasePrerequisite"
+                },
+                {
+                    "$ref": "#/$defs/reviewCriterion"
+                },
+                {
+                    "$ref": "#/$defs/step"
+                },
+                {
+                    "$ref": "#/$defs/option"
+                },
+                {
+                    "$ref": "#/$defs/parameter"
+                }
             ]
         },
-
+        "component": {
+            "description": "A piece of the project. Its specs and resources are linked through relationships.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/describedItem"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/component"
+                }
+            },
+            "unevaluatedProperties": false
+        },
         "requirement": {
             "description": "An atomic statement about the component.",
             "type": "object",
-            "allOf": [{ "$ref": "#/$defs/specBase" }],
+            "allOf": [
+                {
+                    "$ref": "#/$defs/specBase"
+                }
+            ],
             "properties": {
-                "type": { "const": "requirement" }
+                "type": {
+                    "const": "@pjama/requirement"
+                }
             },
             "unevaluatedProperties": false
         },
-
         "useCase": {
-            "description": "A sequence of actions pertinent to the component.",
+            "description": "A sequence of actions pertinent to the component. Its steps, prerequisites and actors are linked through relationships.",
             "type": "object",
-            "allOf": [{ "$ref": "#/$defs/specBase" }],
+            "allOf": [
+                {
+                    "$ref": "#/$defs/specBase"
+                }
+            ],
             "properties": {
-                "type": { "const": "useCase" },
-                "actors": {
-                    "description": "Ids of the actors taking part in the use case.",
-                    "$ref": "#/$defs/uuids"
-                },
-                "prerequisites": {
-                    "description": "Conditions or properties assumed to hold for the use case to apply.",
-                    "$ref": "#/$defs/statements"
-                },
-                "steps": {
-                    "description": "The steps of the use case. Linked through next and sibling, they form a directed acyclic graph with a single root, where the sequence starts.",
-                    "type": "array",
-                    "items": { "$ref": "#/$defs/step" }
+                "type": {
+                    "const": "@pjama/use-case"
                 }
             },
-            "required": ["steps"],
             "unevaluatedProperties": false
         },
-        "step": {
-            "description": "One specific action of a use case.",
-            "type": "object",
-            "properties": {
-                "id": {
-                    "description": "Random UUID identifying the step within its use case.",
-                    "$ref": "#/$defs/uuid"
-                },
-                "description": {
-                    "description": "Short description of the action.",
-                    "type": "string"
-                },
-                "next": {
-                    "description": "Id of the step that follows. Pointing to a step of another branch merges into it. Without it, the sequence terminates here.",
-                    "$ref": "#/$defs/uuid"
-                },
-                "sibling": {
-                    "description": "Id of the first step of an alternative branch, taken instead of this step.",
-                    "$ref": "#/$defs/uuid"
-                }
-            },
-            "required": ["id", "description"],
-            "additionalProperties": false
-        },
-
         "interface": {
-            "description": "A contract with inputs and outputs. Its types are the ones visible to its component: its own and the ones reaching it through flows.",
+            "description": "A contract with inputs and outputs. Its parameters and statements are linked through relationships, and its types are the ones visible to its component.",
             "type": "object",
-            "allOf": [{ "$ref": "#/$defs/specBase" }],
+            "allOf": [
+                {
+                    "$ref": "#/$defs/specBase"
+                }
+            ],
             "properties": {
-                "type": { "const": "interface" },
-                "inputs": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "name": {
-                                "description": "The parameter's name. Inputs are always named.",
-                                "type": "string"
-                            },
-                            "description": { "type": "string" },
-                            "type": { "$ref": "#/$defs/typeExpression" }
-                        },
-                        "required": ["name", "type"],
-                        "additionalProperties": false
-                    }
-                },
-                "outputs": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "name": {
-                                "description": "The output's name, when it has one, e.g. for a named return value.",
-                                "type": "string"
-                            },
-                            "description": { "type": "string" },
-                            "type": { "$ref": "#/$defs/typeExpression" }
-                        },
-                        "required": ["type"],
-                        "additionalProperties": false
-                    }
-                },
-                "preconditions": {
-                    "description": "Conditions that hold before the interface is invoked.",
-                    "$ref": "#/$defs/statements"
-                },
-                "postconditions": {
-                    "description": "Conditions that hold after the interface is invoked.",
-                    "$ref": "#/$defs/statements"
-                },
-                "invariants": {
-                    "description": "Conditions that hold before and after the interface is invoked.",
-                    "$ref": "#/$defs/statements"
-                },
-                "protocols": {
-                    "description": "Protocols used to invoke the interface, e.g. HTTP or CLI.",
-                    "$ref": "#/$defs/statements"
+                "type": {
+                    "const": "@pjama/interface"
                 }
             },
             "unevaluatedProperties": false
         },
-
         "snippet": {
             "description": "Business logic given as a code snippet, in pseudocode or a real language.",
             "type": "object",
-            "allOf": [{ "$ref": "#/$defs/specBase" }],
+            "allOf": [
+                {
+                    "$ref": "#/$defs/specBase"
+                }
+            ],
             "properties": {
-                "type": { "const": "snippet" },
+                "type": {
+                    "const": "@pjama/snippet"
+                },
                 "language": {
                     "description": "Language the body is written in. Without it, the body is pseudocode.",
                     "type": "string"
@@ -290,37 +257,328 @@
                     "type": "string"
                 }
             },
-            "required": ["body"],
             "unevaluatedProperties": false
         },
-
         "typeSpec": {
             "description": "A custom type. Its name is unique only within its component, and it reaches other components through flows like any other spec.",
             "type": "object",
-            "allOf": [{ "$ref": "#/$defs/specBase" }],
+            "allOf": [
+                {
+                    "$ref": "#/$defs/specBase"
+                }
+            ],
             "properties": {
-                "type": { "const": "type" },
-                "definition": { "$ref": "#/$defs/typeExpression" }
+                "type": {
+                    "const": "@pjama/type"
+                },
+                "definition": {
+                    "$ref": "#/$defs/typeExpression"
+                }
             },
-            "required": ["definition"],
+            "unevaluatedProperties": false
+        },
+        "mockup": {
+            "description": "A visual reference for a piece of UI, from a rough wireframe to a high-fidelity design. It shows either a resource, linked through a mockup-to-resource relationship, or inline HTML, which is shown when it has both.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/specBase"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/mockup"
+                },
+                "html": {
+                    "description": "Inline HTML: a fragment of elements, rendered inside a blank HTML document, or a full HTML document. It is rendered isolated from the app displaying it, and its scripts are never executed.",
+                    "type": "string"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "technology": {
+            "description": "A technology, such as a language, framework or library, that the component is built with or must use. Its documentation is linked through relationships.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/specBase"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/technology"
+                },
+                "technology": {
+                    "description": "Name of the technology, e.g. TypeScript. Separate from the spec's own name.",
+                    "type": "string"
+                },
+                "version": {
+                    "description": "Version or version range of the technology, in free form.",
+                    "type": "string"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "actor": {
+            "description": "Someone or something taking part in use cases.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/describedItem"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/actor"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "resource": {
+            "description": "Supporting material: a file inside the project or a page at a URL. Resources don't take part in spec flows.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/describedItem"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/resource"
+                },
+                "location": {
+                    "description": "Path of a file inside the project, relative to the project root in POSIX format, or a URL. A file's media type is inferred from its extension.",
+                    "type": "string"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "decision": {
+            "description": "A choice made about the project, why it was made and why the other options weren't. Its options, chosen option, references and overrides are linked through relationships. Its status is derived, not stored: overridden if another decision overrides it, otherwise closed if it is marked closed or has a chosen option, otherwise open.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/describedItem"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/decision"
+                },
+                "closed": {
+                    "description": "Marks the decision closed, also when none of its options is chosen.",
+                    "type": "boolean"
+                },
+                "rationale": {
+                    "description": "Why the chosen option was picked over the others.",
+                    "type": "string"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "review": {
+            "description": "A manual check, assessed by a human or an agent. Its criteria and resources are linked through relationships. Its results and reviewers are not stored in the map.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/describedItem"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/review"
+                },
+                "instructions": {
+                    "description": "How to carry out the review, as free-form text rendered as markdown.",
+                    "$ref": "#/$defs/markdown"
+                },
+                "reviewer": {
+                    "description": "Who must perform the review. Without it, either may.",
+                    "enum": ["human", "agent"]
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "test": {
+            "description": "An automated, repeatable check run by a plugin. Its results are not stored in the map.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/describedItem"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/test"
+                },
+                "plugin": {
+                    "description": "Name of the plugin that runs the test, e.g. @pjama/vitest-test.",
+                    "type": "string"
+                },
+                "config": {
+                    "description": "Plugin-specific settings, validated by the plugin's own schema. Read and written as a whole.",
+                    "type": "object"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "interfaceStatement": {
+            "description": "A precondition, postcondition, invariant or protocol of an interface, existing only in function of it.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/item"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/interface-statement"
+                },
+                "text": {
+                    "description": "The statement.",
+                    "type": "string"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "useCasePrerequisite": {
+            "description": "A condition assumed to hold for a use case to apply, existing only in function of it.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/item"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/use-case-prerequisite"
+                },
+                "text": {
+                    "description": "The condition.",
+                    "type": "string"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "reviewCriterion": {
+            "description": "A pass criterion of a review, existing only in function of it.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/item"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/review-criterion"
+                },
+                "text": {
+                    "description": "The criterion.",
+                    "type": "string"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "step": {
+            "description": "One specific action of a use case. Steps are linked to each other through next and sibling relationships.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/item"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/use-case-step"
+                },
+                "text": {
+                    "description": "Short description of the action.",
+                    "type": "string"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "option": {
+            "description": "An alternative considered by a decision.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/item"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/decision-option"
+                },
+                "text": {
+                    "description": "The alternative.",
+                    "type": "string"
+                },
+                "rejectedBecause": {
+                    "description": "Why the option wasn't chosen.",
+                    "type": "string"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "parameter": {
+            "description": "An input or output of an interface.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/item"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/interface-parameter"
+                },
+                "paramName": {
+                    "description": "The parameter's name. Inputs are always named; outputs may be unnamed, e.g. a plain return value.",
+                    "type": "string"
+                },
+                "comment": {
+                    "type": "string"
+                },
+                "definition": {
+                    "description": "The parameter's shape.",
+                    "$ref": "#/$defs/typeExpression"
+                }
+            },
             "unevaluatedProperties": false
         },
         "typeExpression": {
-            "description": "The shape of a type, which may contain other type expressions. A type may refer to itself.",
+            "description": "The shape of a type, which may contain other type expressions. A type may refer to itself. Read and written as a whole: references inside it are not relationships.",
             "oneOf": [
-                { "$ref": "#/$defs/primitiveType" },
-                { "$ref": "#/$defs/referenceType" },
-                { "$ref": "#/$defs/structType" },
-                { "$ref": "#/$defs/unionType" },
-                { "$ref": "#/$defs/arrayType" },
-                { "$ref": "#/$defs/mergeType" },
-                { "$ref": "#/$defs/constantType" }
+                {
+                    "$ref": "#/$defs/primitiveType"
+                },
+                {
+                    "$ref": "#/$defs/referenceType"
+                },
+                {
+                    "$ref": "#/$defs/structType"
+                },
+                {
+                    "$ref": "#/$defs/unionType"
+                },
+                {
+                    "$ref": "#/$defs/arrayType"
+                },
+                {
+                    "$ref": "#/$defs/mergeType"
+                },
+                {
+                    "$ref": "#/$defs/constantType"
+                }
             ]
         },
         "primitiveType": {
             "type": "object",
             "properties": {
-                "kind": { "const": "primitive" },
+                "kind": {
+                    "const": "primitive"
+                },
                 "name": {
                     "description": "Free-form primitive name, e.g. string or int64, so the map isn't tied to one language's type system.",
                     "type": "string"
@@ -332,7 +590,9 @@
         "referenceType": {
             "type": "object",
             "properties": {
-                "kind": { "const": "reference" },
+                "kind": {
+                    "const": "reference"
+                },
                 "type": {
                     "description": "Id of a type spec visible to the referencing spec's component.",
                     "$ref": "#/$defs/uuid"
@@ -344,15 +604,23 @@
         "structType": {
             "type": "object",
             "properties": {
-                "kind": { "const": "struct" },
+                "kind": {
+                    "const": "struct"
+                },
                 "fields": {
                     "type": "array",
                     "items": {
                         "type": "object",
                         "properties": {
-                            "name": { "type": "string" },
-                            "description": { "type": "string" },
-                            "type": { "$ref": "#/$defs/typeExpression" },
+                            "name": {
+                                "type": "string"
+                            },
+                            "comment": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "$ref": "#/$defs/typeExpression"
+                            },
                             "optional": {
                                 "description": "Whether the field may be absent. Fields are required by default.",
                                 "type": "boolean"
@@ -370,17 +638,21 @@
             "description": "One of several types.",
             "type": "object",
             "properties": {
-                "kind": { "const": "union" },
+                "kind": {
+                    "const": "union"
+                },
                 "of": {
                     "type": "array",
                     "items": {
                         "type": "object",
                         "properties": {
-                            "description": {
+                            "comment": {
                                 "description": "What this alternative stands for.",
                                 "type": "string"
                             },
-                            "type": { "$ref": "#/$defs/typeExpression" }
+                            "type": {
+                                "$ref": "#/$defs/typeExpression"
+                            }
                         },
                         "required": ["type"],
                         "additionalProperties": false
@@ -393,7 +665,9 @@
         "arrayType": {
             "type": "object",
             "properties": {
-                "kind": { "const": "array" },
+                "kind": {
+                    "const": "array"
+                },
                 "of": {
                     "description": "Type of the array's elements.",
                     "$ref": "#/$defs/typeExpression"
@@ -406,10 +680,14 @@
             "description": "All the fields of several structs, together.",
             "type": "object",
             "properties": {
-                "kind": { "const": "merge" },
+                "kind": {
+                    "const": "merge"
+                },
                 "of": {
                     "type": "array",
-                    "items": { "$ref": "#/$defs/typeExpression" }
+                    "items": {
+                        "$ref": "#/$defs/typeExpression"
+                    }
                 }
             },
             "required": ["kind", "of"],
@@ -419,7 +697,9 @@
             "description": "A single value. Distinct from a custom type.",
             "type": "object",
             "properties": {
-                "kind": { "const": "constant" },
+                "kind": {
+                    "const": "constant"
+                },
                 "value": {
                     "description": "The value written as a raw literal, e.g. \"foo\" with its quotes, or 42.",
                     "type": "string"
@@ -428,221 +708,105 @@
             "required": ["kind", "value"],
             "additionalProperties": false
         },
-
-        "mockup": {
-            "description": "A visual reference for a piece of UI, from a rough wireframe to a high-fidelity design.",
-            "type": "object",
-            "allOf": [{ "$ref": "#/$defs/specBase" }],
-            "properties": {
-                "type": { "const": "mockup" },
-                "content": {
-                    "oneOf": [
-                        {
-                            "type": "object",
-                            "properties": {
-                                "kind": { "const": "image" },
-                                "resource": {
-                                    "description": "Id of the resource holding the image, in any format a browser can display (e.g. PNG, JPEG, SVG, WebP).",
-                                    "$ref": "#/$defs/uuid"
-                                }
-                            },
-                            "required": ["kind", "resource"],
-                            "additionalProperties": false
-                        },
-                        {
-                            "type": "object",
-                            "properties": {
-                                "kind": { "const": "html" },
-                                "body": {
-                                    "description": "Inline HTML: a fragment of elements, rendered inside a blank HTML document, or a full HTML document. It is rendered isolated from the app displaying it, and its scripts are blocked from execution.",
-                                    "type": "string"
-                                }
-                            },
-                            "required": ["kind", "body"],
-                            "additionalProperties": false
-                        },
-                        {
-                            "type": "object",
-                            "properties": {
-                                "kind": { "const": "html-file" },
-                                "resource": {
-                                    "description": "Id of the resource holding a full HTML document. It is rendered isolated from the app displaying it, and its scripts are blocked from execution.",
-                                    "$ref": "#/$defs/uuid"
-                                }
-                            },
-                            "required": ["kind", "resource"],
-                            "additionalProperties": false
-                        }
-                    ]
+        "anyRelationship": {
+            "oneOf": [
+                {
+                    "$ref": "#/$defs/containment"
+                },
+                {
+                    "$ref": "#/$defs/dependency"
+                },
+                {
+                    "$ref": "#/$defs/implementation"
+                },
+                {
+                    "$ref": "#/$defs/enforcement"
+                },
+                {
+                    "$ref": "#/$defs/derivation"
+                },
+                {
+                    "$ref": "#/$defs/inputToInterface"
+                },
+                {
+                    "$ref": "#/$defs/outputToInterface"
+                },
+                {
+                    "$ref": "#/$defs/preconditionToInterface"
+                },
+                {
+                    "$ref": "#/$defs/postconditionToInterface"
+                },
+                {
+                    "$ref": "#/$defs/invariantToInterface"
+                },
+                {
+                    "$ref": "#/$defs/protocolToInterface"
+                },
+                {
+                    "$ref": "#/$defs/stepToUseCase"
+                },
+                {
+                    "$ref": "#/$defs/prerequisiteToUseCase"
+                },
+                {
+                    "$ref": "#/$defs/useCaseToActor"
+                },
+                {
+                    "$ref": "#/$defs/stepToNext"
+                },
+                {
+                    "$ref": "#/$defs/stepToSibling"
+                },
+                {
+                    "$ref": "#/$defs/optionToDecision"
+                },
+                {
+                    "$ref": "#/$defs/decisionToChosenOption"
+                },
+                {
+                    "$ref": "#/$defs/decisionToReference"
+                },
+                {
+                    "$ref": "#/$defs/decisionToOverride"
+                },
+                {
+                    "$ref": "#/$defs/criterionToReview"
+                },
+                {
+                    "$ref": "#/$defs/reviewToResource"
+                },
+                {
+                    "$ref": "#/$defs/componentToResource"
+                },
+                {
+                    "$ref": "#/$defs/technologyToDocumentation"
+                },
+                {
+                    "$ref": "#/$defs/mockupToResource"
+                },
+                {
+                    "$ref": "#/$defs/specToComponent"
+                },
+                {
+                    "$ref": "#/$defs/dependencyToSelectedSpec"
+                },
+                {
+                    "$ref": "#/$defs/implementationToExcludedSpec"
                 }
-            },
-            "required": ["content"],
-            "unevaluatedProperties": false
+            ]
         },
-
-        "technology": {
-            "description": "A technology, such as a language, framework or library, that the component is built with or must use.",
-            "type": "object",
-            "allOf": [{ "$ref": "#/$defs/specBase" }],
-            "properties": {
-                "type": { "const": "technology" },
-                "technology": {
-                    "description": "Name of the technology, e.g. TypeScript. Separate from the spec's own name.",
-                    "type": "string"
-                },
-                "version": {
-                    "description": "Version or version range of the technology, in free form.",
-                    "type": "string"
-                },
-                "documentation": {
-                    "description": "Ids of the resources documenting the technology.",
-                    "$ref": "#/$defs/uuids"
-                }
-            },
-            "required": ["technology"],
-            "unevaluatedProperties": false
-        },
-
-        "actor": {
-            "description": "Someone or something taking part in use cases.",
-            "type": "object",
-            "allOf": [{ "$ref": "#/$defs/item" }],
-            "properties": {
-                "type": { "const": "actor" }
-            },
-            "unevaluatedProperties": false
-        },
-
-        "resource": {
-            "description": "Supporting material: a file inside the project or a page at a URL. Resources don't take part in spec flows.",
-            "type": "object",
-            "allOf": [{ "$ref": "#/$defs/item" }],
-            "properties": {
-                "type": { "const": "resource" },
-                "location": {
-                    "description": "Path of a file inside the project, relative to the project root in POSIX format, or a URL.",
-                    "type": "string"
-                }
-            },
-            "required": ["location"],
-            "unevaluatedProperties": false
-        },
-
-        "decision": {
-            "description": "A choice made about the project, why it was made and why the other options weren't. Its status is derived, not stored: overridden if another decision overrides it, otherwise closed if it is marked closed or has a chosen option, otherwise open.",
-            "type": "object",
-            "allOf": [{ "$ref": "#/$defs/item" }],
-            "properties": {
-                "type": { "const": "decision" },
-                "closed": {
-                    "description": "Marks the decision closed, also when none of its options is chosen.",
-                    "type": "boolean"
-                },
-                "options": {
-                    "description": "The alternatives considered.",
-                    "type": "array",
-                    "items": { "$ref": "#/$defs/decisionOption" }
-                },
-                "chosenOption": {
-                    "description": "Id of the chosen option. Choosing an option closes the decision.",
-                    "$ref": "#/$defs/uuid"
-                },
-                "rationale": {
-                    "description": "Why the chosen option was picked over the others.",
-                    "type": "string"
-                },
-                "references": {
-                    "description": "Ids of the items pertinent to the decision.",
-                    "$ref": "#/$defs/uuids"
-                },
-                "overrides": {
-                    "description": "Ids of earlier conflicting decisions this one overrides. They stay in the map.",
-                    "$ref": "#/$defs/uuids"
-                }
-            },
-            "required": ["closed"],
-            "unevaluatedProperties": false
-        },
-        "decisionOption": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "description": "Random UUID identifying the option within its decision.",
-                    "$ref": "#/$defs/uuid"
-                },
-                "name": { "type": "string" },
-                "description": { "type": "string" },
-                "rejectedBecause": {
-                    "description": "Why the option wasn't chosen.",
-                    "type": "string"
-                }
-            },
-            "required": ["id", "name", "description"],
-            "additionalProperties": false
-        },
-
-        "check": {
-            "oneOf": [{ "$ref": "#/$defs/review" }, { "$ref": "#/$defs/test" }]
-        },
-        "review": {
-            "description": "A manual check, assessed by a human or an agent. Its results and reviewers are not stored in the map.",
-            "type": "object",
-            "allOf": [{ "$ref": "#/$defs/item" }],
-            "properties": {
-                "type": { "const": "review" },
-                "criteria": {
-                    "description": "Statements the reviewed work must satisfy to pass.",
-                    "$ref": "#/$defs/statements"
-                },
-                "resources": {
-                    "description": "Ids of the resources to look at.",
-                    "$ref": "#/$defs/uuids"
-                },
-                "instructions": {
-                    "description": "How to carry out the review, as free-form text rendered as markdown.",
-                    "$ref": "#/$defs/markdown"
-                },
-                "reviewer": {
-                    "description": "Who must perform the review. Without it, either may.",
-                    "enum": ["human", "agent"]
-                }
-            },
-            "required": ["criteria"],
-            "unevaluatedProperties": false
-        },
-        "test": {
-            "description": "An automated, repeatable check run by a plugin. Its results are not stored in the map.",
-            "type": "object",
-            "allOf": [{ "$ref": "#/$defs/item" }],
-            "properties": {
-                "type": { "const": "test" },
-                "plugin": {
-                    "description": "Name of the plugin that runs the test, e.g. @pjama/vitest-test.",
-                    "type": "string"
-                },
-                "config": {
-                    "description": "Plugin-specific settings, validated by the plugin's own schema.",
-                    "type": "object"
-                }
-            },
-            "required": ["plugin"],
-            "unevaluatedProperties": false
-        },
-
         "relationshipBase": {
-            "description": "A directed edge from a source item to a target item. Relationships are not items: they have no name or description.",
+            "description": "A directed edge from a source item to a target item. Relationships are items too, so they can be the source or target of other relationships.",
             "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/item"
+                }
+            ],
             "properties": {
-                "id": {
-                    "description": "Random UUID identifying the relationship.",
-                    "$ref": "#/$defs/uuid"
-                },
-                "type": {
-                    "description": "Type of the relationship, which decides what source and target are.",
-                    "type": "string"
-                },
                 "source": {
-                    "description": "Id of the item the edge starts from: the one that depends on the target.",
+                    "description": "Id of the item the edge starts from.",
                     "$ref": "#/$defs/uuid"
                 },
                 "target": {
@@ -654,73 +818,444 @@
                     "$ref": "#/$defs/markdown"
                 }
             },
-            "required": ["id", "type", "source", "target"]
+            "required": ["source", "target"]
         },
-        "relationship": {
-            "oneOf": [
-                { "$ref": "#/$defs/containment" },
-                { "$ref": "#/$defs/dependency" },
-                { "$ref": "#/$defs/implementation" },
-                { "$ref": "#/$defs/enforcement" },
-                { "$ref": "#/$defs/derivation" }
-            ]
+        "orderedRelationshipBase": {
+            "description": "A relationship of an ordered type, sorted among its siblings by position.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/relationshipBase"
+                }
+            ],
+            "properties": {
+                "position": {
+                    "description": "Fractional key of any length, compared by plain code unit, never by locale. Relationships without one sort after the positioned ones, ordered among themselves by id.",
+                    "type": "string"
+                }
+            }
         },
         "containment": {
             "description": "The source component (child) is part of the target component (parent). All specs pass both ways.",
             "type": "object",
-            "allOf": [{ "$ref": "#/$defs/relationshipBase" }],
+            "allOf": [
+                {
+                    "$ref": "#/$defs/relationshipBase"
+                }
+            ],
             "properties": {
-                "type": { "const": "containment" }
+                "type": {
+                    "const": "@pjama/containment"
+                }
             },
             "unevaluatedProperties": false
         },
         "dependency": {
-            "description": "The source component (consumer) uses the target component (producer). Only the selected specs pass.",
+            "description": "The source component (consumer) uses the target component (producer). Only the specs linked through dependency-to-selected-spec relationships pass.",
             "type": "object",
-            "allOf": [{ "$ref": "#/$defs/relationshipBase" }],
+            "allOf": [
+                {
+                    "$ref": "#/$defs/relationshipBase"
+                }
+            ],
             "properties": {
-                "type": { "const": "dependency" },
+                "type": {
+                    "const": "@pjama/dependency"
+                },
                 "action": {
                     "description": "The action the dependency represents. Without it, the action is \"uses\".",
                     "type": "string"
-                },
-                "selectedSpecs": {
-                    "description": "Ids of the specs that pass, from both the consumer and the producer.",
-                    "$ref": "#/$defs/uuids"
                 }
             },
-            "required": ["selectedSpecs"],
             "unevaluatedProperties": false
         },
         "implementation": {
-            "description": "The source component (implementation) takes on the specs of the target component (definition). Specs pass from the definition to the implementation only.",
+            "description": "The source component (implementation) takes on the specs of the target component (definition), except the ones linked through implementation-to-excluded-spec relationships. Specs pass from the definition to the implementation only.",
             "type": "object",
-            "allOf": [{ "$ref": "#/$defs/relationshipBase" }],
+            "allOf": [
+                {
+                    "$ref": "#/$defs/relationshipBase"
+                }
+            ],
             "properties": {
-                "type": { "const": "implementation" },
-                "excludedSpecs": {
-                    "description": "Ids of the definition's specs that don't pass to the implementation.",
-                    "$ref": "#/$defs/uuids"
+                "type": {
+                    "const": "@pjama/implementation"
                 }
             },
-            "required": ["excludedSpecs"],
             "unevaluatedProperties": false
         },
         "enforcement": {
             "description": "The source check enforces the target spec.",
             "type": "object",
-            "allOf": [{ "$ref": "#/$defs/relationshipBase" }],
+            "allOf": [
+                {
+                    "$ref": "#/$defs/relationshipBase"
+                }
+            ],
             "properties": {
-                "type": { "const": "enforcement" }
+                "type": {
+                    "const": "@pjama/enforcement"
+                }
             },
             "unevaluatedProperties": false
         },
         "derivation": {
             "description": "The source spec (derived) is derived from the target spec (origin).",
             "type": "object",
-            "allOf": [{ "$ref": "#/$defs/relationshipBase" }],
+            "allOf": [
+                {
+                    "$ref": "#/$defs/relationshipBase"
+                }
+            ],
             "properties": {
-                "type": { "const": "derivation" }
+                "type": {
+                    "const": "@pjama/derivation"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "inputToInterface": {
+            "description": "The source parameter is an input of the target interface, and exists only in function of it. Ordered among the interface's inputs.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/orderedRelationshipBase"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/input-to-interface"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "outputToInterface": {
+            "description": "The source parameter is an output of the target interface, and exists only in function of it. Ordered among the interface's outputs.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/orderedRelationshipBase"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/output-to-interface"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "preconditionToInterface": {
+            "description": "The source interface statement holds before the target interface is invoked, and exists only in function of it. Ordered among the interface's preconditions.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/orderedRelationshipBase"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/precondition-to-interface"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "postconditionToInterface": {
+            "description": "The source interface statement holds after the target interface is invoked, and exists only in function of it. Ordered among the interface's postconditions.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/orderedRelationshipBase"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/postcondition-to-interface"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "invariantToInterface": {
+            "description": "The source interface statement holds before and after the target interface is invoked, and exists only in function of it. Ordered among the interface's invariants.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/orderedRelationshipBase"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/invariant-to-interface"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "protocolToInterface": {
+            "description": "The source interface statement is a protocol used to invoke the target interface, e.g. HTTP or CLI, and exists only in function of it. Ordered among the interface's protocols.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/orderedRelationshipBase"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/protocol-to-interface"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "stepToUseCase": {
+            "description": "The source step belongs to the target use case, and exists only in function of it. Steps are ordered by next and sibling relationships instead of positions.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/relationshipBase"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/step-to-use-case"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "prerequisiteToUseCase": {
+            "description": "The source prerequisite is assumed to hold for the target use case to apply, and exists only in function of it. Ordered among the use case's prerequisites.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/orderedRelationshipBase"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/prerequisite-to-use-case"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "useCaseToActor": {
+            "description": "The target actor takes part in the source use case. Ordered among the use case's actors.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/orderedRelationshipBase"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/use-case-to-actor"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "stepToNext": {
+            "description": "The target step follows the source step. Pointing to a step of another branch merges into it. A step with no next one terminates its sequence.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/relationshipBase"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/step-to-next"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "stepToSibling": {
+            "description": "The target step starts an alternative branch, taken instead of the source step.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/relationshipBase"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/step-to-sibling"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "optionToDecision": {
+            "description": "The source option was considered by the target decision, and exists only in function of it. Ordered among the decision's options.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/orderedRelationshipBase"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/option-to-decision"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "decisionToChosenOption": {
+            "description": "The source decision chose the target option, one of its own. Choosing an option closes the decision.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/relationshipBase"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/decision-to-chosen-option"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "decisionToReference": {
+            "description": "The target item is pertinent to the source decision. Ordered among the decision's references.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/orderedRelationshipBase"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/decision-to-reference"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "decisionToOverride": {
+            "description": "The source decision overrides the earlier, conflicting target decision. Both stay in the map. Ordered among the decision's overrides.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/orderedRelationshipBase"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/decision-to-override"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "criterionToReview": {
+            "description": "The source criterion is a pass criterion of the target review, and exists only in function of it. Ordered among the review's criteria.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/orderedRelationshipBase"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/criterion-to-review"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "reviewToResource": {
+            "description": "The target resource is to be looked at during the source review. Ordered among the review's resources.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/orderedRelationshipBase"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/review-to-resource"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "componentToResource": {
+            "description": "The target resource supports the source component. Ordered among the component's resources.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/orderedRelationshipBase"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/component-to-resource"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "technologyToDocumentation": {
+            "description": "The target resource documents the source technology. Ordered among the technology's documentation.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/orderedRelationshipBase"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/technology-to-documentation"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "mockupToResource": {
+            "description": "The source mockup shows the target resource, as an image or as an HTML document depending on its format.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/relationshipBase"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/mockup-to-resource"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "specToComponent": {
+            "description": "The source spec is held by the target component, and exists only in function of it. Ordered among the component's specs.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/orderedRelationshipBase"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/spec-to-component"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "dependencyToSelectedSpec": {
+            "description": "The target spec, of the consumer or of the producer, passes through the source dependency.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/relationshipBase"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/dependency-to-selected-spec"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+        "implementationToExcludedSpec": {
+            "description": "The target spec of the definition doesn't pass through the source implementation.",
+            "type": "object",
+            "allOf": [
+                {
+                    "$ref": "#/$defs/relationshipBase"
+                }
+            ],
+            "properties": {
+                "type": {
+                    "const": "@pjama/implementation-to-excluded-spec"
+                }
             },
             "unevaluatedProperties": false
         }
