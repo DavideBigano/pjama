@@ -9,11 +9,11 @@ import minimalMap from './samples/minimal.map.json';
 const validate = new Ajv2020().compile(schema);
 
 describe('samples', () => {
-    test('accepts a map with empty lists', () => {
+    test('accepts a map with empty collections', () => {
         expect(validate(minimalMap)).toBe(true);
     });
 
-    test('accepts a map using every item, spec, type and relationship kind', () => {
+    test('accepts a map using every item and relationship type', () => {
         expect(validate(completeMap)).toBe(true);
     });
 });
@@ -92,15 +92,18 @@ describe('map', () => {
         expect(validate(map)).toBe(false);
     });
 
-    test('rejects a map without one of its item lists', () => {
-        const map: any = structuredClone(completeMap);
-        delete map.actors;
-        expect(validate(map)).toBe(false);
-    });
+    test.each(['items', 'relationships'])(
+        'rejects a map without its %s collection',
+        (collection) => {
+            const map: any = structuredClone(completeMap);
+            delete map[collection];
+            expect(validate(map)).toBe(false);
+        },
+    );
 
-    test('rejects a top-level list of types', () => {
+    test('rejects a collection per item type', () => {
         const map: any = structuredClone(minimalMap);
-        map.types = [];
+        map.components = [];
         expect(validate(map)).toBe(false);
     });
 
@@ -112,307 +115,241 @@ describe('map', () => {
 });
 
 describe('items', () => {
-    test('rejects an item without a name', () => {
-        const map: any = structuredClone(completeMap);
-        delete map.actors[0].name;
-        expect(validate(map)).toBe(false);
-    });
-
-    test('rejects an item without a description', () => {
-        const map: any = structuredClone(completeMap);
-        delete map.actors[0].description;
-        expect(validate(map)).toBe(false);
+    test.each([
+        '@pjama/component',
+        '@pjama/requirement',
+        '@pjama/use-case',
+        '@pjama/interface',
+        '@pjama/snippet',
+        '@pjama/type',
+        '@pjama/mockup',
+        '@pjama/technology',
+        '@pjama/actor',
+        '@pjama/resource',
+        '@pjama/decision',
+        '@pjama/review',
+        '@pjama/test',
+        '@pjama/interface-statement',
+        '@pjama/use-case-prerequisite',
+        '@pjama/review-criterion',
+        '@pjama/use-case-step',
+        '@pjama/decision-option',
+        '@pjama/interface-parameter',
+    ])('accepts a %s with only its id and type', (type) => {
+        const map: any = structuredClone(minimalMap);
+        map.items.push({ id: crypto.randomUUID(), type });
+        expect(validate(map)).toBe(true);
     });
 
     test('rejects an item without an id', () => {
         const map: any = structuredClone(completeMap);
-        delete map.actors[0].id;
+        delete map.items[0].id;
         expect(validate(map)).toBe(false);
     });
 
-    test('rejects notes that are not text', () => {
+    test('rejects an item without a type', () => {
         const map: any = structuredClone(completeMap);
-        map.actors[0].notes = ['first note'];
+        delete map.items[0].type;
         expect(validate(map)).toBe(false);
     });
 
-    test('rejects an item of the wrong type for its list', () => {
+    test('rejects an unknown item type', () => {
+        const map: any = structuredClone(minimalMap);
+        map.items.push({ id: crypto.randomUUID(), type: '@pjama/goal' });
+        expect(validate(map)).toBe(false);
+    });
+
+    test('rejects an item type without its namespace', () => {
+        const map: any = structuredClone(minimalMap);
+        map.items.push({ id: crypto.randomUUID(), type: 'component' });
+        expect(validate(map)).toBe(false);
+    });
+
+    test('rejects a relationship in the items collection', () => {
         const map: any = structuredClone(completeMap);
-        map.actors[0].type = 'resource';
-        map.actors[0].location = 'docs/customer.md';
+        map.items.push(map.relationships[0]);
         expect(validate(map)).toBe(false);
     });
 
     test('rejects fields that are not part of the item', () => {
         const map: any = structuredClone(completeMap);
-        map.actors[0].label = 'Customer';
+        const actor = map.items.find(
+            (item: any) => item.type === '@pjama/actor',
+        );
+        actor.label = 'Customer';
+        expect(validate(map)).toBe(false);
+    });
+
+    test('rejects fields of another item type', () => {
+        const map: any = structuredClone(completeMap);
+        const actor = map.items.find(
+            (item: any) => item.type === '@pjama/actor',
+        );
+        actor.location = 'docs/customer.md';
+        expect(validate(map)).toBe(false);
+    });
+
+    test('rejects notes that are not text', () => {
+        const map: any = structuredClone(completeMap);
+        const actor = map.items.find(
+            (item: any) => item.type === '@pjama/actor',
+        );
+        actor.notes = ['first note'];
+        expect(validate(map)).toBe(false);
+    });
+});
+
+describe('secondary items', () => {
+    test('rejects a named statement', () => {
+        const map: any = structuredClone(completeMap);
+        const statement = map.items.find(
+            (item: any) => item.type === '@pjama/interface-statement',
+        );
+        statement.name = 'Account exists';
+        expect(validate(map)).toBe(false);
+    });
+
+    test('rejects notes on a step', () => {
+        const map: any = structuredClone(completeMap);
+        const step = map.items.find(
+            (item: any) => item.type === '@pjama/use-case-step',
+        );
+        step.notes = 'Usually on mobile';
+        expect(validate(map)).toBe(false);
+    });
+
+    test('rejects a parameter typed with a bare type id', () => {
+        const map: any = structuredClone(completeMap);
+        const parameter = map.items.find(
+            (item: any) => item.paramName === 'email',
+        );
+        parameter.definition = '7323a02c-0316-4d05-9723-4b25b60e33f8';
         expect(validate(map)).toBe(false);
     });
 });
 
 describe('components', () => {
-    test('rejects a component without a spec list', () => {
+    test('rejects a component holding its own spec list', () => {
         const map: any = structuredClone(completeMap);
-        delete map.components[2].specs;
+        const component = map.items.find(
+            (item: any) => item.type === '@pjama/component',
+        );
+        component.specs = [];
         expect(validate(map)).toBe(false);
     });
 
-    test('rejects component resources given as paths', () => {
+    test('rejects a positioned component', () => {
         const map: any = structuredClone(completeMap);
-        map.components[0].resources = ['docs/style-guide.md'];
-        expect(validate(map)).toBe(false);
-    });
-
-    test('rejects component properties outside the map model', () => {
-        const map: any = structuredClone(completeMap);
-        map.components[0].sourceLocation = 'src/app';
+        const component = map.items.find(
+            (item: any) => item.type === '@pjama/component',
+        );
+        component.position = 'a';
         expect(validate(map)).toBe(false);
     });
 });
 
 describe('specs', () => {
-    test('rejects an unknown spec type', () => {
-        const map: any = structuredClone(completeMap);
-        map.components[0].specs[0].type = 'goal';
-        expect(validate(map)).toBe(false);
-    });
-
     test('rejects a category that is not text', () => {
         const map: any = structuredClone(completeMap);
-        map.components[0].specs[0].category = ['performance'];
+        const requirement = map.items.find(
+            (item: any) => item.type === '@pjama/requirement',
+        );
+        requirement.category = ['performance'];
         expect(validate(map)).toBe(false);
     });
 
     test('rejects a requirement carrying fields of another spec type', () => {
         const map: any = structuredClone(completeMap);
-        map.components[0].specs[0].body = 'return true';
-        expect(validate(map)).toBe(false);
-    });
-});
-
-describe('use cases', () => {
-    test('rejects a use case without steps', () => {
-        const map: any = structuredClone(completeMap);
-        delete map.components[0].specs[1].steps;
-        expect(validate(map)).toBe(false);
-    });
-
-    test('rejects a step without a description', () => {
-        const map: any = structuredClone(completeMap);
-        delete map.components[0].specs[1].steps[0].description;
-        expect(validate(map)).toBe(false);
-    });
-
-    test('rejects a step pointing to the next one by index', () => {
-        const map: any = structuredClone(completeMap);
-        map.components[0].specs[1].steps[0].next = 1;
-        expect(validate(map)).toBe(false);
-    });
-
-    test('rejects actors given by name', () => {
-        const map: any = structuredClone(completeMap);
-        map.components[0].specs[1].actors = ['Customer'];
-        expect(validate(map)).toBe(false);
-    });
-
-    test('accepts a use case without actors or prerequisites', () => {
-        const map: any = structuredClone(completeMap);
-        delete map.components[0].specs[1].actors;
-        delete map.components[0].specs[1].prerequisites;
-        expect(validate(map)).toBe(true);
-    });
-});
-
-describe('interfaces', () => {
-    test('rejects an unnamed input', () => {
-        const map: any = structuredClone(completeMap);
-        delete map.components[1].specs[3].inputs[0].name;
-        expect(validate(map)).toBe(false);
-    });
-
-    test('accepts an unnamed output', () => {
-        const map: any = structuredClone(completeMap);
-        delete map.components[1].specs[3].outputs[1].name;
-        expect(validate(map)).toBe(true);
-    });
-
-    test('rejects an input typed with a bare type id', () => {
-        const map: any = structuredClone(completeMap);
-        map.components[1].specs[3].inputs[0].type =
-            map.components[1].specs[2].id;
-        expect(validate(map)).toBe(false);
-    });
-
-    test('accepts an interface without inputs or outputs', () => {
-        const map: any = structuredClone(completeMap);
-        delete map.components[1].specs[3].inputs;
-        delete map.components[1].specs[3].outputs;
-        expect(validate(map)).toBe(true);
-    });
-
-    test('rejects a precondition that is not a list', () => {
-        const map: any = structuredClone(completeMap);
-        map.components[1].specs[3].preconditions = 'The account exists';
-        expect(validate(map)).toBe(false);
-    });
-});
-
-describe('snippets', () => {
-    test('rejects a snippet without a body', () => {
-        const map: any = structuredClone(completeMap);
-        delete map.components[1].specs[4].body;
+        const requirement = map.items.find(
+            (item: any) => item.type === '@pjama/requirement',
+        );
+        requirement.body = 'return true';
         expect(validate(map)).toBe(false);
     });
 });
 
 describe('types', () => {
-    test('rejects a type without a definition', () => {
-        const map: any = structuredClone(completeMap);
-        delete map.components[1].specs[1].definition;
-        expect(validate(map)).toBe(false);
-    });
-
     test('rejects an unknown type kind', () => {
         const map: any = structuredClone(completeMap);
-        map.components[1].specs[1].definition = { kind: 'tuple', of: [] };
+        const role = map.items.find((item: any) => item.name === 'Role');
+        role.definition = { kind: 'tuple', of: [] };
         expect(validate(map)).toBe(false);
     });
 
     test('rejects a constant given as a parsed value', () => {
         const map: any = structuredClone(completeMap);
-        map.components[1].specs[1].definition = { kind: 'constant', value: 42 };
+        const role = map.items.find((item: any) => item.name === 'Role');
+        role.definition = { kind: 'constant', value: 42 };
         expect(validate(map)).toBe(false);
     });
 
     test('rejects a struct field without a type', () => {
         const map: any = structuredClone(completeMap);
-        delete map.components[1].specs[2].definition.of[0].fields[0].type;
+        const user = map.items.find((item: any) => item.name === 'User');
+        delete user.definition.of[0].fields[0].type;
         expect(validate(map)).toBe(false);
     });
 
     test('rejects an invalid type nested inside an array', () => {
         const map: any = structuredClone(completeMap);
-        map.components[1].specs[2].definition.of[1].fields[0].type.of = {
-            kind: 'primitive',
-        };
+        const user = map.items.find((item: any) => item.name === 'User');
+        user.definition.of[1].fields[0].type.of = { kind: 'primitive' };
         expect(validate(map)).toBe(false);
     });
 
     test('rejects a union alternative given as a bare type', () => {
         const map: any = structuredClone(completeMap);
-        map.components[1].specs[1].definition.of[0] = {
-            kind: 'constant',
-            value: '"customer"',
-        };
+        const role = map.items.find((item: any) => item.name === 'Role');
+        role.definition.of[0] = { kind: 'constant', value: '"customer"' };
         expect(validate(map)).toBe(false);
     });
 
     test('rejects a reference to a type by name', () => {
         const map: any = structuredClone(completeMap);
-        map.components[1].specs[2].definition.of[0].fields[1].type.type =
-            'Role';
+        const user = map.items.find((item: any) => item.name === 'User');
+        user.definition.of[0].fields[1].type.type = 'Role';
         expect(validate(map)).toBe(false);
     });
 });
 
 describe('mockups', () => {
-    test('rejects an unknown content kind', () => {
+    test('rejects inline HTML that is not text', () => {
         const map: any = structuredClone(completeMap);
-        map.components[0].specs[3].content.kind = 'video';
-        expect(validate(map)).toBe(false);
-    });
-
-    test('rejects an image mockup without a resource', () => {
-        const map: any = structuredClone(completeMap);
-        delete map.components[0].specs[3].content.resource;
-        expect(validate(map)).toBe(false);
-    });
-
-    test('rejects an image mockup given as a path', () => {
-        const map: any = structuredClone(completeMap);
-        map.components[0].specs[3].content.resource = 'design/dashboard.png';
-        expect(validate(map)).toBe(false);
-    });
-
-    test('rejects an HTML file mockup with an inline body', () => {
-        const map: any = structuredClone(completeMap);
-        map.components[0].specs[4].content.body = '<p>Settings</p>';
-        expect(validate(map)).toBe(false);
-    });
-
-    test('rejects an inline HTML mockup without a body', () => {
-        const map: any = structuredClone(completeMap);
-        delete map.components[0].specs[2].content.body;
-        expect(validate(map)).toBe(false);
-    });
-});
-
-describe('technologies', () => {
-    test('rejects a technology spec without the technology name', () => {
-        const map: any = structuredClone(completeMap);
-        delete map.components[0].specs[5].technology;
-        expect(validate(map)).toBe(false);
-    });
-
-    test('rejects documentation given as URLs', () => {
-        const map: any = structuredClone(completeMap);
-        map.components[0].specs[5].documentation = [
-            'https://www.typescriptlang.org/docs/',
-        ];
-        expect(validate(map)).toBe(false);
-    });
-});
-
-describe('resources', () => {
-    test('rejects a resource without a location', () => {
-        const map: any = structuredClone(completeMap);
-        delete map.resources[0].location;
+        const mockup = map.items.find(
+            (item: any) => item.name === 'Login form',
+        );
+        mockup.html = { body: mockup.html };
         expect(validate(map)).toBe(false);
     });
 });
 
 describe('decisions', () => {
-    test('rejects a decision without the closed flag', () => {
-        const map: any = structuredClone(completeMap);
-        delete map.decisions[1].closed;
-        expect(validate(map)).toBe(false);
-    });
-
     test('rejects a stored status', () => {
         const map: any = structuredClone(completeMap);
-        map.decisions[1].status = 'closed';
+        const decision = map.items.find(
+            (item: any) => item.type === '@pjama/decision',
+        );
+        decision.status = 'closed';
         expect(validate(map)).toBe(false);
     });
 
-    test('rejects a chosen option given by index', () => {
+    test('rejects a closed flag that is not a boolean', () => {
         const map: any = structuredClone(completeMap);
-        map.decisions[0].chosenOption = 0;
-        expect(validate(map)).toBe(false);
-    });
-
-    test('rejects an option without an id', () => {
-        const map: any = structuredClone(completeMap);
-        delete map.decisions[0].options[0].id;
+        const decision = map.items.find(
+            (item: any) => item.type === '@pjama/decision',
+        );
+        decision.closed = 'yes';
         expect(validate(map)).toBe(false);
     });
 });
 
 describe('checks', () => {
-    test('rejects a check that is neither a review nor a test', () => {
-        const map: any = structuredClone(completeMap);
-        map.checks[0].type = 'check';
-        expect(validate(map)).toBe(false);
-    });
-
-    test('rejects a review without criteria', () => {
-        const map: any = structuredClone(completeMap);
-        delete map.checks[0].criteria;
-        expect(validate(map)).toBe(false);
-    });
-
     test.each(['human', 'agent'])('accepts the reviewer %s', (reviewer) => {
         const map: any = structuredClone(completeMap);
-        map.checks[0].reviewer = reviewer;
+        const review = map.items.find(
+            (item: any) => item.type === '@pjama/review',
+        );
+        review.reviewer = reviewer;
         expect(validate(map)).toBe(true);
     });
 
@@ -420,76 +357,176 @@ describe('checks', () => {
         "rejects the reviewer '%s'",
         (reviewer) => {
             const map: any = structuredClone(completeMap);
-            map.checks[0].reviewer = reviewer;
+            const review = map.items.find(
+                (item: any) => item.type === '@pjama/review',
+            );
+            review.reviewer = reviewer;
             expect(validate(map)).toBe(false);
         },
     );
 
     test('rejects a stored review result', () => {
         const map: any = structuredClone(completeMap);
-        map.checks[0].state = 'passing';
-        expect(validate(map)).toBe(false);
-    });
-
-    test('rejects a test without a plugin', () => {
-        const map: any = structuredClone(completeMap);
-        delete map.checks[1].plugin;
+        const review = map.items.find(
+            (item: any) => item.type === '@pjama/review',
+        );
+        review.state = 'passing';
         expect(validate(map)).toBe(false);
     });
 
     test('rejects a stored test result', () => {
         const map: any = structuredClone(completeMap);
-        map.checks[1].lastRun = '2026-10-25T10:00:00Z';
+        const check = map.items.find(
+            (item: any) => item.type === '@pjama/test',
+        );
+        check.lastRun = '2026-10-25T10:00:00Z';
         expect(validate(map)).toBe(false);
     });
 
     test('accepts any plugin configuration', () => {
         const map: any = structuredClone(completeMap);
-        map.checks[1].config = { files: ['a.test.ts'], retries: 2 };
+        const check = map.items.find(
+            (item: any) => item.type === '@pjama/test',
+        );
+        check.config = { files: ['a.test.ts'], retries: 2 };
         expect(validate(map)).toBe(true);
     });
 });
 
 describe('relationships', () => {
+    test.each([
+        '@pjama/containment',
+        '@pjama/dependency',
+        '@pjama/implementation',
+        '@pjama/enforcement',
+        '@pjama/derivation',
+        '@pjama/input-to-interface',
+        '@pjama/output-to-interface',
+        '@pjama/precondition-to-interface',
+        '@pjama/postcondition-to-interface',
+        '@pjama/invariant-to-interface',
+        '@pjama/protocol-to-interface',
+        '@pjama/step-to-use-case',
+        '@pjama/prerequisite-to-use-case',
+        '@pjama/use-case-to-actor',
+        '@pjama/step-to-next',
+        '@pjama/step-to-sibling',
+        '@pjama/option-to-decision',
+        '@pjama/decision-to-chosen-option',
+        '@pjama/decision-to-reference',
+        '@pjama/decision-to-override',
+        '@pjama/criterion-to-review',
+        '@pjama/review-to-resource',
+        '@pjama/component-to-resource',
+        '@pjama/technology-to-documentation',
+        '@pjama/mockup-to-resource',
+        '@pjama/spec-to-component',
+        '@pjama/dependency-to-selected-spec',
+        '@pjama/implementation-to-excluded-spec',
+    ])('accepts a %s with only its identity fields', (type) => {
+        const map: any = structuredClone(minimalMap);
+        map.relationships.push({
+            id: crypto.randomUUID(),
+            type,
+            source: crypto.randomUUID(),
+            target: crypto.randomUUID(),
+        });
+        expect(validate(map)).toBe(true);
+    });
+
     test('rejects a relationship without a source', () => {
         const map: any = structuredClone(completeMap);
         delete map.relationships[0].source;
         expect(validate(map)).toBe(false);
     });
 
+    test('rejects a relationship without a target', () => {
+        const map: any = structuredClone(completeMap);
+        delete map.relationships[0].target;
+        expect(validate(map)).toBe(false);
+    });
+
     test('rejects an unknown relationship type', () => {
         const map: any = structuredClone(completeMap);
-        map.relationships[0].type = 'inheritance';
+        map.relationships[0].type = '@pjama/inheritance';
+        expect(validate(map)).toBe(false);
+    });
+
+    test('rejects an item in the relationships collection', () => {
+        const map: any = structuredClone(completeMap);
+        map.relationships.push(map.items[0]);
         expect(validate(map)).toBe(false);
     });
 
     test('rejects a named relationship', () => {
         const map: any = structuredClone(completeMap);
-        map.relationships[0].name = 'Store is part of the API';
+        map.relationships[0].name = 'Spec of the app';
         expect(validate(map)).toBe(false);
     });
 
-    test('rejects a dependency without its selected specs', () => {
+    test('rejects relationship notes that are not text', () => {
         const map: any = structuredClone(completeMap);
-        delete map.relationships[1].selectedSpecs;
+        map.relationships[0].notes = ['first note'];
         expect(validate(map)).toBe(false);
     });
 
-    test('accepts a dependency selecting no specs', () => {
+    test('rejects selected specs held by the dependency', () => {
         const map: any = structuredClone(completeMap);
-        map.relationships[1].selectedSpecs = [];
+        const dependency = map.relationships.find(
+            (relationship: any) => relationship.type === '@pjama/dependency',
+        );
+        dependency.selectedSpecs = [];
+        expect(validate(map)).toBe(false);
+    });
+
+    test('rejects excluded specs held by the implementation', () => {
+        const map: any = structuredClone(completeMap);
+        const implementation = map.relationships.find(
+            (relationship: any) =>
+                relationship.type === '@pjama/implementation',
+        );
+        implementation.excludedSpecs = [];
+        expect(validate(map)).toBe(false);
+    });
+});
+
+describe('positions', () => {
+    test('accepts an unpositioned relationship of an ordered type', () => {
+        const map: any = structuredClone(completeMap);
+        const specToComponent = map.relationships.find(
+            (relationship: any) =>
+                relationship.type === '@pjama/spec-to-component',
+        );
+        delete specToComponent.position;
         expect(validate(map)).toBe(true);
     });
 
-    test('rejects an implementation without its excluded specs', () => {
+    test('accepts a position of any length', () => {
         const map: any = structuredClone(completeMap);
-        delete map.relationships[2].excludedSpecs;
+        const specToComponent = map.relationships.find(
+            (relationship: any) =>
+                relationship.type === '@pjama/spec-to-component',
+        );
+        specToComponent.position = 'a'.repeat(1000);
+        expect(validate(map)).toBe(true);
+    });
+
+    test('rejects a position that is not text', () => {
+        const map: any = structuredClone(completeMap);
+        const specToComponent = map.relationships.find(
+            (relationship: any) =>
+                relationship.type === '@pjama/spec-to-component',
+        );
+        specToComponent.position = 0.5;
         expect(validate(map)).toBe(false);
     });
 
-    test('rejects a containment selecting specs', () => {
+    test('rejects a position on a relationship of an unordered type', () => {
         const map: any = structuredClone(completeMap);
-        map.relationships[0].selectedSpecs = [];
+        const stepToNext = map.relationships.find(
+            (relationship: any) => relationship.type === '@pjama/step-to-next',
+        );
+        stepToNext.position = 'a';
         expect(validate(map)).toBe(false);
     });
 });
@@ -507,19 +544,33 @@ describe('cross-item rules are left to the validator', () => {
         expect(validate(map)).toBe(true);
     });
 
+    test('accepts a relationship between items of the wrong types', () => {
+        const map: any = structuredClone(completeMap);
+        const containment = map.relationships.find(
+            (relationship: any) => relationship.type === '@pjama/containment',
+        );
+        containment.source = map.items.find(
+            (item: any) => item.type === '@pjama/actor',
+        ).id;
+        expect(validate(map)).toBe(true);
+    });
+
     test('accepts a child with two parents', () => {
         const map: any = structuredClone(completeMap);
+        const containment = map.relationships.find(
+            (relationship: any) => relationship.type === '@pjama/containment',
+        );
         map.relationships.push({
-            ...map.relationships[0],
+            ...containment,
             id: crypto.randomUUID(),
-            target: map.components[0].id,
+            target: map.items[0].id,
         });
         expect(validate(map)).toBe(true);
     });
 
     test('accepts colliding item ids', () => {
         const map: any = structuredClone(completeMap);
-        map.actors[0].id = map.components[0].id;
+        map.items[1].id = map.items[0].id;
         expect(validate(map)).toBe(true);
     });
 });
