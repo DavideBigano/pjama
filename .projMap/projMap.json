@@ -130,7 +130,6 @@
       "level": "high-level",
       "specs": {
         "requirements": [
-          "REQ-009",
           "REQ-010",
           "REQ-011",
           "REQ-012",
@@ -1039,6 +1038,22 @@
       "partOf": [
         "COM-061"
       ]
+    },
+    {
+      "id": "COM-070",
+      "label": "Map edit model",
+      "summary": "",
+      "depth": "",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-243"
+        ]
+      },
+      "folder": "FOL-005",
+      "partOf": [
+        "COM-001"
+      ]
     }
   ],
   "folders": [
@@ -1646,14 +1661,9 @@
       "label": "Changes can be reviewed and reverted",
       "summary": "Developers can review changes, in detail or in bulk, and revert the ones they reject.",
       "category": "usability",
-      "verifiedBy": []
-    },
-    {
-      "id": "REQ-009",
-      "label": "Atomic operations",
-      "summary": "Applies each change as one item- or field-level operation, rejecting any that would leave the map invalid.",
-      "category": "dataIntegrity",
-      "verifiedBy": []
+      "verifiedBy": [
+        "REQ-243"
+      ]
     },
     {
       "id": "REQ-010",
@@ -2939,6 +2949,12 @@
       "id": "REQ-242",
       "label": "Declared library imports",
       "summary": "Third-party and published packages a library imports are listed in its `dependencies`, or `peerDependencies` when the consumer provides them.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-243",
+      "label": "Atomic changes",
+      "summary": "The map should treat edits atomically.",
       "verifiedBy": []
     }
   ],
