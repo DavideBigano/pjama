@@ -4,10 +4,6 @@
     "name": "Empty map",
     "slug": "empty-map",
     "root": "..",
-    "components": [],
-    "relationships": [],
-    "checks": [],
-    "resources": [],
-    "decisions": [],
-    "actors": []
+    "items": [],
+    "relationships": []
 }
