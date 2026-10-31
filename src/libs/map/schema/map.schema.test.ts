@@ -25,16 +25,7 @@ describe('map', () => {
         expect(validate(map)).toBe(false);
     });
 
-    test.each(['v0.1.0', 'v10.20.30'])(
-        'accepts the schema version %s',
-        (schemaVersion) => {
-            const map: any = structuredClone(completeMap);
-            map.schemaVersion = schemaVersion;
-            expect(validate(map)).toBe(true);
-        },
-    );
-
-    test.each(['0.1.0', 'v0.1', 'v0.1.0-beta', 'V0.1.0'])(
+    test.each(['v0.2.0', 'v1.0.0', 'v0.0.9', '0.1.0', 'v0.1'])(
         'rejects the schema version %s',
         (schemaVersion) => {
             const map: any = structuredClone(completeMap);

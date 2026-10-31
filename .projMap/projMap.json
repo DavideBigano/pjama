@@ -482,7 +482,8 @@
           "REQ-184",
           "REQ-211",
           "REQ-212",
-          "REQ-356"
+          "REQ-356",
+          "REQ-362"
         ]
       },
       "sourceLocation": [
@@ -4235,6 +4236,14 @@
       "label": "Text",
       "summary": "A review criterion is given as a single piece of text.",
       "verifiedBy": []
+    },
+    {
+      "id": "REQ-362",
+      "label": "Pinned schema version",
+      "summary": "The schema accepts only maps written in its own schema version.",
+      "verifiedBy": [
+        "T-018"
+      ]
     }
   ],
   "useCases": [
@@ -4647,6 +4656,14 @@
       "type": "unit",
       "location": "src/libs/map/schema/map.schema.test.ts",
       "testName": "accepts a position of any length"
+    },
+    {
+      "id": "T-018",
+      "label": "Other schema versions rejected",
+      "summary": "A map written in any other schema version is rejected.",
+      "type": "unit",
+      "location": "src/libs/map/schema/map.schema.test.ts",
+      "testName": "rejects the schema version %s"
     }
   ],
   "decisions": [

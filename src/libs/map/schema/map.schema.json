@@ -9,9 +9,8 @@
             "type": "string"
         },
         "schemaVersion": {
-            "description": "Version of the map model the map is written in, as v<MAJ>.<MIN>.<PATCH>. Item and relationship types are versioned together with it.",
-            "type": "string",
-            "pattern": "^v\\d+\\.\\d+\\.\\d+$"
+            "description": "Version of the map model the map is written in, as v<MAJ>.<MIN>.<PATCH>. Item and relationship types are versioned together with it. This schema only accepts maps written in its own version.",
+            "const": "v0.1.0"
         },
         "id": {
             "description": "Random UUID identifying the map.",
