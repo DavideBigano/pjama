@@ -1,0 +1,300 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Pjama feature",
+    "description": "A Pjama feature: an ordered sequence of edits to a map, the reviews deciding on them and everyone taking part. This schema only checks types: references between entries, append-only order, versions and conflicts are checked by the code that applies edits. UUIDs come from the map schema, which must be registered under the id map.schema.json.",
+    "type": "object",
+    "properties": {
+        "$schema": {
+            "description": "Location of this JSON Schema, for editors and tools. It doesn't state which version of the feature model the feature follows: see schemaVersion.",
+            "type": "string"
+        },
+        "schemaVersion": {
+            "description": "Version of the feature model the feature is written in, as v<MAJ>.<MIN>.<PATCH>. This schema only accepts features written in its own version.",
+            "const": "v0.1.0"
+        },
+        "id": {
+            "description": "Random UUID identifying the feature.",
+            "$ref": "map.schema.json#/$defs/uuid"
+        },
+        "name": {
+            "description": "Name of the feature. Absent for the unnamed feature that collects edits made without naming one.",
+            "type": "string"
+        },
+        "description": {
+            "description": "What the feature is for.",
+            "$ref": "map.schema.json#/$defs/markdown"
+        },
+        "parent": {
+            "description": "Where the feature starts from: the id of another feature, or 'map' for the map itself.",
+            "anyOf": [
+                { "$ref": "map.schema.json#/$defs/uuid" },
+                { "const": "map" }
+            ]
+        },
+        "participants": {
+            "description": "Everyone taking part in the feature, authors and reviewers alike. Edits and reviews refer to them by id.",
+            "type": "array",
+            "items": { "$ref": "#/$defs/participant" }
+        },
+        "status": {
+            "description": "Whether the feature is still open or its edits have been merged into the map.",
+            "enum": ["open", "merged"]
+        },
+        "edits": {
+            "description": "The feature's edits, in the order they reached the daemon. Append-only.",
+            "type": "array",
+            "items": { "$ref": "#/$defs/edit" }
+        },
+        "reviews": {
+            "description": "The reviews of the feature's edits, in the order they were made. Append-only.",
+            "type": "array",
+            "items": { "$ref": "#/$defs/review" }
+        }
+    },
+    "required": [
+        "schemaVersion",
+        "id",
+        "parent",
+        "participants",
+        "status",
+        "edits",
+        "reviews"
+    ],
+    "additionalProperties": false,
+    "$defs": {
+        "timestamp": {
+            "description": "Date and time in RFC 3339 format, e.g. 2026-11-08T14:30:00Z.",
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})$"
+        },
+        "version": {
+            "description": "A value of the global version: an integer counting the edits that have reached the daemon.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "json": {
+            "description": "Any JSON value. Not checked against the map schema."
+        },
+        "targetId": {
+            "description": "The object an operation or dependency is about: an item, relationship or layout entry by id, or the map or the layout itself.",
+            "anyOf": [
+                { "$ref": "map.schema.json#/$defs/uuid" },
+                { "enum": ["map", "layout"] }
+            ]
+        },
+        "target": {
+            "description": "A field of an object, or the whole object when field is absent.",
+            "type": "object",
+            "properties": {
+                "target": { "$ref": "#/$defs/targetId" },
+                "field": {
+                    "description": "Name of the field. Absent for the whole object.",
+                    "type": "string"
+                }
+            },
+            "required": ["target"],
+            "additionalProperties": false
+        },
+        "entityKind": {
+            "description": "What a create or delete acts on.",
+            "enum": ["item", "relationship", "map", "layout", "layoutEntry"]
+        },
+        "participant": {
+            "description": "Someone taking part in a feature, as an author or a reviewer.",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "Random UUID identifying the participant.",
+                    "$ref": "map.schema.json#/$defs/uuid"
+                },
+                "name": {
+                    "description": "Name shown for the participant.",
+                    "type": "string"
+                },
+                "kind": {
+                    "description": "Whether the participant is a human, an agent or another kind.",
+                    "enum": ["human", "agent", "other"]
+                }
+            },
+            "required": ["id", "name", "kind"],
+            "additionalProperties": false
+        },
+        "operation": {
+            "description": "One step of an edit's transaction.",
+            "oneOf": [
+                { "$ref": "#/$defs/createOperation" },
+                { "$ref": "#/$defs/deleteOperation" },
+                { "$ref": "#/$defs/setOperation" },
+                { "$ref": "#/$defs/unsetOperation" }
+            ]
+        },
+        "createOperation": {
+            "description": "Creates an object. The created object, id included, is the new value.",
+            "type": "object",
+            "properties": {
+                "op": { "const": "create" },
+                "kind": { "$ref": "#/$defs/entityKind" },
+                "newValue": {
+                    "description": "The created object, whole.",
+                    "$ref": "#/$defs/json"
+                }
+            },
+            "required": ["op", "kind", "newValue"],
+            "additionalProperties": false
+        },
+        "deleteOperation": {
+            "description": "Deletes an object, carrying a full copy of it so the delete can be undone.",
+            "type": "object",
+            "properties": {
+                "op": { "const": "delete" },
+                "kind": { "$ref": "#/$defs/entityKind" },
+                "target": { "$ref": "#/$defs/targetId" },
+                "oldValue": {
+                    "description": "The deleted object, whole.",
+                    "$ref": "#/$defs/json"
+                }
+            },
+            "required": ["op", "kind", "target", "oldValue"],
+            "additionalProperties": false
+        },
+        "setOperation": {
+            "description": "Sets one field of an object to a new value, whole.",
+            "type": "object",
+            "properties": {
+                "op": { "const": "set" },
+                "target": { "$ref": "#/$defs/targetId" },
+                "field": {
+                    "description": "Name of the field.",
+                    "type": "string"
+                },
+                "newValue": {
+                    "description": "The field's value after the operation.",
+                    "$ref": "#/$defs/json"
+                },
+                "oldValue": {
+                    "description": "The field's value before the operation.",
+                    "$ref": "#/$defs/json"
+                }
+            },
+            "required": ["op", "target", "field", "newValue", "oldValue"],
+            "additionalProperties": false
+        },
+        "unsetOperation": {
+            "description": "Removes one field of an object.",
+            "type": "object",
+            "properties": {
+                "op": { "const": "unset" },
+                "target": { "$ref": "#/$defs/targetId" },
+                "field": {
+                    "description": "Name of the field.",
+                    "type": "string"
+                },
+                "oldValue": {
+                    "description": "The field's value before the operation.",
+                    "$ref": "#/$defs/json"
+                }
+            },
+            "required": ["op", "target", "field", "oldValue"],
+            "additionalProperties": false
+        },
+        "edit": {
+            "description": "A change to the map: a transaction of operations with its author, source and versions. An edit depends on every field and object it changes.",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "Random UUID identifying the edit.",
+                    "$ref": "map.schema.json#/$defs/uuid"
+                },
+                "description": {
+                    "description": "What the edit does, generated when the edit is created.",
+                    "type": "string"
+                },
+                "author": {
+                    "description": "Id of the participant who made the edit.",
+                    "$ref": "map.schema.json#/$defs/uuid"
+                },
+                "source": {
+                    "description": "Where the edit came from.",
+                    "enum": ["editor", "mcp", "cli"]
+                },
+                "needsReview": {
+                    "description": "Whether the edit needs review. With no review, an edit that needs one is pending, otherwise approved.",
+                    "type": "boolean"
+                },
+                "createdAt": {
+                    "description": "When the edit was made.",
+                    "$ref": "#/$defs/timestamp"
+                },
+                "baseVersion": {
+                    "description": "The global version the author saw when making the edit.",
+                    "$ref": "#/$defs/version"
+                },
+                "resultingVersion": {
+                    "description": "The global version produced when the edit reached the daemon.",
+                    "$ref": "#/$defs/version"
+                },
+                "dependsOn": {
+                    "description": "Fields or objects the edit was made with in mind, besides the ones it changes.",
+                    "type": "array",
+                    "items": { "$ref": "#/$defs/target" }
+                },
+                "transaction": {
+                    "description": "The edit's operations, applied in order, all or none.",
+                    "type": "array",
+                    "items": { "$ref": "#/$defs/operation" }
+                },
+                "amendsEdit": {
+                    "description": "Id of the pending, rejected or returned edit this one amends.",
+                    "$ref": "map.schema.json#/$defs/uuid"
+                },
+                "revertsEdit": {
+                    "description": "Id of the edit this one reverts.",
+                    "$ref": "map.schema.json#/$defs/uuid"
+                }
+            },
+            "required": [
+                "id",
+                "author",
+                "source",
+                "needsReview",
+                "createdAt",
+                "baseVersion",
+                "resultingVersion",
+                "transaction"
+            ],
+            "additionalProperties": false
+        },
+        "review": {
+            "description": "A decision on an edit. An edit's status is its latest review.",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "Random UUID identifying the review.",
+                    "$ref": "map.schema.json#/$defs/uuid"
+                },
+                "edit": {
+                    "description": "Id of the edit the review decides on.",
+                    "$ref": "map.schema.json#/$defs/uuid"
+                },
+                "status": {
+                    "description": "The decision: approved, rejected, or returned to the author for changes.",
+                    "enum": ["approved", "rejected", "returned"]
+                },
+                "by": {
+                    "description": "Id of the participant who made the review.",
+                    "$ref": "map.schema.json#/$defs/uuid"
+                },
+                "at": {
+                    "description": "When the review was made.",
+                    "$ref": "#/$defs/timestamp"
+                },
+                "comment": {
+                    "description": "The reviewer's comment.",
+                    "$ref": "map.schema.json#/$defs/markdown"
+                }
+            },
+            "required": ["id", "edit", "status", "by", "at"],
+            "additionalProperties": false
+        }
+    }
+}
