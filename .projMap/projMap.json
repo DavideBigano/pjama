@@ -1829,7 +1829,7 @@
       ],
       "folder": "FOL-003",
       "sourceLocation": [
-        "src/libs/features/"
+        "src/libs/feature/"
       ]
     },
     {
@@ -1839,7 +1839,7 @@
       "depth": "schema",
       "level": "high-level",
       "sourceLocation": [
-        "src/libs/features/schema/feature.schema.json"
+        "src/libs/feature/schema/feature.schema.json"
       ],
       "technologies": [
         "JSON Schema"
@@ -5152,14 +5152,14 @@
       "label": "Feature schema tests",
       "summary": "Validates sample features against the feature schema.",
       "type": "unit",
-      "location": "src/libs/features/schema/feature.schema.test.ts"
+      "location": "src/libs/feature/schema/feature.schema.test.ts"
     },
     {
       "id": "T-020",
       "label": "Cross-entry rules left out",
       "summary": "Features breaking reference, version or amend rules still pass the schema.",
       "type": "unit",
-      "location": "src/libs/features/schema/feature.schema.test.ts",
+      "location": "src/libs/feature/schema/feature.schema.test.ts",
       "testName": "cross-entry rules are left to the code applying edits"
     },
     {
@@ -5167,7 +5167,7 @@
       "label": "Any JSON in operation values",
       "summary": "An operation accepts any JSON as its new or old value.",
       "type": "unit",
-      "location": "src/libs/features/schema/feature.schema.test.ts",
+      "location": "src/libs/feature/schema/feature.schema.test.ts",
       "testName": "accepts the value %o"
     },
     {
@@ -5175,7 +5175,7 @@
       "label": "Unknown feature fields rejected",
       "summary": "A feature, participant, edit or review with a field the schema does not define is rejected.",
       "type": "unit",
-      "location": "src/libs/features/schema/feature.schema.test.ts",
+      "location": "src/libs/feature/schema/feature.schema.test.ts",
       "testName": "rejects a field it does not define"
     },
     {
@@ -5183,7 +5183,7 @@
       "label": "Map UUIDs accepted",
       "summary": "A feature accepts UUIDs as the map schema defines them, in either case.",
       "type": "unit",
-      "location": "src/libs/features/schema/feature.schema.test.ts",
+      "location": "src/libs/feature/schema/feature.schema.test.ts",
       "testName": "accepts the id %s"
     },
     {
@@ -5191,7 +5191,7 @@
       "label": "Other feature schema versions rejected",
       "summary": "A feature written in any other schema version is rejected.",
       "type": "unit",
-      "location": "src/libs/features/schema/feature.schema.test.ts",
+      "location": "src/libs/feature/schema/feature.schema.test.ts",
       "testName": "rejects the schema version %s"
     }
   ],

@@ -14,7 +14,7 @@ importers:
                 specifier: 23.3.0
                 version: 23.3.0
 
-    src/libs/features:
+    src/libs/feature:
         dependencies:
             map:
                 specifier: workspace:*
