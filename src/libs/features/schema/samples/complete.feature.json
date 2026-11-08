@@ -1,0 +1,198 @@
+{
+    "$schema": "../feature.schema.json",
+    "schemaVersion": "v0.1.0",
+    "id": "0b7e5a52-3c1f-4d8e-a2b9-5f6c7d8e9a01",
+    "name": "Order history",
+    "description": "Adds an order history to the cafe app.",
+    "parent": "6f1c2a3b-8d4e-4f5a-9b6c-7d8e9f0a1b2c",
+    "participants": [
+        {
+            "id": "1a2b3c4d-5e6f-4a1b-8c2d-3e4f5a6b7c8d",
+            "name": "Dana",
+            "kind": "human"
+        },
+        {
+            "id": "9f8e7d6c-5b4a-4f3e-9d2c-1b0a9f8e7d6c",
+            "name": "Planner agent",
+            "kind": "agent"
+        },
+        {
+            "id": "4c3b2a19-0f8e-4d7c-b6a5-948372615f0e",
+            "name": "Nightly import",
+            "kind": "other"
+        }
+    ],
+    "status": "open",
+    "edits": [
+        {
+            "id": "a1000000-0000-4000-8000-000000000001",
+            "description": "Create component Order history",
+            "author": "1a2b3c4d-5e6f-4a1b-8c2d-3e4f5a6b7c8d",
+            "source": "editor",
+            "needsReview": false,
+            "createdAt": "2026-11-08T09:00:00Z",
+            "baseVersion": 12,
+            "resultingVersion": 13,
+            "transaction": [
+                {
+                    "op": "create",
+                    "kind": "item",
+                    "newValue": {
+                        "id": "c1000000-0000-4000-8000-000000000001",
+                        "type": "@pjama/component",
+                        "label": "Order history"
+                    }
+                },
+                {
+                    "op": "create",
+                    "kind": "layoutEntry",
+                    "newValue": {
+                        "id": "e1000000-0000-4000-8000-000000000001",
+                        "item": "c1000000-0000-4000-8000-000000000001",
+                        "position": [120, -40]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "a1000000-0000-4000-8000-000000000002",
+            "description": "Set summary of Order history",
+            "author": "9f8e7d6c-5b4a-4f3e-9d2c-1b0a9f8e7d6c",
+            "source": "mcp",
+            "needsReview": true,
+            "createdAt": "2026-11-08T09:05:00.250+01:00",
+            "baseVersion": 13,
+            "resultingVersion": 14,
+            "dependsOn": [
+                { "target": "c1000000-0000-4000-8000-000000000001" },
+                { "target": "map", "field": "name" }
+            ],
+            "transaction": [
+                {
+                    "op": "set",
+                    "target": "c1000000-0000-4000-8000-000000000001",
+                    "field": "summary",
+                    "newValue": "Lists past orders.",
+                    "oldValue": null
+                }
+            ]
+        },
+        {
+            "id": "a1000000-0000-4000-8000-000000000003",
+            "description": "Set summary of Order history",
+            "author": "9f8e7d6c-5b4a-4f3e-9d2c-1b0a9f8e7d6c",
+            "source": "mcp",
+            "needsReview": true,
+            "createdAt": "2026-11-08T09:10:00Z",
+            "baseVersion": 14,
+            "resultingVersion": 15,
+            "transaction": [
+                {
+                    "op": "set",
+                    "target": "c1000000-0000-4000-8000-000000000001",
+                    "field": "summary",
+                    "newValue": "Lists a customer's past orders, newest first.",
+                    "oldValue": "Lists past orders."
+                }
+            ],
+            "amendsEdit": "a1000000-0000-4000-8000-000000000002"
+        },
+        {
+            "id": "a1000000-0000-4000-8000-000000000004",
+            "description": "Delete relationship and unset map description",
+            "author": "4c3b2a19-0f8e-4d7c-b6a5-948372615f0e",
+            "source": "cli",
+            "needsReview": false,
+            "createdAt": "2026-11-08T09:20:00Z",
+            "baseVersion": 15,
+            "resultingVersion": 16,
+            "transaction": [
+                {
+                    "op": "delete",
+                    "kind": "relationship",
+                    "target": "d1000000-0000-4000-8000-000000000001",
+                    "oldValue": {
+                        "id": "d1000000-0000-4000-8000-000000000001",
+                        "type": "@pjama/containment",
+                        "source": "c1000000-0000-4000-8000-000000000001",
+                        "target": "c1000000-0000-4000-8000-000000000002"
+                    }
+                },
+                {
+                    "op": "unset",
+                    "target": "map",
+                    "field": "description",
+                    "oldValue": "A cafe ordering app."
+                },
+                {
+                    "op": "set",
+                    "target": "layout",
+                    "field": "zoom",
+                    "newValue": 1.5,
+                    "oldValue": 1
+                }
+            ]
+        },
+        {
+            "id": "a1000000-0000-4000-8000-000000000005",
+            "description": "Revert: Delete relationship and unset map description",
+            "author": "1a2b3c4d-5e6f-4a1b-8c2d-3e4f5a6b7c8d",
+            "source": "editor",
+            "needsReview": false,
+            "createdAt": "2026-11-08T09:30:00Z",
+            "baseVersion": 16,
+            "resultingVersion": 17,
+            "transaction": [
+                {
+                    "op": "set",
+                    "target": "layout",
+                    "field": "zoom",
+                    "newValue": 1,
+                    "oldValue": 1.5
+                },
+                {
+                    "op": "set",
+                    "target": "map",
+                    "field": "description",
+                    "newValue": "A cafe ordering app.",
+                    "oldValue": null
+                },
+                {
+                    "op": "create",
+                    "kind": "relationship",
+                    "newValue": {
+                        "id": "d1000000-0000-4000-8000-000000000001",
+                        "type": "@pjama/containment",
+                        "source": "c1000000-0000-4000-8000-000000000001",
+                        "target": "c1000000-0000-4000-8000-000000000002"
+                    }
+                }
+            ],
+            "revertsEdit": "a1000000-0000-4000-8000-000000000004"
+        }
+    ],
+    "reviews": [
+        {
+            "id": "b1000000-0000-4000-8000-000000000001",
+            "edit": "a1000000-0000-4000-8000-000000000002",
+            "status": "returned",
+            "by": "1a2b3c4d-5e6f-4a1b-8c2d-3e4f5a6b7c8d",
+            "at": "2026-11-08T09:07:00Z",
+            "comment": "Say whose orders and in which order."
+        },
+        {
+            "id": "b1000000-0000-4000-8000-000000000002",
+            "edit": "a1000000-0000-4000-8000-000000000002",
+            "status": "rejected",
+            "by": "1a2b3c4d-5e6f-4a1b-8c2d-3e4f5a6b7c8d",
+            "at": "2026-11-08T09:11:00Z"
+        },
+        {
+            "id": "b1000000-0000-4000-8000-000000000003",
+            "edit": "a1000000-0000-4000-8000-000000000003",
+            "status": "approved",
+            "by": "1a2b3c4d-5e6f-4a1b-8c2d-3e4f5a6b7c8d",
+            "at": "2026-11-08T09:12:00Z"
+        }
+    ]
+}
