@@ -267,7 +267,7 @@
         ]
       },
       "partOf": [
-        "COM-001"
+        "COM-115"
       ],
       "folder": "FOL-005"
     },
@@ -469,8 +469,8 @@
     },
     {
       "id": "COM-032",
-      "label": "Map schema file",
-      "summary": "Schema file that describes the structure of a Pjama map",
+      "label": "Map schema",
+      "summary": "Schema file that describes the structure of a map.",
       "depth": "schema",
       "level": "high-level",
       "specs": {
@@ -492,7 +492,10 @@
       "technologies": [
         "JSON Schema"
       ],
-      "folder": "FOL-005"
+      "folder": "FOL-005",
+      "partOf": [
+        "COM-115"
+      ]
     },
     {
       "id": "COM-033",
@@ -787,7 +790,7 @@
     },
     {
       "id": "COM-057",
-      "label": "Schema validator",
+      "label": "Map validator",
       "summary": "Reusable module for validating the schema",
       "depth": "module",
       "level": "high-level",
@@ -798,7 +801,10 @@
           "REQ-167",
           "REQ-168"
         ]
-      }
+      },
+      "partOf": [
+        "COM-115"
+      ]
     },
     {
       "id": "COM-058",
@@ -1859,6 +1865,23 @@
           "REQ-406"
         ]
       }
+    },
+    {
+      "id": "COM-115",
+      "label": "Map core",
+      "summary": "The project map: its model and the schema that describes map files.",
+      "depth": "library",
+      "level": "high-level",
+      "specs": {
+        "requirements": []
+      },
+      "partOf": [
+        "COM-001"
+      ],
+      "folder": "FOL-003",
+      "sourceLocation": [
+        "src/libs/map/"
+      ]
     }
   ],
   "folders": [
@@ -1970,7 +1993,7 @@
       "summary": "",
       "kind": "uses",
       "from": "COM-005",
-      "to": "COM-016"
+      "to": "COM-115"
     },
     {
       "id": "REL-012",
@@ -3261,7 +3284,7 @@
     {
       "id": "REQ-161",
       "label": "Map model structure",
-      "summary": "Uses the specifications given in the map model to define it's structure.",
+      "summary": "Uses the specifications given in the map model to define its structure.",
       "verifiedBy": [
         "T-001"
       ]
