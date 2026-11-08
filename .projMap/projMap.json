@@ -90,7 +90,8 @@
           "REQ-007",
           "REQ-008",
           "REQ-021",
-          "REQ-180"
+          "REQ-180",
+          "REQ-363"
         ],
         "useCases": [
           "UC-001",
@@ -1704,19 +1705,160 @@
     },
     {
       "id": "COM-070",
-      "label": "Map edit model",
-      "summary": "",
-      "depth": "",
+      "label": "Feature model",
+      "summary": "Defines the data of features, edits, reviews and participants.",
+      "depth": "model",
       "level": "high-level",
       "specs": {
         "requirements": [
-          "REQ-243"
+          "REQ-364",
+          "REQ-365",
+          "REQ-367",
+          "REQ-368",
+          "REQ-369",
+          "REQ-370",
+          "REQ-371"
         ]
       },
       "folder": "FOL-005",
       "partOf": [
-        "COM-001"
+        "COM-113"
       ]
+    },
+    {
+      "id": "COM-109",
+      "label": "Edit model",
+      "summary": "A change to the map: an ordered set of operations with its author, source and versions.",
+      "depth": "abstract",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-243",
+          "REQ-372",
+          "REQ-373",
+          "REQ-374",
+          "REQ-375",
+          "REQ-376",
+          "REQ-377",
+          "REQ-378",
+          "REQ-379",
+          "REQ-380",
+          "REQ-381",
+          "REQ-382"
+        ]
+      },
+      "folder": "FOL-005",
+      "partOf": [
+        "COM-070"
+      ]
+    },
+    {
+      "id": "COM-110",
+      "label": "Operation model",
+      "summary": "A single create, delete, set or unset.",
+      "depth": "abstract",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-383",
+          "REQ-384",
+          "REQ-385",
+          "REQ-386",
+          "REQ-387"
+        ]
+      },
+      "folder": "FOL-005",
+      "partOf": [
+        "COM-070"
+      ]
+    },
+    {
+      "id": "COM-111",
+      "label": "Review model",
+      "summary": "A decision on an edit that needs review.",
+      "depth": "abstract",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-388",
+          "REQ-389",
+          "REQ-390",
+          "REQ-391"
+        ]
+      },
+      "folder": "FOL-005",
+      "partOf": [
+        "COM-070"
+      ]
+    },
+    {
+      "id": "COM-112",
+      "label": "Participant model",
+      "summary": "Someone involved in a feature, as author or reviewer.",
+      "depth": "abstract",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-392",
+          "REQ-393"
+        ]
+      },
+      "folder": "FOL-005",
+      "partOf": [
+        "COM-070"
+      ]
+    },
+    {
+      "id": "COM-113",
+      "label": "Feature core",
+      "summary": "Pjama's way of changing a map: every change is an edit in a feature, reviewed where needed and merged into the map.",
+      "depth": "library",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-394",
+          "REQ-395",
+          "REQ-396",
+          "REQ-397",
+          "REQ-398",
+          "REQ-399"
+        ]
+      },
+      "partOf": [
+        "COM-001"
+      ],
+      "folder": "FOL-003",
+      "sourceLocation": [
+        "src/libs/features/"
+      ]
+    },
+    {
+      "id": "COM-114",
+      "label": "Feature schema",
+      "summary": "Schema file that describes the structure of a feature.",
+      "depth": "schema",
+      "level": "high-level",
+      "sourceLocation": [
+        "src/libs/features/schema/feature.schema.json"
+      ],
+      "technologies": [
+        "JSON Schema"
+      ],
+      "partOf": [
+        "COM-113"
+      ],
+      "folder": "FOL-005",
+      "specs": {
+        "requirements": [
+          "REQ-400",
+          "REQ-401",
+          "REQ-402",
+          "REQ-403",
+          "REQ-404",
+          "REQ-405",
+          "REQ-406"
+        ]
+      }
     }
   ],
   "folders": [
@@ -2234,6 +2376,46 @@
       "kind": "extends",
       "from": "COM-027",
       "to": "COM-037"
+    },
+    {
+      "id": "REL-103",
+      "label": "Feature model edits the map model",
+      "summary": "",
+      "kind": "uses",
+      "from": "COM-070",
+      "to": "COM-016"
+    },
+    {
+      "id": "REL-104",
+      "label": "Daemon stores features and counts versions",
+      "summary": "",
+      "kind": "uses",
+      "from": "COM-005",
+      "to": "COM-113"
+    },
+    {
+      "id": "REL-105",
+      "label": "Editor makes and reviews edits",
+      "summary": "",
+      "kind": "uses",
+      "from": "COM-003",
+      "to": "COM-113"
+    },
+    {
+      "id": "REL-106",
+      "label": "Terminal manager makes edits",
+      "summary": "",
+      "kind": "uses",
+      "from": "COM-004",
+      "to": "COM-113"
+    },
+    {
+      "id": "REL-107",
+      "label": "Feature schema implements the feature model",
+      "summary": "Implementation of the feature model as JSON Schema",
+      "kind": "implements",
+      "from": "COM-114",
+      "to": "COM-070"
     }
   ],
   "actors": [
@@ -2266,7 +2448,9 @@
       "label": "No silent lost edits",
       "summary": "Simultaneous changes from developers and agents can overwrite each other but never silently.",
       "category": "usability",
-      "verifiedBy": []
+      "verifiedBy": [
+        "REQ-398"
+      ]
     },
     {
       "id": "REQ-003",
@@ -2309,7 +2493,7 @@
       "summary": "Developers can review changes, in detail or in bulk, and revert the ones they reject.",
       "category": "usability",
       "verifiedBy": [
-        "REQ-243"
+        "REQ-386"
       ]
     },
     {
@@ -2331,7 +2515,9 @@
       "label": "Reverts operations",
       "summary": "Reverts any logged operation by applying its inverse as a new operation.",
       "category": "traceability",
-      "verifiedBy": []
+      "verifiedBy": [
+        "REQ-378"
+      ]
     },
     {
       "id": "REQ-013",
@@ -2342,8 +2528,8 @@
     },
     {
       "id": "REQ-014",
-      "label": "Detects external edits",
-      "summary": "Watches the map file and logs changes made outside Pjama as item- and value-level operations authored as external.",
+      "label": "Picks up map rewrites",
+      "summary": "When git rewrites the map file, takes it as the map's new state and flags edits in open features that touch what changed.",
       "category": "dataIntegrity",
       "verifiedBy": []
     },
@@ -4257,9 +4443,286 @@
     },
     {
       "id": "REQ-243",
-      "label": "Atomic changes",
-      "summary": "The map should treat edits atomically.",
+      "label": "Atomic edits",
+      "summary": "An edit's operations apply in order, all or none.",
       "verifiedBy": []
+    },
+    {
+      "id": "REQ-363",
+      "label": "Map file is the source of truth",
+      "summary": "The map file is the source of truth. Pjama leaves git to rewrite it (merges, pulls, checkouts) and picks up the rewritten file as the map's new state, with nothing left for the user to fix by hand.",
+      "category": "dataIntegrity",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-364",
+      "label": "Features",
+      "summary": "A feature is an ordered sequence of edits that starts from the map or from another feature.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-365",
+      "label": "Edits belong to a feature",
+      "summary": "Every edit belongs to exactly one feature.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-367",
+      "label": "Feature participants",
+      "summary": "A feature stores every participant, authors and reviewers alike. Its edits and reviews refer to them by id.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-368",
+      "label": "Append-only history",
+      "summary": "A feature's edits and reviews are append-only: entries are never changed or removed.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-369",
+      "label": "Global version",
+      "summary": "The global version is an integer counting the edits that have reached the daemon.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-370",
+      "label": "Conflicts",
+      "summary": "An edit conflicts when it reaches the daemon with a base version lower than the resulting version of the last edit on the same field or object.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-371",
+      "label": "Feature fields",
+      "summary": "A feature has the fields below.",
+      "notes": "```\nschemaVersion: string   (v<MAJ>.<MIN>.<PATCH>)\nid: uuid\nname?: string\ndescription?: markdown\nparent: feature id | 'map'\nparticipants: Participant[]\nstatus: 'open' | 'merged'\nedits: Edit[]   (in the order they reached the daemon)\nreviews: Review[]   (in the order they were made)\n```",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-372",
+      "label": "Whole values",
+      "summary": "Every value, from a string to a type expression, is set whole. An edit never changes part of a value.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-373",
+      "label": "Base version",
+      "summary": "An edit records the global version its author saw when making it.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-374",
+      "label": "Resulting version",
+      "summary": "An edit records the global version produced when it reached the daemon.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-375",
+      "label": "Implicit dependencies",
+      "summary": "An edit depends on every field and object it changes.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-376",
+      "label": "Declared dependencies",
+      "summary": "An edit may also list fields or objects it was made with in mind.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-377",
+      "label": "Amends",
+      "summary": "A pending, rejected or returned edit is amended by a new edit that names it. An approved edit can't be amended.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-378",
+      "label": "Reverts",
+      "summary": "An edit is reverted by a new edit that names it.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-379",
+      "label": "Edit source",
+      "summary": "Each edit names its author and where it came from: editor, MCP or CLI.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-380",
+      "label": "Edits needing review",
+      "summary": "An edit states whether it needs review.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-381",
+      "label": "Edit fields",
+      "summary": "An edit has the fields below.",
+      "notes": "```\nid: uuid\ndescription?: string\nauthor: participant id\nsource: 'editor' | 'mcp' | 'cli'\nneedsReview: boolean\ncreatedAt: timestamp\nbaseVersion: integer\nresultingVersion: integer\ndependsOn?: Target[]\ntransaction: Operation[]   (applied in order, all or none)\namendsEdit?: edit id\nrevertsEdit?: edit id\n```",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-382",
+      "label": "Target fields",
+      "summary": "A target names a field or a whole object.",
+      "notes": "```\ntarget: uuid | 'map' | 'layout'\nfield?: string   (absent for the whole object)\n```",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-383",
+      "label": "Operation kinds",
+      "summary": "An operation creates, deletes, sets or unsets.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-384",
+      "label": "Entity kinds",
+      "summary": "Creating and deleting act on an item, relationship, map, layout or layout entry.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-385",
+      "label": "Field operations",
+      "summary": "Setting and unsetting act on one field of an item, relationship, layout entry, the map or the layout.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-386",
+      "label": "Invertible operations",
+      "summary": "Every operation except a create carries the value it replaces, so any edit can be undone.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-387",
+      "label": "Operation fields",
+      "summary": "Each operation kind has the fields below.",
+      "notes": "```\nkind: 'item' | 'relationship' | 'map' | 'layout' | 'layoutEntry'\n\ncreate: { op: 'create', kind, newValue: json }\ndelete: { op: 'delete', kind, target: uuid | 'map' | 'layout', oldValue: json }\nset:    { op: 'set', target: uuid | 'map' | 'layout', field: string, newValue: json, oldValue: json }\nunset:  { op: 'unset', target: uuid | 'map' | 'layout', field: string, oldValue: json }\n```",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-388",
+      "label": "Separate reviews",
+      "summary": "A review refers to the edit it decides on. An edit may have several reviews.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-389",
+      "label": "Review status",
+      "summary": "A review approves, rejects or returns an edit.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-390",
+      "label": "Derived edit status",
+      "summary": "An edit's status is its latest review. With none, it is pending if it needs review and approved otherwise.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-391",
+      "label": "Review fields",
+      "summary": "A review has the fields below.",
+      "notes": "```\nid: uuid\nedit: edit id\nstatus: 'approved' | 'rejected' | 'returned'\nby: participant id\nat: timestamp\ncomment?: string\n```",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-392",
+      "label": "Participant kinds",
+      "summary": "A participant is a human, an agent or another kind.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-393",
+      "label": "Participant fields",
+      "summary": "A participant has the fields below.",
+      "notes": "```\nid: uuid\nname: string\nkind: 'human' | 'agent' | 'other'\n```",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-394",
+      "label": "Edits go through features",
+      "summary": "No edit is applied directly to the map. Edits made without naming a feature go to an unnamed feature.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-395",
+      "label": "Merging features",
+      "summary": "A feature is open until its edits are merged into the map.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-396",
+      "label": "Kept history",
+      "summary": "Pjama never changes or removes an edit or a review once made. Corrections are made by new edits and reviews.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-397",
+      "label": "Version counting",
+      "summary": "The daemon increases the global version by one with each edit it receives and records the result on that edit.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-398",
+      "label": "Conflicts are flagged",
+      "summary": "A conflicting edit is flagged, never applied silently over the edit it conflicts with.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-399",
+      "label": "Agent edits need review",
+      "summary": "Edits made by agents need review; edits made by humans don't. In practice, MCP edits need review, editor and CLI edits don't.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-400",
+      "label": "Feature model structure",
+      "summary": "Uses the specifications given in the feature model to define its structure.",
+      "verifiedBy": [
+        "T-019"
+      ]
+    },
+    {
+      "id": "REQ-401",
+      "label": "Basic type validation",
+      "summary": "The schema checks types only. References between entries, append-only order and versions are checked by the code that applies edits.",
+      "verifiedBy": [
+        "T-020"
+      ]
+    },
+    {
+      "id": "REQ-402",
+      "label": "Opaque values",
+      "summary": "An operation's new and old values may be any JSON. The schema doesn't check them against the map schema.",
+      "verifiedBy": [
+        "T-021"
+      ]
+    },
+    {
+      "id": "REQ-403",
+      "label": "Field descriptions",
+      "summary": "The schema carries JSON Schema descriptions that convey what a field means beyond its type.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-404",
+      "label": "Closed structures",
+      "summary": "The schema rejects fields it doesn't define, except inside operation values.",
+      "verifiedBy": [
+        "T-022"
+      ]
+    },
+    {
+      "id": "REQ-405",
+      "label": "Shared map definitions",
+      "summary": "UUIDs and entity ids come from the map schema by reference, so both schemas accept the same ids.",
+      "verifiedBy": [
+        "T-023"
+      ]
+    },
+    {
+      "id": "REQ-406",
+      "label": "Pinned schema version",
+      "summary": "The schema accepts only features written in its own schema version.",
+      "verifiedBy": [
+        "T-024"
+      ]
     }
   ],
   "useCases": [
@@ -4434,8 +4897,8 @@
     },
     {
       "id": "UC-007",
-      "label": "Pick up changes made outside Pjama",
-      "summary": "Changes made to the map file by other means (git, hand edits) show up like any other change.",
+      "label": "Pick up map rewrites from git",
+      "summary": "When git rewrites the map file, Pjama takes the new file as the map and keeps open features working on top of it.",
       "actors": [
         "ACT-001",
         "ACT-002"
@@ -4445,7 +4908,7 @@
       ],
       "steps": [
         {
-          "action": "Developer pulls commits that modify the map, or the agent edits the file by hand",
+          "action": "Developer or agent pulls, merges or checks out commits that modify the map",
           "next": {
             "action": "Pjama detects that the map file changed",
             "branches": [
@@ -4457,9 +4920,12 @@
               }
             ],
             "next": {
-              "action": "Pjama works out what changed, per item and value",
+              "action": "Pjama takes the file as the map's new state",
               "next": {
-                "action": "Pjama shows the changes to every client as made externally"
+                "action": "Pjama flags the edits in open features that touch anything the rewrite changed",
+                "next": {
+                  "action": "Every client shows the new state of the map"
+                }
               }
             }
           }
@@ -4679,6 +5145,53 @@
       "summary": "A map written in any other schema version is rejected.",
       "type": "unit",
       "location": "src/libs/map/schema/map.schema.test.ts",
+      "testName": "rejects the schema version %s"
+    },
+    {
+      "id": "T-019",
+      "label": "Feature schema tests",
+      "summary": "Validates sample features against the feature schema.",
+      "type": "unit",
+      "location": "src/libs/features/schema/feature.schema.test.ts"
+    },
+    {
+      "id": "T-020",
+      "label": "Cross-entry rules left out",
+      "summary": "Features breaking reference, version or amend rules still pass the schema.",
+      "type": "unit",
+      "location": "src/libs/features/schema/feature.schema.test.ts",
+      "testName": "cross-entry rules are left to the code applying edits"
+    },
+    {
+      "id": "T-021",
+      "label": "Any JSON in operation values",
+      "summary": "An operation accepts any JSON as its new or old value.",
+      "type": "unit",
+      "location": "src/libs/features/schema/feature.schema.test.ts",
+      "testName": "accepts the value %o"
+    },
+    {
+      "id": "T-022",
+      "label": "Unknown feature fields rejected",
+      "summary": "A feature, participant, edit or review with a field the schema does not define is rejected.",
+      "type": "unit",
+      "location": "src/libs/features/schema/feature.schema.test.ts",
+      "testName": "rejects a field it does not define"
+    },
+    {
+      "id": "T-023",
+      "label": "Map UUIDs accepted",
+      "summary": "A feature accepts UUIDs as the map schema defines them, in either case.",
+      "type": "unit",
+      "location": "src/libs/features/schema/feature.schema.test.ts",
+      "testName": "accepts the id %s"
+    },
+    {
+      "id": "T-024",
+      "label": "Other feature schema versions rejected",
+      "summary": "A feature written in any other schema version is rejected.",
+      "type": "unit",
+      "location": "src/libs/features/schema/feature.schema.test.ts",
       "testName": "rejects the schema version %s"
     }
   ],
