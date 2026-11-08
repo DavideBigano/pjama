@@ -267,7 +267,7 @@
         ]
       },
       "partOf": [
-        "COM-001"
+        "COM-115"
       ],
       "folder": "FOL-005"
     },
@@ -469,8 +469,8 @@
     },
     {
       "id": "COM-032",
-      "label": "Map schema file",
-      "summary": "Schema file that describes the structure of a Pjama map",
+      "label": "Map schema",
+      "summary": "Schema file that describes the structure of a map.",
       "depth": "schema",
       "level": "high-level",
       "specs": {
@@ -492,7 +492,10 @@
       "technologies": [
         "JSON Schema"
       ],
-      "folder": "FOL-005"
+      "folder": "FOL-005",
+      "partOf": [
+        "COM-115"
+      ]
     },
     {
       "id": "COM-033",
@@ -787,7 +790,7 @@
     },
     {
       "id": "COM-057",
-      "label": "Schema validator",
+      "label": "Map validator",
       "summary": "Reusable module for validating the schema",
       "depth": "module",
       "level": "high-level",
@@ -798,7 +801,10 @@
           "REQ-167",
           "REQ-168"
         ]
-      }
+      },
+      "partOf": [
+        "COM-115"
+      ]
     },
     {
       "id": "COM-058",
@@ -1859,6 +1865,31 @@
           "REQ-406"
         ]
       }
+    },
+    {
+      "id": "COM-115",
+      "label": "Map core",
+      "summary": "The project map: its model and the schema that describes map files.",
+      "depth": "library",
+      "level": "high-level",
+      "specs": {
+        "requirements": [
+          "REQ-407",
+          "REQ-408",
+          "REQ-409",
+          "REQ-410",
+          "REQ-411",
+          "REQ-412",
+          "REQ-413"
+        ]
+      },
+      "partOf": [
+        "COM-001"
+      ],
+      "folder": "FOL-003",
+      "sourceLocation": [
+        "src/libs/map/"
+      ]
     }
   ],
   "folders": [
@@ -1970,7 +2001,7 @@
       "summary": "",
       "kind": "uses",
       "from": "COM-005",
-      "to": "COM-016"
+      "to": "COM-115"
     },
     {
       "id": "REL-012",
@@ -2455,7 +2486,7 @@
     {
       "id": "REQ-003",
       "label": "Always valid",
-      "summary": "Every write made through Pjama leaves the map schema-valid with all references resolved.",
+      "summary": "Every write made through Pjama leaves the map valid.",
       "category": "dataIntegrity",
       "verifiedBy": []
     },
@@ -3261,7 +3292,7 @@
     {
       "id": "REQ-161",
       "label": "Map model structure",
-      "summary": "Uses the specifications given in the map model to define it's structure.",
+      "summary": "Uses the specifications given in the map model to define its structure.",
       "verifiedBy": [
         "T-001"
       ]
@@ -3361,8 +3392,8 @@
     },
     {
       "id": "REQ-180",
-      "label": "Portable across systems",
-      "summary": "A map works the same on every operating system the repository is checked out on.",
+      "label": "Tools portable across systems",
+      "summary": "Pjama's tools behave the same on every operating system the repository is checked out on.",
       "verifiedBy": []
     },
     {
@@ -4449,8 +4480,8 @@
     },
     {
       "id": "REQ-363",
-      "label": "Map file is the source of truth",
-      "summary": "The map file is the source of truth. Pjama leaves git to rewrite it (merges, pulls, checkouts) and picks up the rewritten file as the map's new state, with nothing left for the user to fix by hand.",
+      "label": "Leaves rewrites to git",
+      "summary": "Pjama leaves git to rewrite the map file (merges, pulls, checkouts) and picks up the rewritten file as the map's new state, with nothing left for the user to fix by hand.",
       "category": "dataIntegrity",
       "verifiedBy": []
     },
@@ -4723,6 +4754,51 @@
       "verifiedBy": [
         "T-024"
       ]
+    },
+    {
+      "id": "REQ-407",
+      "label": "Map file is the source of truth",
+      "summary": "The map file is the only authority on the map's state.",
+      "category": "dataIntegrity",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-408",
+      "label": "Valid map",
+      "summary": "A map is valid when it passes the map schema and every reference in it resolves.",
+      "category": "dataIntegrity",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-409",
+      "label": "Portable map file",
+      "summary": "A map file is identical on every operating system: POSIX paths, UTF-8 and LF line endings.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-410",
+      "label": "Single map",
+      "summary": "A repository holds one map.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-411",
+      "label": "Map location",
+      "summary": "The map file lives in the .pjama directory at the repo root.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-412",
+      "label": "Stable serialization",
+      "summary": "A map is always written in the same form (key order, indentation, item order), so diffs show only real changes and merges conflict as little as possible.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-413",
+      "label": "Changes come from features or git",
+      "summary": "The map changes only when a feature is merged into it or git rewrites the file.",
+      "category": "dataIntegrity",
+      "verifiedBy": []
     }
   ],
   "useCases": [
