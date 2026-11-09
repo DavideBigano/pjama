@@ -58,7 +58,7 @@
       },
       "folder": "FOL-001",
       "partOf": [
-        "COM-025"
+        "COM-003"
       ]
     },
     {
@@ -70,7 +70,7 @@
       "specs": {},
       "folder": "FOL-001",
       "partOf": [
-        "COM-025"
+        "COM-003"
       ]
     },
     {
@@ -306,7 +306,7 @@
       ],
       "folder": "FOL-002",
       "partOf": [
-        "COM-025"
+        "COM-003"
       ]
     },
     {
@@ -328,17 +328,6 @@
       "folder": "FOL-002",
       "partOf": [
         "COM-022"
-      ]
-    },
-    {
-      "id": "COM-025",
-      "label": "Editor UI",
-      "summary": "",
-      "depth": "",
-      "level": "high-level",
-      "specs": {},
-      "partOf": [
-        "COM-003"
       ]
     },
     {
