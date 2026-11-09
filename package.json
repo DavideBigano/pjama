@@ -7,7 +7,8 @@
     "test": "pnpm run typecheck && pnpm run lint && nx run-many -t test",
     "typecheck": "nx run-many -t typecheck",
     "lint": "biome check --write --unsafe",
-    "build": "pnpm run typecheck && pnpm run lint && nx run-many -t build"
+    "build": "pnpm run typecheck && pnpm run lint && nx run-many -t build",
+    "storybook": "pnpm --filter editor storybook"
   },
   "devDependencies": {
     "@biomejs/biome": "2.6.3",

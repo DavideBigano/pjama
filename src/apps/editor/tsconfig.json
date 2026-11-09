@@ -1,0 +1,9 @@
+{
+    "extends": "../../../tsconfig.base.json",
+    "compilerOptions": {
+        "jsx": "react-jsx",
+        "types": ["node", "vite/client", "@vitest/browser-playwright"]
+    },
+    "include": ["**/*.ts", "**/*.tsx", ".storybook/**/*.ts"],
+    "exclude": ["node_modules", "dist"]
+}

@@ -10,8 +10,9 @@ Run these pnpm scripts rather than calling the tools behind them directly.
 | `pnpm run lint` | `biome check --write --unsafe`: lints, formats and sorts imports, applying all fixes, unsafe ones included. |
 | `pnpm test` | `typecheck`, then `lint`, then `nx run-many -t test`. Stops at the first failure. |
 | `pnpm run build` | `typecheck`, then `lint`, then `nx run-many -t build`. Stops at the first failure. |
+| `pnpm run storybook` | `storybook dev --port 6006` in the editor: serves its stories until stopped. |
 
-Scripts run once and exit: there is no watch mode.
+Every story (`*.stories.tsx`) also runs as a screenshot test. Stories and `*.screenshot.test.tsx` files run in headless Chromium through Playwright: install it once with `pnpm --filter editor exec playwright install chromium`. A missing baseline fails the run and is written to `__screenshots__/`: look at it before committing it.
 
 ## Workspace
 
