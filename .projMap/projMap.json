@@ -7,7 +7,7 @@
       "id": "COM-003",
       "label": "Pjama editor",
       "summary": "Standalone application for editing project maps",
-      "depth": "",
+      "depth": "app",
       "level": "high-level",
       "specs": {
         "requirements": [
@@ -18,13 +18,25 @@
           "REQ-024",
           "REQ-025",
           "REQ-026",
-          "REQ-029"
+          "REQ-029",
+          "REQ-414",
+          "REQ-415",
+          "REQ-416",
+          "REQ-422"
         ]
       },
       "partOf": [
         "COM-001"
       ],
-      "folder": "FOL-001"
+      "folder": "FOL-001",
+      "sourceLocation": [
+        "src/apps/editor/"
+      ],
+      "technologies": [
+        "React",
+        "Vite",
+        "CSS Modules"
+      ]
     },
     {
       "id": "COM-021",
@@ -846,7 +858,6 @@
         "requirements": [
           "REQ-213",
           "REQ-217",
-          "REQ-228",
           "REQ-235"
         ]
       },
@@ -893,7 +904,8 @@
       "specs": {
         "requirements": [
           "REQ-215",
-          "REQ-226"
+          "REQ-226",
+          "REQ-421"
         ],
         "interfaces": [
           "IF-006"
@@ -903,10 +915,13 @@
         "COM-061"
       ],
       "technologies": [
-        "Vitest"
+        "Vitest",
+        "Playwright"
       ],
       "sourceLocation": [
-        "src/libs/map/vite.config.ts"
+        "src/libs/map/vite.config.ts",
+        "src/apps/editor/vite.config.ts",
+        "src/apps/editor/.storybook/vitest.setup.ts"
       ],
       "folder": "FOL-010"
     },
@@ -932,7 +947,8 @@
       ],
       "sourceLocation": [
         "tsconfig.base.json",
-        "src/libs/map/tsconfig.json"
+        "src/libs/map/tsconfig.json",
+        "src/apps/editor/tsconfig.json"
       ],
       "folder": "FOL-010"
     },
@@ -1879,6 +1895,36 @@
       "sourceLocation": [
         "src/libs/map/"
       ]
+    },
+    {
+      "id": "COM-116",
+      "label": "Storybook",
+      "summary": "Renders the editor's components and elements in isolation while they are developed.",
+      "depth": "config",
+      "level": "low-level",
+      "specs": {
+        "requirements": [
+          "REQ-417",
+          "REQ-418",
+          "REQ-420",
+          "REQ-423",
+          "REQ-424"
+        ],
+        "interfaces": [
+          "IF-008"
+        ]
+      },
+      "partOf": [
+        "COM-061"
+      ],
+      "technologies": [
+        "Storybook",
+        "Storybook Vitest addon"
+      ],
+      "sourceLocation": [
+        "src/apps/editor/.storybook/"
+      ],
+      "folder": "FOL-010"
     }
   ],
   "folders": [
@@ -2436,6 +2482,40 @@
       "kind": "implements",
       "from": "COM-114",
       "to": "COM-070"
+    },
+    {
+      "id": "REL-108",
+      "label": "Editor UI is developed in Storybook",
+      "summary": "Components and elements are rendered and checked in Storybook while they are built.",
+      "kind": "uses",
+      "from": "COM-003",
+      "to": "COM-116",
+      "reliesOn": [
+        "REQ-417",
+        "REQ-423"
+      ]
+    },
+    {
+      "id": "REL-109",
+      "label": "Test runner runs the stories",
+      "summary": "Each story runs as a screenshot test through the Storybook Vitest plugin.",
+      "kind": "uses",
+      "from": "COM-063",
+      "to": "COM-116",
+      "reliesOn": [
+        "REQ-420"
+      ]
+    },
+    {
+      "id": "REL-110",
+      "label": "Claude memory documents the Storybook script",
+      "summary": "",
+      "kind": "uses",
+      "from": "COM-066",
+      "to": "COM-116",
+      "reliesOn": [
+        "IF-008"
+      ]
     }
   ],
   "actors": [
@@ -3573,7 +3653,7 @@
     {
       "id": "REQ-215",
       "label": "Colocated tests",
-      "summary": "Vitest runs every project's `*.test.ts` files, next to the code they cover.",
+      "summary": "Vitest runs every project's `*.test.ts` and `*.test.tsx` files, next to the code they cover.",
       "verifiedBy": []
     },
     {
@@ -3646,12 +3726,6 @@
       "id": "REQ-227",
       "label": "Checked before building",
       "summary": "The build script runs the typecheck and lint before bundling, and stops at the first failure.",
-      "verifiedBy": []
-    },
-    {
-      "id": "REQ-228",
-      "label": "No watch mode",
-      "summary": "Scripts run once and exit.",
       "verifiedBy": []
     },
     {
@@ -4788,6 +4862,68 @@
       "summary": "The map changes only when a feature is merged into it or git rewrites the file.",
       "category": "dataIntegrity",
       "verifiedBy": []
+    },
+    {
+      "id": "REQ-414",
+      "label": "UI piece layout",
+      "summary": "One PascalCase folder per piece, in `components/` (bespoke) or `elements/` (reused), holding its `.tsx`, tests, stories and `__screenshots__/`.",
+      "verifiedBy": [],
+      "notes": "Folder `X/` holds `X.tsx`, `X.stories.tsx`, `__screenshots__/` and, when needed, `X.test.tsx` (behaviour) and `X.screenshot.test.tsx` (looks the stories do not cover). Reuse, not size or state, decides whether a piece is a component or an element."
+    },
+    {
+      "id": "REQ-415",
+      "label": "Stories for every UI piece",
+      "summary": "Every component and element has stories covering its main states.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-416",
+      "label": "Stories are screenshot tests",
+      "summary": "Each story is also a screenshot test. Looks the stories do not cover go in screenshot tests, behaviour in unit tests.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-417",
+      "label": "Renders in isolation",
+      "summary": "Each story renders one component or element on its own, outside the running editor, with its props and state injected.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-418",
+      "label": "Same build as the app",
+      "summary": "Storybook builds the stories with the project's Vite config, so they render with the same plugins and CSS Modules as the app.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-420",
+      "label": "Stories run as tests",
+      "summary": "Every story runs as a Vitest test, with the decorators and parameters of the Storybook preview config.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-421",
+      "label": "Screenshot tests in a browser",
+      "summary": "Stories and `*.screenshot.test.tsx` files are screenshotted in headless Chromium and compared with baselines in `__screenshots__/`. A missing baseline fails the run.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-422",
+      "label": "Target viewports",
+      "summary": "Desktop only. Looks right on 1080p and 2K screens, full screen and split screen, and in a split VS Code editor beside its sidebar.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-423",
+      "label": "Chosen viewports",
+      "summary": "Stories can be viewed at five viewports derived from the editor's targets, defined once in `.storybook/viewports.ts`.",
+      "verifiedBy": [],
+      "notes": "Sizes are CSS pixels; heights leave room for browser or IDE chrome.\n\n- `vscode-split-1080p` 800×900: half of a 1080p VS Code editor area, after the activity bar and a ~300px sidebar.\n- `split-1080p` 960×950: half of a 1080p screen.\n- `split-2k` 1280×1300: half of a 2K screen at 100% scaling.\n- `full-1080p` 1920×950: a full 1080p screen.\n- `full-2k` 2560×1300: a full 2K screen at 100% scaling.\n\nA VS Code split on 2K (~930×1250) is not tested separately: its width sits between `vscode-split-1080p` and `split-1080p`. 2K at 125% scaling (2048 full, ~1024 split) also falls inside the tested widths."
+    },
+    {
+      "id": "REQ-424",
+      "label": "Stories tested at every viewport",
+      "summary": "Each story runs as a test once per chosen viewport, with its own screenshot baseline for each.",
+      "verifiedBy": []
     }
   ],
   "useCases": [
@@ -5055,6 +5191,16 @@
       "protocol": {
         "name": "pnpm script",
         "additionalSpecs": "pnpm run build"
+      },
+      "verifiedBy": []
+    },
+    {
+      "id": "IF-008",
+      "label": "Storybook script",
+      "summary": "Starts the editor's Storybook dev server and keeps it running until stopped.",
+      "protocol": {
+        "name": "pnpm script",
+        "additionalSpecs": "pnpm run storybook"
       },
       "verifiedBy": []
     }
