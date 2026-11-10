@@ -1,0 +1,124 @@
+/*
+ * Light theme: every style parameter the editor's components read. Colours and shadows map to the
+ * palette. Another theme redefines any of these under its own [data-theme] selector; components never
+ * change. Size names say a size's rank, not its value, so a theme can rescale without renaming.
+ */
+:root,
+[data-theme="light"] {
+    color-scheme: light;
+
+    /* surfaces */
+    --color-bg: var(--zinc-75);
+    --color-surface: var(--zinc-0);
+    --color-surface-raised: var(--zinc-0);
+    --color-surface-sunken: var(--zinc-150);
+    --color-surface-dim: var(--zinc-50);
+    --color-surface-inverse: var(--zinc-900);
+    --color-overlay: rgb(var(--zinc-900-rgb) / 0.35);
+
+    /* text */
+    --color-text: var(--zinc-900);
+    --color-text-secondary: var(--zinc-700);
+    --color-text-tertiary: var(--zinc-600);
+    --color-text-muted: var(--zinc-500);
+    --color-text-faint: var(--zinc-400);
+    --color-text-inverse: var(--zinc-0);
+    --color-text-on-accent: var(--zinc-0);
+
+    /* lines */
+    --color-border: var(--zinc-185);
+    --color-border-strong: var(--zinc-300);
+    --color-border-control: var(--zinc-400);
+    --color-grid-dot: var(--zinc-250);
+
+    /* interaction */
+    --color-hover: var(--zinc-100);
+    --color-hover-strong: var(--zinc-200);
+    --color-hover-chip: var(--zinc-175);
+    --color-selected: var(--indigo-50);
+    --color-focus-ring: rgb(var(--indigo-600-rgb) / 0.15);
+
+    /* accent */
+    --color-accent: var(--indigo-600);
+    --color-accent-hover: var(--indigo-700);
+    --color-accent-text: var(--indigo-700);
+    --color-accent-border: var(--indigo-200);
+    --color-accent-glow: rgb(var(--indigo-600-rgb) / 0.45);
+
+    /* status */
+    --color-danger: var(--red-600);
+    --color-danger-hover: var(--red-700);
+    --color-danger-subtle: var(--red-50);
+    --color-warning: var(--amber-600);
+    --color-warning-text: var(--amber-800);
+    --color-warning-subtle: var(--amber-100);
+    --color-warning-subtle-hover: var(--amber-200);
+    --color-warning-border: var(--amber-300);
+
+    /* graph */
+    --color-part-of: var(--violet-600);
+    --color-part-of-border: var(--violet-300);
+    --color-part-of-subtle: var(--violet-50);
+    --color-relation: var(--zinc-600);
+
+    /* elevation */
+    --shadow-sm: 0 1px 3px rgb(var(--black-rgb) / 0.05);
+    --shadow-hover: 0 2px 8px rgb(var(--black-rgb) / 0.05);
+    --shadow-raised: 0 4px 12px rgb(var(--black-rgb) / 0.15);
+    --shadow-popover: 0 12px 32px rgb(var(--black-rgb) / 0.14);
+    --shadow-dialog: 0 20px 48px rgb(var(--black-rgb) / 0.2);
+    --shadow-node: 0 1px 3px rgb(var(--black-rgb) / 0.08);
+    --shadow-focus: 0 0 0 3px var(--color-focus-ring);
+    --shadow-focus-edge:
+        0 0 0 1px var(--color-accent), 0 0 0 4px var(--color-focus-ring);
+
+    /* scale */
+    --font-sans: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+    --leading: 1.45;
+
+    --text-2xs: 10px;
+    --text-xs: 11px;
+    --text-sm: 12px;
+    --text-md: 13px;
+    --text-base: 14px;
+    --text-lg: 16px;
+    --text-xl: 18px;
+    --text-2xl: 22px;
+
+    --weight-regular: 400;
+    --weight-medium: 500;
+    --weight-semibold: 600;
+    --weight-bold: 650;
+
+    --space-3xs: 2px;
+    --space-2xs: 4px;
+    --space-xs: 6px;
+    --space-sm: 8px;
+    --space-md: 10px;
+    --space-lg: 12px;
+    --space-xl: 16px;
+    --space-2xl: 20px;
+    --space-3xl: 28px;
+
+    --radius-xs: 2px;
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
+    --radius-xl: 10px;
+    --radius-2xl: 12px;
+    --radius-full: 999px;
+
+    --control-xs: 20px;
+    --control-sm: 24px;
+    --control-md: 28px;
+    --row-height: 32px;
+    --topbar-height: 52px;
+
+    --layer-popover: 10;
+    --layer-overlay: 20;
+    --layer-menu: 30;
+
+    --duration-fast: 0.12s;
+    --duration-base: 0.15s;
+}
