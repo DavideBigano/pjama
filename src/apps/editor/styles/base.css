@@ -1,0 +1,20 @@
+/* Document-wide defaults, built on the theme and scale tokens. */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: var(--leading);
+    color: var(--color-text);
+    background: var(--color-bg);
+}

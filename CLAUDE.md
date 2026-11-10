@@ -16,6 +16,8 @@ Run these pnpm scripts rather than calling the tools behind them directly.
 
 Every story (`*.stories.tsx`) also runs as a screenshot test. Stories and `*.screenshot.test.tsx` files run in headless Chromium through Playwright: install it once with `pnpm --filter editor exec playwright install chromium`. A missing baseline fails the run and is written to `__screenshots__/`: look at it before committing it.
 
+The editor's CSS Modules style themselves only with the variables in `src/apps/editor/styles/`: role tokens from the theme (`--color-*`, `--shadow-*`) and the shared scale (`--space-*`, `--text-*`, `--radius-*`…), never colour literals or palette entries. A new colour or shadow becomes a role in every theme file.
+
 ## Workspace
 
 An Nx monorepo on pnpm workspaces. Apps live in `src/apps/`, libraries in `src/libs/`, repo scripts in `src/scripts/`, one folder per project, each with its own `package.json`. Nx runs the `typecheck`, `test` and `build` scripts each project defines; Biome lints the whole repo from the root.

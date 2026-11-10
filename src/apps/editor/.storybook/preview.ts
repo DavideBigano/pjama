@@ -1,3 +1,4 @@
+import '../styles/index.css';
 import type { Preview } from '@storybook/react-vite';
 import { viewports } from './viewports';
 

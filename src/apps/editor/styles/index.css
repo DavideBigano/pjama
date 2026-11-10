@@ -1,0 +1,5 @@
+/* The editor's styles: import this once, from the app entry and from Storybook's preview. */
+@import "./palette.css";
+@import "./scale.css";
+@import "./theme-light.css";
+@import "./base.css";

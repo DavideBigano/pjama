@@ -1,0 +1,42 @@
+/*
+ * Raw colour scales. Only theme files read these: components use the role tokens a theme defines.
+ */
+:root {
+    --zinc-0: #fff;
+    --zinc-50: #fafafa;
+    --zinc-75: #f7f7f8;
+    --zinc-100: #f4f4f5;
+    --zinc-150: #ececef;
+    --zinc-175: #e9e9ec;
+    --zinc-185: #e7e7ea;
+    --zinc-200: #e4e4e7;
+    --zinc-250: #dcdce0;
+    --zinc-300: #d4d4d8;
+    --zinc-400: #a1a1aa;
+    --zinc-500: #71717a;
+    --zinc-600: #52525b;
+    --zinc-700: #3f3f46;
+    --zinc-900: #18181b;
+    --zinc-900-rgb: 24 24 27;
+    --black-rgb: 0 0 0;
+
+    --indigo-50: #eef2ff;
+    --indigo-200: #c7d2fe;
+    --indigo-600: #4f46e5;
+    --indigo-600-rgb: 79 70 229;
+    --indigo-700: #4338ca;
+
+    --violet-50: #f5f3ff;
+    --violet-300: #c4b5fd;
+    --violet-600: #7c3aed;
+
+    --red-50: #fef2f2;
+    --red-600: #dc2626;
+    --red-700: #b91c1c;
+
+    --amber-100: #fef3c7;
+    --amber-200: #fde68a;
+    --amber-300: #fcd34d;
+    --amber-600: #d97706;
+    --amber-800: #92400e;
+}
