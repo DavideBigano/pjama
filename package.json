@@ -8,7 +8,9 @@
     "typecheck": "nx run-many -t typecheck",
     "lint": "biome check --write --unsafe",
     "build": "pnpm run typecheck && pnpm run lint && nx run-many -t build",
-    "storybook": "pnpm --filter editor storybook"
+    "storybook": "pnpm --filter editor storybook",
+    "editor:start": "node src/scripts/editor/start.js",
+    "editor:stop": "node src/scripts/editor/stop.js"
   },
   "devDependencies": {
     "@biomejs/biome": "2.6.3",
