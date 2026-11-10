@@ -9,7 +9,9 @@ try {
     }).catch((error) => {
         // fetch rejects instead of resolving when the request never gets an answer. A refused connection means
         // nothing listens on the port; any other failure is a real error.
-        if (error.cause?.code !== 'ECONNREFUSED') throw error;
+        if (error.cause?.code !== 'ECONNREFUSED') {
+            throw error;
+        }
         return null;
     });
     if (response === null) {
