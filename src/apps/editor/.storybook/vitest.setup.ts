@@ -8,13 +8,19 @@ declare module 'vitest' {
     interface ProvidedContext {
         /** The viewport this Storybook test project renders stories at. */
         viewport: ViewportId;
+        /** Whether this project's stories get a screenshot at each viewport, named after it. */
+        screenshotPerViewport: boolean;
     }
 }
 
 // Stories run as tests get the same decorators and parameters as in Storybook
 setProjectAnnotations(preview);
 
-// Every story is a screenshot test at each viewport, with one baseline per viewport in __screenshots__/
+// Every story is a screenshot test, with its baselines in __screenshots__/: stories tagged 'page' get
+// one per viewport, named after it, the others a single one
 afterEach(async ({ expect, task }) => {
-    await expect(page).toMatchScreenshot(`${task.name}-${inject('viewport')}`);
+    const name = inject('screenshotPerViewport')
+        ? `${task.name}-${inject('viewport')}`
+        : task.name;
+    await expect(page).toMatchScreenshot(name);
 });
