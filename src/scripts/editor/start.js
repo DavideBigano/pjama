@@ -36,7 +36,9 @@ try {
         for (const stream of [editor.stdout, editor.stderr]) {
             stream.setEncoding('utf8').on('data', (chunk) => {
                 output += chunk;
-                if (/^Editing .*\n/m.test(output)) resolve();
+                if (/^Editing .*\n/m.test(output)) {
+                    resolve();
+                }
             });
         }
         editor.once('exit', (code) =>

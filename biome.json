@@ -25,13 +25,22 @@
         "rules": {
             "preset": "recommended",
             "style": {
-                "noDefaultExport": "error"
+                "noDefaultExport": "error",
+                "useBlockStatements": {
+                    "level": "info",
+                    "fix": "safe"
+                }
             }
         }
     },
     "javascript": {
         "formatter": {
             "quoteStyle": "single"
+        }
+    },
+    "css": {
+        "parser": {
+            "cssModules": true
         }
     },
     "assist": {
@@ -41,5 +50,17 @@
                 "organizeImports": "on"
             }
         }
-    }
+    },
+    "overrides": [
+        {
+            "includes": ["**/*.stories.tsx"],
+            "linter": {
+                "rules": {
+                    "style": {
+                        "noDefaultExport": "off"
+                    }
+                }
+            }
+        }
+    ]
 }
