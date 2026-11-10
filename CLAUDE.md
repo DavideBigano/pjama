@@ -14,7 +14,7 @@ Run these pnpm scripts rather than calling the tools behind them directly.
 | `pnpm run editor:start [port]` | Starts the projMap editor in the background on `.projMap/projMap.json`, on port 4319 unless given, and prints its URL. |
 | `pnpm run editor:stop [port]` | Stops the projMap editor on that port. Stop it before switching git branches: it reloads the map from the new branch and rewrites `projMap.layout.json`. |
 
-Every story (`*.stories.tsx`) also runs as a screenshot test. Stories and `*.screenshot.test.tsx` files run in headless Chromium through Playwright: install it once with `pnpm --filter editor exec playwright install chromium`. A missing baseline fails the run and is written to `__screenshots__/`: look at it before committing it.
+Every story (`*.stories.tsx`) also runs as a full-page screenshot test, once; stories tagged `page` run at each viewport instead. Stories are the sandbox: one per configuration worth browsing. States stories can't reach (hover, focus) and edge cases go in `*.screenshot.test.tsx`, screenshotting just the element, so each state has a single baseline. Both run in headless Chromium through Playwright: install it once with `pnpm --filter editor exec playwright install chromium`. A missing baseline fails the run and is written to `__screenshots__/`: look at it before committing it.
 
 ## Workspace
 

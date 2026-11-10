@@ -3,6 +3,8 @@ import { App } from './App';
 
 const meta = {
     component: App,
+    // The shell lays out with the viewport: screenshot it at each one
+    tags: ['page'],
 } satisfies Meta<typeof App>;
 
 export default meta;
