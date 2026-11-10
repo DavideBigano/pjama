@@ -20,12 +20,10 @@ describe.each(moduleSources)('%s', (_path, source) => {
         );
     });
 
-    test('uses only tokens the light theme or the scale defines', () => {
+    test('uses only tokens the theme defines', () => {
         const defined = new Set(
-            ['styles/theme-light.css', 'styles/scale.css'].flatMap((file) =>
-                readFileSync(join(APP_DIR, file), 'utf8').match(
-                    /--[\w-]+(?=\s*:)/g,
-                ),
+            readFileSync(join(APP_DIR, 'styles/theme.css'), 'utf8').match(
+                /--[\w-]+(?=\s*:)/g,
             ),
         );
         const used = [...source.matchAll(/var\((--[\w-]+)/g)].map(

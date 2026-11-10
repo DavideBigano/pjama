@@ -1,6 +1,7 @@
 /*
- * Light theme: maps every colour and shadow role to the palette. Another theme redefines the same
- * roles under its own [data-theme] selector; components never change.
+ * Light theme: every style parameter the editor's components read. Colours and shadows map to the
+ * palette. Another theme redefines any of these under its own [data-theme] selector; components never
+ * change. Size names say a size's rank, not its value, so a theme can rescale without renaming.
  */
 :root,
 [data-theme="light"] {
@@ -70,4 +71,54 @@
     --shadow-focus: 0 0 0 3px var(--color-focus-ring);
     --shadow-focus-edge:
         0 0 0 1px var(--color-accent), 0 0 0 4px var(--color-focus-ring);
+
+    /* scale */
+    --font-sans: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+    --leading: 1.45;
+
+    --text-2xs: 10px;
+    --text-xs: 11px;
+    --text-sm: 12px;
+    --text-md: 13px;
+    --text-base: 14px;
+    --text-lg: 16px;
+    --text-xl: 18px;
+    --text-2xl: 22px;
+
+    --weight-regular: 400;
+    --weight-medium: 500;
+    --weight-semibold: 600;
+    --weight-bold: 650;
+
+    --space-3xs: 2px;
+    --space-2xs: 4px;
+    --space-xs: 6px;
+    --space-sm: 8px;
+    --space-md: 10px;
+    --space-lg: 12px;
+    --space-xl: 16px;
+    --space-2xl: 20px;
+    --space-3xl: 28px;
+
+    --radius-xs: 2px;
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
+    --radius-xl: 10px;
+    --radius-2xl: 12px;
+    --radius-full: 999px;
+
+    --control-xs: 20px;
+    --control-sm: 24px;
+    --control-md: 28px;
+    --row-height: 32px;
+    --topbar-height: 52px;
+
+    --layer-popover: 10;
+    --layer-overlay: 20;
+    --layer-menu: 30;
+
+    --duration-fast: 0.12s;
+    --duration-base: 0.15s;
 }

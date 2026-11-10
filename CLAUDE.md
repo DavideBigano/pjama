@@ -16,7 +16,7 @@ Run these pnpm scripts rather than calling the tools behind them directly.
 
 Every story (`*.stories.tsx`) also runs as a screenshot test. Stories and `*.screenshot.test.tsx` files run in headless Chromium through Playwright: install it once with `pnpm --filter editor exec playwright install chromium`. A missing baseline fails the run and is written to `__screenshots__/`: look at it before committing it.
 
-The editor's CSS Modules style themselves only with the variables in `src/apps/editor/styles/`: role tokens from the theme (`--color-*`, `--shadow-*`) and the shared scale (`--space-*`, `--text-*`, `--radius-*`…), never colour literals or palette entries. A new colour or shadow becomes a role in every theme file.
+The editor's CSS Modules style themselves only with the variables in `src/apps/editor/styles/`: the style parameters a theme defines (`--color-*`, `--shadow-*`, `--space-*`, `--text-*`, `--radius-*`…), never colour literals or palette entries. A new parameter goes in every theme.
 
 ## Workspace
 
