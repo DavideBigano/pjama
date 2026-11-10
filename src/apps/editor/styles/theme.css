@@ -31,10 +31,11 @@
     --color-border-control: var(--zinc-400);
     --color-grid-dot: var(--zinc-250);
 
-    /* interaction */
-    --color-hover: var(--zinc-100);
-    --color-hover-strong: var(--zinc-200);
-    --color-hover-chip: var(--zinc-175);
+    /* interaction: neutral fills and hovers are translucent, so they read the same on any surface */
+    --color-fill: rgb(var(--zinc-900-rgb) / 0.05);
+    --color-hover: rgb(var(--zinc-900-rgb) / 0.07);
+    --color-hover-strong: rgb(var(--zinc-900-rgb) / 0.11);
+    --color-hover-chip: rgb(var(--zinc-900-rgb) / 0.09);
     --color-selected: var(--indigo-50);
     --color-focus-ring: rgb(var(--indigo-600-rgb) / 0.15);
 
@@ -114,6 +115,11 @@
     --control-md: 28px;
     --row-height: 32px;
     --topbar-height: 52px;
+
+    --icon-sm: 12px;
+    --icon-md: 14px;
+    --icon-lg: 16px;
+    --icon-stroke: 1.75;
 
     --layer-popover: 10;
     --layer-overlay: 20;

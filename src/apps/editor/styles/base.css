@@ -18,3 +18,11 @@ body {
     color: var(--color-text);
     background: var(--color-bg);
 }
+
+/* Lucide icons take the theme's stroke and size them through CSS rather than props. */
+.lucide {
+    flex: none;
+    width: var(--icon-lg);
+    height: var(--icon-lg);
+    stroke-width: var(--icon-stroke);
+}

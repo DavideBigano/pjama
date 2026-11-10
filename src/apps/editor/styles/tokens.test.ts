@@ -4,10 +4,13 @@ import { describe, expect, test } from 'vitest';
 
 const EDITOR_DIR = join(import.meta.dirname, '..');
 
-/** Every CSS Module in the app, as `[path relative to the editor, source]`. */
-const moduleSources = globSync('components/**/*.module.css', {
-    cwd: EDITOR_DIR,
-}).map((path) => [path, readFileSync(join(EDITOR_DIR, path), 'utf8')]);
+/** Every CSS Module of the app's components and elements, as `[path relative to the editor, source]`. */
+const moduleSources = globSync(
+    ['components/**/*.module.css', 'elements/**/*.module.css'],
+    {
+        cwd: EDITOR_DIR,
+    },
+).map((path) => [path, readFileSync(join(EDITOR_DIR, path), 'utf8')]);
 
 describe.each(moduleSources)('CSS Module: %s', (_path, source) => {
     test('has no colour literals', () => {
