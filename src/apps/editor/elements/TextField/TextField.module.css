@@ -1,0 +1,79 @@
+.field {
+    display: block;
+    width: calc(100% + 2 * var(--space-xs));
+    min-width: 60px;
+    margin: 0 calc(-1 * var(--space-xs));
+    padding: 1px var(--space-xs);
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+    cursor: text;
+}
+
+.field:hover {
+    background: var(--color-hover);
+}
+
+.field:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-focus);
+}
+
+.editing,
+.editing:hover {
+    border-color: var(--color-accent);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-focus);
+    outline: none;
+    overflow-y: hidden;
+    resize: none;
+}
+
+.placeholder,
+.editing::placeholder {
+    color: var(--color-text-faint);
+}
+
+/* Chromium's own dropdown button for suggestions, replaced by .suggestionsButton */
+.editing::-webkit-calendar-picker-indicator {
+    /* biome-ignore lint/complexity/noImportantStyles: Chromium's own rule for it is !important */
+    display: none !important;
+}
+
+.withSuggestions {
+    position: relative;
+    display: block;
+}
+
+.withSuggestions > .editing {
+    padding-right: calc(var(--icon-md) + 2 * var(--space-xs));
+}
+
+.suggestionsButton {
+    position: absolute;
+    top: 50%;
+    right: calc(-1 * var(--space-xs) + var(--space-3xs));
+    display: inline-flex;
+    padding: var(--space-3xs);
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: none;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transform: translateY(-50%);
+}
+
+.suggestionsButton:hover {
+    background: var(--color-hover);
+    color: var(--color-text);
+}
+
+.suggestionsButton :global(.lucide) {
+    width: var(--icon-md);
+    height: var(--icon-md);
+}
