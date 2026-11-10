@@ -1958,17 +1958,15 @@
     {
       "id": "COM-118",
       "label": "Editor theme",
-      "summary": "CSS variables that every style in the editor reads: a palette, swappable themes of colour and shadow roles, and a shared scale.",
+      "summary": "CSS variables that every style in the editor reads: swappable themes defining the style parameters, built on a palette.",
       "depth": "styles",
       "level": "low-level",
       "specs": {
         "requirements": [
           "REQ-428",
           "REQ-429",
-          "REQ-430"
-        ],
-        "interfaces": [
-          "IF-011"
+          "REQ-430",
+          "REQ-431"
         ]
       },
       "partOf": [
@@ -2593,7 +2591,7 @@
       "from": "COM-022",
       "to": "COM-118",
       "reliesOn": [
-        "IF-011"
+        "REQ-431"
       ]
     },
     {
@@ -2604,7 +2602,7 @@
       "from": "COM-019",
       "to": "COM-118",
       "reliesOn": [
-        "IF-011"
+        "REQ-431"
       ]
     },
     {
@@ -2615,7 +2613,7 @@
       "from": "COM-020",
       "to": "COM-118",
       "reliesOn": [
-        "IF-011"
+        "REQ-431"
       ]
     }
   ],
@@ -5062,7 +5060,7 @@
     {
       "id": "REQ-428",
       "label": "Styles come from shared tokens",
-      "summary": "Component styles take colours, shadows, type, spacing, shapes and sizes only from the theme and scale variables: no colour literals, no palette values.",
+      "summary": "Component styles take colours, shadows, type, spacing, shapes and sizes only from the style parameters: no colour literals, no palette values.",
       "verifiedBy": [
         "T-037",
         "T-038",
@@ -5072,7 +5070,7 @@
     {
       "id": "REQ-429",
       "label": "Swappable themes",
-      "summary": "A theme defines every colour and shadow role under its own data-theme selector, so replacing or adding a theme changes no component.",
+      "summary": "A theme defines the style parameters under its own data-theme selector, so replacing or adding a theme changes no component.",
       "verifiedBy": []
     },
     {
@@ -5080,6 +5078,13 @@
       "label": "Theme choice",
       "summary": "The developer can switch between a light and a dark theme, starting from their system setting.",
       "notes": "Deferred: only the light theme exists for now.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-431",
+      "label": "Style parameters",
+      "summary": "Each theme defines the same style parameters: colours, shadows, type, spacing, shapes, sizes, layers and motion.",
+      "notes": "- **Surfaces:** `--color-bg`, `--color-surface`, `--color-surface-raised`, `--color-surface-sunken`, `--color-surface-dim`, `--color-surface-inverse`, `--color-overlay`\n- **Text:** `--color-text`, `--color-text-secondary`, `--color-text-tertiary`, `--color-text-muted`, `--color-text-faint`, `--color-text-inverse`, `--color-text-on-accent`\n- **Lines:** `--color-border`, `--color-border-strong`, `--color-border-control`, `--color-grid-dot`\n- **Interaction:** `--color-hover`, `--color-hover-strong`, `--color-hover-chip`, `--color-selected`, `--color-focus-ring`\n- **Accent:** `--color-accent`, `--color-accent-hover`, `--color-accent-text`, `--color-accent-border`, `--color-accent-glow`\n- **Status:** `--color-danger`, `--color-danger-hover`, `--color-danger-subtle`, `--color-warning`, `--color-warning-text`, `--color-warning-subtle`, `--color-warning-subtle-hover`, `--color-warning-border`\n- **Graph:** `--color-part-of`, `--color-part-of-border`, `--color-part-of-subtle`, `--color-relation`\n- **Elevation:** `--shadow-sm`, `--shadow-hover`, `--shadow-raised`, `--shadow-popover`, `--shadow-dialog`, `--shadow-node`, `--shadow-focus`, `--shadow-focus-edge`\n- **Type:** `--font-sans`, `--font-mono`, `--leading`\n- **Text sizes:** `--text-2xs`, `--text-xs`, `--text-sm`, `--text-md`, `--text-base`, `--text-lg`, `--text-xl`, `--text-2xl`\n- **Weights:** `--weight-regular`, `--weight-medium`, `--weight-semibold`, `--weight-bold`\n- **Spacing:** `--space-3xs`, `--space-2xs`, `--space-xs`, `--space-sm`, `--space-md`, `--space-lg`, `--space-xl`, `--space-2xl`, `--space-3xl`\n- **Radii:** `--radius-xs`, `--radius-sm`, `--radius-md`, `--radius-lg`, `--radius-xl`, `--radius-2xl`, `--radius-full`\n- **Sizes:** `--control-xs`, `--control-sm`, `--control-md`, `--row-height`, `--topbar-height`\n- **Layers:** `--layer-popover`, `--layer-overlay`, `--layer-menu`\n- **Motion:** `--duration-fast`, `--duration-base`",
       "verifiedBy": []
     }
   ],
@@ -5380,18 +5385,6 @@
         "additionalSpecs": "pnpm run editor:stop [port]"
       },
       "verifiedBy": []
-    },
-    {
-      "id": "IF-011",
-      "label": "Style tokens",
-      "summary": "The CSS variables components style themselves with.",
-      "protocol": {
-        "name": "CSS custom properties",
-        "additionalSpecs": "Theme roles: --color-*, --shadow-*. Scale: --font-*, --leading, --text-*, --weight-*, --space-*, --radius-*, --control-*, --row-height, --topbar-height, --layer-*, --duration-*."
-      },
-      "verifiedBy": [
-        "T-039"
-      ]
     }
   ],
   "resources": [
@@ -5707,11 +5700,11 @@
     },
     {
       "id": "T-039",
-      "label": "CSS Modules use only defined tokens",
-      "summary": "Every variable a CSS Module reads is defined by the light theme or the scale.",
+      "label": "CSS Modules use only theme tokens",
+      "summary": "Every variable a CSS Module reads is defined by the theme.",
       "type": "unit",
       "location": "src/apps/editor/styles/tokens.test.ts",
-      "testName": "uses only tokens the light theme or the scale defines"
+      "testName": "uses only tokens the theme defines"
     }
   ],
   "decisions": [
