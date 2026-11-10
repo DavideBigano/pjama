@@ -9,6 +9,7 @@
     "lint": "biome check --write --unsafe",
     "build": "pnpm run typecheck && pnpm run lint && nx run-many -t build",
     "storybook": "pnpm --filter editor storybook",
+    "editor": "pnpm run editor:start",
     "editor:start": "node src/scripts/editor/start.js",
     "editor:stop": "node src/scripts/editor/stop.js"
   },
