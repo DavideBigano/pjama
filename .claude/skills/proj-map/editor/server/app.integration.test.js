@@ -8,7 +8,7 @@ import { createHandler } from "./app.js";
 import { createMapStore } from "./store.js";
 
 /** Starts the handler on a free port over a temporary project; returns its base URL and a closer. */
-async function startServer(files = {}) {
+async function startServer(files = {}, shutdown = () => {}) {
 	const root = await fs.mkdtemp(path.join(os.tmpdir(), "projmap-app-"));
 	for (const [name, content] of Object.entries(files)) {
 		await fs.mkdir(path.dirname(path.join(root, name)), { recursive: true });
@@ -19,7 +19,7 @@ async function startServer(files = {}) {
 	const publicDir = path.join(root, "public");
 	await fs.mkdir(publicDir, { recursive: true });
 	await fs.writeFile(path.join(publicDir, "index.html"), "<!doctype html>editor");
-	const server = http.createServer(createHandler({ store, fs, publicDir, root, mapPath }));
+	const server = http.createServer(createHandler({ store, fs, publicDir, root, mapPath, shutdown }));
 	await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
 	return { url: `http://127.0.0.1:${server.address().port}`, root, mapPath, close: () => server.close() };
 }
@@ -67,5 +67,25 @@ describe("editor server", () => {
 		const response = await fetch(server.url + "/files/..%2F..%2Fetc%2Fpasswd");
 		server.close();
 		assert.equal(response.status, 403);
+	});
+	test("shuts down on a shutdown request", async () => {
+		let shutdownCalls = 0;
+		const server = await startServer({}, () => { shutdownCalls++; });
+		await fetch(server.url + "/api/shutdown", { method: "POST", headers: { "x-projmap-shutdown": "1" } });
+		server.close();
+		assert.equal(shutdownCalls, 1);
+	});
+	test("refuses a shutdown request without the shutdown header", async () => {
+		const server = await startServer();
+		const response = await fetch(server.url + "/api/shutdown", { method: "POST" });
+		server.close();
+		assert.equal(response.status, 403);
+	});
+	test("stays up on a shutdown request without the shutdown header", async () => {
+		let shutdownCalls = 0;
+		const server = await startServer({}, () => { shutdownCalls++; });
+		await fetch(server.url + "/api/shutdown", { method: "POST" });
+		server.close();
+		assert.equal(shutdownCalls, 0);
 	});
 });

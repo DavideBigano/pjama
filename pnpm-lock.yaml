@@ -97,6 +97,12 @@ importers:
                 specifier: ^5.0.5
                 version: 5.0.5(@types/node@26.6.5)(@vitest/browser-playwright@5.0.5)(@vitest/ui@5.0.5)(vite@8.3.7(@types/node@26.6.5)(esbuild@0.28.2)(yaml@2.9.0))
 
+    src/scripts/editor:
+        devDependencies:
+            vitest:
+                specifier: ^5.0.5
+                version: 5.0.5(@types/node@26.6.5)(@vitest/browser-playwright@5.0.5)(@vitest/ui@5.0.5)(vite@8.3.7(@types/node@26.6.5)(esbuild@0.28.2)(yaml@2.9.0))
+
 packages:
     "@adobe/css-tools@4.5.0":
         resolution:

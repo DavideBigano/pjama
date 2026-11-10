@@ -43,7 +43,8 @@ const createMapFor = root => () => {
 const options = getOptions(process.argv.slice(2), process.cwd());
 const store = createMapStore({ fs, mapPath: options.mapPath, layoutPath: options.layoutPath, createMap: createMapFor(options.root) });
 const publicDir = path.join(path.dirname(fileURLToPath(import.meta.url)), "public");
-const server = http.createServer(createHandler({ store, fs, publicDir, root: options.root, mapPath: options.mapPath }));
+const shutdown = () => { server.close(); server.closeAllConnections(); };
+const server = http.createServer(createHandler({ store, fs, publicDir, root: options.root, mapPath: options.mapPath, shutdown }));
 const port = await listen(server, options.port);
 const url = `http://${HOST}:${port}/`;
 

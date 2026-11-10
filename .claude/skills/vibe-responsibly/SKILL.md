@@ -46,7 +46,7 @@ TypeScript, set up as an Nx monorepo on pnpm workspaces. Apps live in `src/apps/
 
 **No dependency injection** — Unless the user asks for it, don't inject dependencies: functions import and call the functionality they need directly. Don't add parameters, factories or containers either. (Yes: [`import { readFile } from "node:fs/promises"` called inside `loadMap(path)`, mocked in tests with `vi.mock("node:fs/promises")`] / No: [`loadMap(path, readFile = fs.readFile)`])
 
-**Named exports and imports** — Don't use default exports or default imports. Export and import by name, unless a library or format only offers a default, or a tool requires one (e.g. JSON modules, config files such as `vite.config.ts`). (Yes: [`export function loadMap() {}` / `import { Ajv2020 } from "ajv/dist/2020"`] / No: [`export default function loadMap() {}` / `import Ajv2020 from "ajv/dist/2020"`])
+**Named exports and imports** — Don't use default exports, default imports or namespace imports (`import * as`). Export and import by name, unless a library or format only offers a default, or a tool requires one (e.g. JSON modules, config files such as `vite.config.ts`). (Yes: [`export function loadMap() {}` / `import { Ajv2020 } from "ajv/dist/2020"`] / No: [`export default function loadMap() {}` / `import Ajv2020 from "ajv/dist/2020"` / `import * as fs from "node:fs/promises"`])
 
 **Pure functions preferred** — Where the logic allows it, prefer pure functions (same input, same output, no side effect) over stateful ones.
 
