@@ -5063,7 +5063,6 @@
       "summary": "Component styles take colours, shadows, type, spacing, shapes and sizes only from the style parameters: no colour literals, no palette values.",
       "verifiedBy": [
         "T-037",
-        "T-038",
         "T-039"
       ]
     },
@@ -5689,14 +5688,6 @@
       "type": "unit",
       "location": "src/apps/editor/styles/tokens.test.ts",
       "testName": "has no colour literals"
-    },
-    {
-      "id": "T-038",
-      "label": "CSS Modules don't read the palette",
-      "summary": "No CSS Module reads a palette variable directly.",
-      "type": "unit",
-      "location": "src/apps/editor/styles/tokens.test.ts",
-      "testName": "doesn't read the palette"
     },
     {
       "id": "T-039",
