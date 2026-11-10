@@ -906,7 +906,8 @@
           "REQ-215",
           "REQ-226",
           "REQ-421",
-          "REQ-468"
+          "REQ-468",
+          "REQ-472"
         ],
         "interfaces": [
           "IF-006"
@@ -923,7 +924,8 @@
         "src/libs/map/vite.config.ts",
         "src/apps/editor/vite.config.ts",
         "src/scripts/editor/vite.config.ts",
-        "src/apps/editor/.storybook/vitest.setup.ts"
+        "src/apps/editor/.storybook/vitest.setup.ts",
+        "src/apps/editor/screenshot.setup.ts"
       ],
       "folder": "FOL-010"
     },
@@ -970,7 +972,10 @@
           "REQ-223",
           "REQ-224",
           "REQ-225",
-          "REQ-229"
+          "REQ-229",
+          "REQ-469",
+          "REQ-470",
+          "REQ-471"
         ],
         "interfaces": [
           "IF-005"
@@ -983,7 +988,8 @@
         "Biome"
       ],
       "sourceLocation": [
-        "biome.json"
+        "biome.json",
+        ".vscode/"
       ],
       "folder": "FOL-010"
     },
@@ -2119,7 +2125,8 @@
         "COM-022"
       ],
       "technologies": [
-        "React"
+        "React",
+        "react-markdown"
       ],
       "sourceLocation": [
         "src/apps/editor/elements/MarkdownNotes/"
@@ -4110,7 +4117,7 @@
     {
       "id": "REQ-219",
       "label": "Named exports enforced",
-      "summary": "The linter rejects default exports, except where a tool requires one and the exception is marked inline.",
+      "summary": "The linter rejects default exports, except where a tool requires one: marked inline, or for a whole kind of file in the config, as with stories.",
       "verifiedBy": []
     },
     {
@@ -5642,6 +5649,30 @@
       "id": "REQ-468",
       "label": "Screenshot tests start at rest",
       "summary": "Each `*.screenshot.test.tsx` test starts with the pointer away from the page, so nothing shows as hovered unless the test hovers it.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-469",
+      "label": "Block statements",
+      "summary": "Every `if`, `else` and loop body is a block in braces. The fix is safe, so it's applied on save too.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-470",
+      "label": "CSS Modules syntax",
+      "summary": "CSS files are parsed as CSS Modules, so syntax such as `:global(...)` passes.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-471",
+      "label": "Format on save",
+      "summary": "In VS Code, saving a file formats it with Biome, applies its safe fixes and sorts its imports.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-472",
+      "label": "Behaviour tests in a browser",
+      "summary": "`*.test.tsx` behaviour tests run in headless Chromium, so React components render in a real DOM; `*.test.ts` files run in Node.",
       "verifiedBy": []
     }
   ],
