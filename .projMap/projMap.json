@@ -921,6 +921,7 @@
       "sourceLocation": [
         "src/libs/map/vite.config.ts",
         "src/apps/editor/vite.config.ts",
+        "src/scripts/editor/vite.config.ts",
         "src/apps/editor/.storybook/vitest.setup.ts"
       ],
       "folder": "FOL-010"
@@ -1925,6 +1926,34 @@
         "src/apps/editor/.storybook/"
       ],
       "folder": "FOL-010"
+    },
+    {
+      "id": "COM-117",
+      "label": "Editor scripts",
+      "summary": "Repo scripts that start and stop the projMap editor.",
+      "depth": "scripts",
+      "level": "low-level",
+      "specs": {
+        "requirements": [
+          "REQ-425",
+          "REQ-426",
+          "REQ-427"
+        ],
+        "interfaces": [
+          "IF-009",
+          "IF-010"
+        ]
+      },
+      "partOf": [
+        "COM-061"
+      ],
+      "technologies": [
+        "Node.js"
+      ],
+      "sourceLocation": [
+        "src/scripts/editor/"
+      ],
+      "folder": "FOL-010"
     }
   ],
   "folders": [
@@ -2515,6 +2544,18 @@
       "to": "COM-116",
       "reliesOn": [
         "IF-008"
+      ]
+    },
+    {
+      "id": "REL-111",
+      "label": "Claude memory documents the editor scripts",
+      "summary": "",
+      "kind": "uses",
+      "from": "COM-066",
+      "to": "COM-117",
+      "reliesOn": [
+        "IF-009",
+        "IF-010"
       ]
     }
   ],
@@ -3766,8 +3807,8 @@
     },
     {
       "id": "REQ-235",
-      "label": "Apps and libs",
-      "summary": "Apps live in `src/apps/` and libraries in `src/libs/`, one folder per project.",
+      "label": "Apps, libs and scripts",
+      "summary": "Apps live in `src/apps/`, libraries in `src/libs/` and repo scripts in `src/scripts/`, one folder per project.",
       "verifiedBy": []
     },
     {
@@ -4924,6 +4965,39 @@
       "label": "Stories tested at every viewport",
       "summary": "Each story runs as a test once per chosen viewport, with its own screenshot baseline for each.",
       "verifiedBy": []
+    },
+    {
+      "id": "REQ-425",
+      "label": "Optional port",
+      "summary": "Both scripts take an optional port, defaulting to the projMap editor's default port, and reject anything that isn't a valid port.",
+      "verifiedBy": [
+        "T-025",
+        "T-026",
+        "T-027"
+      ]
+    },
+    {
+      "id": "REQ-426",
+      "label": "Start returns once up",
+      "summary": "Start runs the editor in the background and returns once it is up, printing its URL. If an editor already answers on the port, it says so instead of starting another.",
+      "verifiedBy": [
+        "T-028",
+        "T-029",
+        "T-030",
+        "T-031"
+      ]
+    },
+    {
+      "id": "REQ-427",
+      "label": "Stop touches only the editor",
+      "summary": "Stop shuts down the editor on the port, reports when none is running, and fails without touching anything else holding the port.",
+      "verifiedBy": [
+        "T-032",
+        "T-033",
+        "T-034",
+        "T-035",
+        "T-036"
+      ]
     }
   ],
   "useCases": [
@@ -5203,6 +5277,26 @@
         "additionalSpecs": "pnpm run storybook"
       },
       "verifiedBy": []
+    },
+    {
+      "id": "IF-009",
+      "label": "Editor start script",
+      "summary": "Starts the projMap editor in the background on `.projMap/projMap.json` and prints its URL.",
+      "protocol": {
+        "name": "pnpm script",
+        "additionalSpecs": "pnpm run editor:start [port]"
+      },
+      "verifiedBy": []
+    },
+    {
+      "id": "IF-010",
+      "label": "Editor stop script",
+      "summary": "Stops the projMap editor running on a port.",
+      "protocol": {
+        "name": "pnpm script",
+        "additionalSpecs": "pnpm run editor:stop [port]"
+      },
+      "verifiedBy": []
     }
   ],
   "resources": [
@@ -5404,6 +5498,101 @@
       "type": "unit",
       "location": "src/libs/feature/schema/feature.schema.test.ts",
       "testName": "rejects the schema version %s"
+    },
+    {
+      "id": "T-025",
+      "label": "Port argument",
+      "summary": "The port defaults to the editor default and anything that is not a port is rejected.",
+      "type": "unit",
+      "location": "src/scripts/editor/port.test.js"
+    },
+    {
+      "id": "T-026",
+      "label": "Start rejects an invalid port",
+      "summary": "Start fails when given something that is not a port.",
+      "type": "e2e",
+      "location": "src/scripts/editor/start.e2e.test.js",
+      "testName": "fails on an invalid port"
+    },
+    {
+      "id": "T-027",
+      "label": "Stop rejects an invalid port",
+      "summary": "Stop fails when given something that is not a port.",
+      "type": "e2e",
+      "location": "src/scripts/editor/stop.e2e.test.js",
+      "testName": "fails on an invalid port"
+    },
+    {
+      "id": "T-028",
+      "label": "Start prints the URL",
+      "summary": "Start prints the editor URL once it is up.",
+      "type": "e2e",
+      "location": "src/scripts/editor/start.e2e.test.js",
+      "testName": "prints the editor's URL once it is up"
+    },
+    {
+      "id": "T-029",
+      "label": "Start returns with the editor up",
+      "summary": "The editor answers as soon as start returns.",
+      "type": "e2e",
+      "location": "src/scripts/editor/start.e2e.test.js",
+      "testName": "returns with the editor up"
+    },
+    {
+      "id": "T-030",
+      "label": "Start reports a running editor",
+      "summary": "Start says so when an editor already answers on the port.",
+      "type": "e2e",
+      "location": "src/scripts/editor/start.e2e.test.js",
+      "testName": "reports an editor already running on the port"
+    },
+    {
+      "id": "T-031",
+      "label": "Start starts no second editor",
+      "summary": "Start does not start another editor when one already answers on the port.",
+      "type": "e2e",
+      "location": "src/scripts/editor/start.e2e.test.js",
+      "testName": "doesn't start another editor when one is running"
+    },
+    {
+      "id": "T-032",
+      "label": "Stop stops the editor",
+      "summary": "The editor no longer answers after stop.",
+      "type": "e2e",
+      "location": "src/scripts/editor/stop.e2e.test.js",
+      "testName": "stops the editor on the port"
+    },
+    {
+      "id": "T-033",
+      "label": "Stop reports the editor stopped",
+      "summary": "Stop says it stopped the editor.",
+      "type": "e2e",
+      "location": "src/scripts/editor/stop.e2e.test.js",
+      "testName": "reports the editor stopped"
+    },
+    {
+      "id": "T-034",
+      "label": "Stop reports no editor",
+      "summary": "Stop says so when nothing listens on the port.",
+      "type": "e2e",
+      "location": "src/scripts/editor/stop.e2e.test.js",
+      "testName": "reports when no editor is running"
+    },
+    {
+      "id": "T-035",
+      "label": "Stop fails on another server",
+      "summary": "Stop fails when the port is held by something other than the editor.",
+      "type": "e2e",
+      "location": "src/scripts/editor/stop.e2e.test.js",
+      "testName": "fails when something else holds the port"
+    },
+    {
+      "id": "T-036",
+      "label": "Stop leaves another server running",
+      "summary": "Something else holding the port keeps running after stop.",
+      "type": "e2e",
+      "location": "src/scripts/editor/stop.e2e.test.js",
+      "testName": "leaves something else holding the port running"
     }
   ],
   "decisions": [
