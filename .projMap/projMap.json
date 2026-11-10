@@ -1954,6 +1954,33 @@
         "src/scripts/editor/"
       ],
       "folder": "FOL-010"
+    },
+    {
+      "id": "COM-118",
+      "label": "Editor theme",
+      "summary": "CSS variables that every style in the editor reads: a palette, swappable themes of colour and shadow roles, and a shared scale.",
+      "depth": "styles",
+      "level": "low-level",
+      "specs": {
+        "requirements": [
+          "REQ-428",
+          "REQ-429",
+          "REQ-430"
+        ],
+        "interfaces": [
+          "IF-011"
+        ]
+      },
+      "partOf": [
+        "COM-003"
+      ],
+      "technologies": [
+        "CSS"
+      ],
+      "sourceLocation": [
+        "src/apps/editor/styles/"
+      ],
+      "folder": "FOL-002"
     }
   ],
   "folders": [
@@ -2556,6 +2583,39 @@
       "reliesOn": [
         "IF-009",
         "IF-010"
+      ]
+    },
+    {
+      "id": "REL-112",
+      "label": "UI elements are styled by the editor theme",
+      "summary": "",
+      "kind": "uses",
+      "from": "COM-022",
+      "to": "COM-118",
+      "reliesOn": [
+        "IF-011"
+      ]
+    },
+    {
+      "id": "REL-113",
+      "label": "The list view is styled by the editor theme",
+      "summary": "",
+      "kind": "uses",
+      "from": "COM-019",
+      "to": "COM-118",
+      "reliesOn": [
+        "IF-011"
+      ]
+    },
+    {
+      "id": "REL-114",
+      "label": "The graph view is styled by the editor theme",
+      "summary": "",
+      "kind": "uses",
+      "from": "COM-020",
+      "to": "COM-118",
+      "reliesOn": [
+        "IF-011"
       ]
     }
   ],
@@ -4998,6 +5058,29 @@
         "T-035",
         "T-036"
       ]
+    },
+    {
+      "id": "REQ-428",
+      "label": "Styles come from shared tokens",
+      "summary": "Component styles take colours, shadows, type, spacing, shapes and sizes only from the theme and scale variables: no colour literals, no palette values.",
+      "verifiedBy": [
+        "T-037",
+        "T-038",
+        "T-039"
+      ]
+    },
+    {
+      "id": "REQ-429",
+      "label": "Swappable themes",
+      "summary": "A theme defines every colour and shadow role under its own data-theme selector, so replacing or adding a theme changes no component.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-430",
+      "label": "Theme choice",
+      "summary": "The developer can switch between a light and a dark theme, starting from their system setting.",
+      "notes": "Deferred: only the light theme exists for now.",
+      "verifiedBy": []
     }
   ],
   "useCases": [
@@ -5297,6 +5380,18 @@
         "additionalSpecs": "pnpm run editor:stop [port]"
       },
       "verifiedBy": []
+    },
+    {
+      "id": "IF-011",
+      "label": "Style tokens",
+      "summary": "The CSS variables components style themselves with.",
+      "protocol": {
+        "name": "CSS custom properties",
+        "additionalSpecs": "Theme roles: --color-*, --shadow-*. Scale: --font-*, --leading, --text-*, --weight-*, --space-*, --radius-*, --control-*, --row-height, --topbar-height, --layer-*, --duration-*."
+      },
+      "verifiedBy": [
+        "T-039"
+      ]
     }
   ],
   "resources": [
@@ -5593,6 +5688,30 @@
       "type": "e2e",
       "location": "src/scripts/editor/stop.e2e.test.js",
       "testName": "leaves something else holding the port running"
+    },
+    {
+      "id": "T-037",
+      "label": "CSS Modules have no colour literals",
+      "summary": "No CSS Module writes a hex, rgb or hsl colour.",
+      "type": "unit",
+      "location": "src/apps/editor/styles/tokens.test.ts",
+      "testName": "has no colour literals"
+    },
+    {
+      "id": "T-038",
+      "label": "CSS Modules don't read the palette",
+      "summary": "No CSS Module reads a palette variable directly.",
+      "type": "unit",
+      "location": "src/apps/editor/styles/tokens.test.ts",
+      "testName": "doesn't read the palette"
+    },
+    {
+      "id": "T-039",
+      "label": "CSS Modules use only defined tokens",
+      "summary": "Every variable a CSS Module reads is defined by the light theme or the scale.",
+      "type": "unit",
+      "location": "src/apps/editor/styles/tokens.test.ts",
+      "testName": "uses only tokens the light theme or the scale defines"
     }
   ],
   "decisions": [
