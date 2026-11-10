@@ -23,6 +23,7 @@ node .claude/skills/proj-map/editor/server.js [path/to/projMap.json] [--port 431
 - The map defaults to `.projMap/projMap.json` under the current directory. Run from `$repoRoot` or pass the path. If the file is missing, the editor opens a blank map and the first save creates it.
 - It prints the URL (`http://127.0.0.1:<port>/`, moving to the next free port if busy); give it to the user, or pass `--open` to open their browser.
 - Resource locations resolve against `--root`, which defaults to the folder holding `.projMap`, so image previews work for repo-relative paths.
+- A `POST /api/shutdown` request carrying an `x-projmap-shutdown` header stops it.
 - Only the user's Save writes `projMap.json`. Node positions in the graph go to `projMap.layout.json` next to it; that file is editor state, not part of the map.
 - You can keep editing the file while the editor runs: it reloads on its own when the user has no unsaved changes, and asks them whether to reload or overwrite otherwise. Re-read the file after the user says they're done.
 - Tests: `node --test` from the `editor` folder.

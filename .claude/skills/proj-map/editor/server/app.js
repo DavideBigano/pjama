@@ -4,6 +4,12 @@ import { VersionConflict } from "./store.js";
 
 const MAX_BODY_BYTES = 50 * 1024 * 1024;
 
+/**
+ * Header a shutdown request must carry. Browsers can't add a custom header to a cross-origin request
+ * without a preflight the server never answers, so other web pages can't stop the editor.
+ */
+export const SHUTDOWN_HEADER = "x-projmap-shutdown";
+
 /** Sends a JSON response. */
 function sendJson(res, status, data) {
 	res.writeHead(status, { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" });
@@ -40,8 +46,9 @@ async function sendFile(res, fs, file) {
 /**
  * Request handler for the editor: the map API, resource files under `root` (at /files/...), and the
  * static app from `publicDir`. Dependencies are injected so it can run against a temporary folder.
+ * `shutdown` is called once a shutdown request has been answered.
  */
-export function createHandler({ store, fs, publicDir, root, mapPath }) {
+export function createHandler({ store, fs, publicDir, root, mapPath, shutdown = () => {} }) {
 	const shownPath = path.relative(root, mapPath).startsWith("..") ? mapPath : path.relative(root, mapPath);
 	const routes = {
 		"GET /api/map": async (req, res) => {
@@ -57,6 +64,11 @@ export function createHandler({ store, fs, publicDir, root, mapPath }) {
 		"PUT /api/layout": async (req, res) => {
 			const { layout } = await readJsonBody(req);
 			await store.writeLayout(layout ?? { positions: {} });
+			sendJson(res, 200, { ok: true });
+		},
+		"POST /api/shutdown": async (req, res) => {
+			if (req.headers[SHUTDOWN_HEADER] === undefined) return sendJson(res, 403, { error: `Missing the ${SHUTDOWN_HEADER} header` });
+			res.once("finish", shutdown);
 			sendJson(res, 200, { ok: true });
 		},
 	};
