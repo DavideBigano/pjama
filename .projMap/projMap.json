@@ -905,7 +905,8 @@
         "requirements": [
           "REQ-215",
           "REQ-226",
-          "REQ-421"
+          "REQ-421",
+          "REQ-468"
         ],
         "interfaces": [
           "IF-006"
@@ -1979,6 +1980,274 @@
         "src/apps/editor/styles/"
       ],
       "folder": "FOL-002"
+    },
+    {
+      "id": "COM-119",
+      "label": "Editor icons",
+      "summary": "The icon set the editor draws from, each icon named after the concept it stands for.",
+      "depth": "icons",
+      "level": "low-level",
+      "specs": {
+        "requirements": [
+          "REQ-432",
+          "REQ-433"
+        ]
+      },
+      "partOf": [
+        "COM-003"
+      ],
+      "technologies": [
+        "React",
+        "Lucide"
+      ],
+      "sourceLocation": [
+        "src/apps/editor/icons/"
+      ],
+      "folder": "FOL-002"
+    },
+    {
+      "id": "COM-120",
+      "label": "Chip",
+      "summary": "A small read-only tag.",
+      "depth": "",
+      "level": "low-level",
+      "specs": {
+        "requirements": [
+          "REQ-434"
+        ]
+      },
+      "partOf": [
+        "COM-022"
+      ],
+      "technologies": [
+        "React"
+      ],
+      "sourceLocation": [
+        "src/apps/editor/elements/Chip/"
+      ],
+      "folder": "FOL-002"
+    },
+    {
+      "id": "COM-121",
+      "label": "Item chip",
+      "summary": "An item shown by its type icon and name, linking to its page.",
+      "depth": "",
+      "level": "low-level",
+      "specs": {
+        "requirements": [
+          "REQ-435",
+          "REQ-436",
+          "REQ-437"
+        ]
+      },
+      "partOf": [
+        "COM-022"
+      ],
+      "technologies": [
+        "React"
+      ],
+      "sourceLocation": [
+        "src/apps/editor/elements/ItemChip/"
+      ],
+      "folder": "FOL-002"
+    },
+    {
+      "id": "COM-122",
+      "label": "Icon button",
+      "summary": "A borderless button showing only an icon.",
+      "depth": "",
+      "level": "low-level",
+      "specs": {
+        "requirements": [
+          "REQ-438",
+          "REQ-439",
+          "REQ-440"
+        ]
+      },
+      "partOf": [
+        "COM-022"
+      ],
+      "technologies": [
+        "React"
+      ],
+      "sourceLocation": [
+        "src/apps/editor/elements/IconButton/"
+      ],
+      "folder": "FOL-002"
+    },
+    {
+      "id": "COM-123",
+      "label": "Text field",
+      "summary": "Text shown as is until clicked, then edited in place.",
+      "depth": "",
+      "level": "low-level",
+      "specs": {
+        "requirements": [
+          "REQ-441",
+          "REQ-442",
+          "REQ-443",
+          "REQ-444",
+          "REQ-445",
+          "REQ-467"
+        ]
+      },
+      "partOf": [
+        "COM-022"
+      ],
+      "technologies": [
+        "React"
+      ],
+      "sourceLocation": [
+        "src/apps/editor/elements/TextField/"
+      ],
+      "folder": "FOL-002"
+    },
+    {
+      "id": "COM-124",
+      "label": "Markdown notes",
+      "summary": "Notes rendered as markdown until clicked, then edited as raw text.",
+      "depth": "",
+      "level": "low-level",
+      "specs": {
+        "requirements": [
+          "REQ-446",
+          "REQ-447",
+          "REQ-448"
+        ]
+      },
+      "partOf": [
+        "COM-022"
+      ],
+      "technologies": [
+        "React"
+      ],
+      "sourceLocation": [
+        "src/apps/editor/elements/MarkdownNotes/"
+      ],
+      "folder": "FOL-002"
+    },
+    {
+      "id": "COM-125",
+      "label": "Menu",
+      "summary": "A button opening a list of actions.",
+      "depth": "",
+      "level": "low-level",
+      "specs": {
+        "requirements": [
+          "REQ-449",
+          "REQ-450"
+        ]
+      },
+      "partOf": [
+        "COM-022"
+      ],
+      "technologies": [
+        "React"
+      ],
+      "sourceLocation": [
+        "src/apps/editor/elements/Menu/"
+      ],
+      "folder": "FOL-002"
+    },
+    {
+      "id": "COM-126",
+      "label": "Editable list",
+      "summary": "A list of entries edited in place.",
+      "depth": "",
+      "level": "low-level",
+      "specs": {
+        "requirements": [
+          "REQ-451",
+          "REQ-452",
+          "REQ-453"
+        ]
+      },
+      "partOf": [
+        "COM-022"
+      ],
+      "technologies": [
+        "React"
+      ],
+      "sourceLocation": [
+        "src/apps/editor/elements/EditableList/"
+      ],
+      "folder": "FOL-002"
+    },
+    {
+      "id": "COM-127",
+      "label": "Spec card",
+      "summary": "A spec as a card, closed to sum it up or open to edit it.",
+      "depth": "",
+      "level": "low-level",
+      "specs": {
+        "requirements": [
+          "REQ-454",
+          "REQ-455",
+          "REQ-456",
+          "REQ-457",
+          "REQ-458",
+          "REQ-466"
+        ]
+      },
+      "partOf": [
+        "COM-022"
+      ],
+      "technologies": [
+        "React"
+      ],
+      "sourceLocation": [
+        "src/apps/editor/elements/SpecCard/"
+      ],
+      "folder": "FOL-002"
+    },
+    {
+      "id": "COM-128",
+      "label": "Requirement card",
+      "summary": "A requirement of the component page, as a card taking the requirement, its enforcements and its derivations.",
+      "depth": "",
+      "level": "low-level",
+      "specs": {
+        "requirements": [
+          "REQ-459",
+          "REQ-460",
+          "REQ-461",
+          "REQ-462"
+        ]
+      },
+      "partOf": [
+        "COM-021"
+      ],
+      "technologies": [
+        "React"
+      ],
+      "sourceLocation": [
+        "src/apps/editor/components/RequirementCard/"
+      ],
+      "folder": "FOL-001"
+    },
+    {
+      "id": "COM-129",
+      "label": "Id pill",
+      "summary": "An item id shown trimmed, copied whole by clicking it.",
+      "depth": "",
+      "level": "low-level",
+      "specs": {
+        "requirements": [
+          "REQ-463",
+          "REQ-464",
+          "REQ-465"
+        ]
+      },
+      "partOf": [
+        "COM-022"
+      ],
+      "technologies": [
+        "React"
+      ],
+      "sourceLocation": [
+        "src/apps/editor/elements/IdPill/"
+      ],
+      "folder": "FOL-002"
     }
   ],
   "folders": [
@@ -2614,6 +2883,71 @@
       "to": "COM-118",
       "reliesOn": [
         "REQ-431"
+      ]
+    },
+    {
+      "id": "REL-115",
+      "label": "UI elements draw icons from the editor icons",
+      "summary": "",
+      "kind": "uses",
+      "from": "COM-022",
+      "to": "COM-119",
+      "reliesOn": [
+        "REQ-432",
+        "REQ-433"
+      ]
+    },
+    {
+      "id": "REL-116",
+      "label": "The list view draws icons from the editor icons",
+      "summary": "",
+      "kind": "uses",
+      "from": "COM-019",
+      "to": "COM-119",
+      "reliesOn": [
+        "REQ-432",
+        "REQ-433"
+      ]
+    },
+    {
+      "id": "REL-117",
+      "label": "The graph view draws icons from the editor icons",
+      "summary": "",
+      "kind": "uses",
+      "from": "COM-020",
+      "to": "COM-119",
+      "reliesOn": [
+        "REQ-432",
+        "REQ-433"
+      ]
+    },
+    {
+      "id": "REL-118",
+      "label": "The requirement card is built on the spec card",
+      "summary": "",
+      "kind": "uses",
+      "from": "COM-128",
+      "to": "COM-127",
+      "reliesOn": [
+        "REQ-454",
+        "REQ-455",
+        "REQ-456",
+        "REQ-457",
+        "REQ-458",
+        "REQ-466"
+      ]
+    },
+    {
+      "id": "REL-119",
+      "label": "The spec card shows its spec's id with the id pill",
+      "summary": "",
+      "kind": "uses",
+      "from": "COM-127",
+      "to": "COM-129",
+      "reliesOn": [
+        "REQ-463",
+        "REQ-464",
+        "REQ-465"
       ]
     }
   ],
@@ -4967,19 +5301,20 @@
       "label": "UI piece layout",
       "summary": "One PascalCase folder per piece, in `components/` (bespoke) or `elements/` (reused), holding its `.tsx`, tests, stories and `__screenshots__/`.",
       "verifiedBy": [],
-      "notes": "Folder `X/` holds `X.tsx`, `X.stories.tsx`, `__screenshots__/` and, when needed, `X.test.tsx` (behaviour) and `X.screenshot.test.tsx` (looks the stories do not cover). Reuse, not size or state, decides whether a piece is a component or an element."
+      "notes": "Folder `X/` holds `X.tsx`, `X.stories.tsx`, `__screenshots__/` and, when needed, `X.test.tsx` (behaviour) and `X.screenshot.test.tsx` (states and edge cases the stories don't cover). Reuse, not size or state, decides whether a piece is a component or an element."
     },
     {
       "id": "REQ-415",
       "label": "Stories for every UI piece",
-      "summary": "Every component and element has stories covering its main states.",
+      "summary": "Every component and element has stories, one per configuration worth browsing: a sandbox to see and try it.",
       "verifiedBy": []
     },
     {
       "id": "REQ-416",
       "label": "Stories are screenshot tests",
-      "summary": "Each story is also a screenshot test. Looks the stories do not cover go in screenshot tests, behaviour in unit tests.",
-      "verifiedBy": []
+      "summary": "Each story is also a full-page screenshot test. Other states and edge cases go in screenshot tests, behaviour in unit tests.",
+      "verifiedBy": [],
+      "notes": "Screenshot tests cover what stories can't reach, such as hover or focus, and edge cases that would clutter the sandbox. They capture just the element, and each state is screenshotted in one place only, so it has a single baseline."
     },
     {
       "id": "REQ-417",
@@ -5020,8 +5355,8 @@
     },
     {
       "id": "REQ-424",
-      "label": "Stories tested at every viewport",
-      "summary": "Each story runs as a test once per chosen viewport, with its own screenshot baseline for each.",
+      "label": "Page stories tested at every viewport",
+      "summary": "Stories tagged `page`, which lay out with the viewport, run once per chosen viewport with a baseline each. Every other story runs once, at one viewport.",
       "verifiedBy": []
     },
     {
@@ -5082,8 +5417,231 @@
     {
       "id": "REQ-431",
       "label": "Style parameters",
-      "summary": "Each theme defines the same style parameters: colours, shadows, type, spacing, shapes, sizes, layers and motion.",
-      "notes": "- **Surfaces:** `--color-bg`, `--color-surface`, `--color-surface-raised`, `--color-surface-sunken`, `--color-surface-dim`, `--color-surface-inverse`, `--color-overlay`\n- **Text:** `--color-text`, `--color-text-secondary`, `--color-text-tertiary`, `--color-text-muted`, `--color-text-faint`, `--color-text-inverse`, `--color-text-on-accent`\n- **Lines:** `--color-border`, `--color-border-strong`, `--color-border-control`, `--color-grid-dot`\n- **Interaction:** `--color-hover`, `--color-hover-strong`, `--color-hover-chip`, `--color-selected`, `--color-focus-ring`\n- **Accent:** `--color-accent`, `--color-accent-hover`, `--color-accent-text`, `--color-accent-border`, `--color-accent-glow`\n- **Status:** `--color-danger`, `--color-danger-hover`, `--color-danger-subtle`, `--color-warning`, `--color-warning-text`, `--color-warning-subtle`, `--color-warning-subtle-hover`, `--color-warning-border`\n- **Graph:** `--color-part-of`, `--color-part-of-border`, `--color-part-of-subtle`, `--color-relation`\n- **Elevation:** `--shadow-sm`, `--shadow-hover`, `--shadow-raised`, `--shadow-popover`, `--shadow-dialog`, `--shadow-node`, `--shadow-focus`, `--shadow-focus-edge`\n- **Type:** `--font-sans`, `--font-mono`, `--leading`\n- **Text sizes:** `--text-2xs`, `--text-xs`, `--text-sm`, `--text-md`, `--text-base`, `--text-lg`, `--text-xl`, `--text-2xl`\n- **Weights:** `--weight-regular`, `--weight-medium`, `--weight-semibold`, `--weight-bold`\n- **Spacing:** `--space-3xs`, `--space-2xs`, `--space-xs`, `--space-sm`, `--space-md`, `--space-lg`, `--space-xl`, `--space-2xl`, `--space-3xl`\n- **Radii:** `--radius-xs`, `--radius-sm`, `--radius-md`, `--radius-lg`, `--radius-xl`, `--radius-2xl`, `--radius-full`\n- **Sizes:** `--control-xs`, `--control-sm`, `--control-md`, `--row-height`, `--topbar-height`\n- **Layers:** `--layer-popover`, `--layer-overlay`, `--layer-menu`\n- **Motion:** `--duration-fast`, `--duration-base`",
+      "summary": "Each theme defines the same style parameters: colours, shadows, type, spacing, shapes, sizes, icons, layers and motion.",
+      "notes": "- **Surfaces:** `--color-bg`, `--color-surface`, `--color-surface-raised`, `--color-surface-sunken`, `--color-surface-dim`, `--color-surface-inverse`, `--color-overlay`\n- **Text:** `--color-text`, `--color-text-secondary`, `--color-text-tertiary`, `--color-text-muted`, `--color-text-faint`, `--color-text-inverse`, `--color-text-on-accent`\n- **Lines:** `--color-border`, `--color-border-strong`, `--color-border-control`, `--color-grid-dot`\n- **Interaction:** `--color-fill`, `--color-hover`, `--color-hover-strong`, `--color-hover-chip`, `--color-selected`, `--color-focus-ring`\n- **Accent:** `--color-accent`, `--color-accent-hover`, `--color-accent-text`, `--color-accent-border`, `--color-accent-glow`\n- **Status:** `--color-danger`, `--color-danger-hover`, `--color-danger-subtle`, `--color-warning`, `--color-warning-text`, `--color-warning-subtle`, `--color-warning-subtle-hover`, `--color-warning-border`\n- **Graph:** `--color-part-of`, `--color-part-of-border`, `--color-part-of-subtle`, `--color-relation`\n- **Elevation:** `--shadow-sm`, `--shadow-hover`, `--shadow-raised`, `--shadow-popover`, `--shadow-dialog`, `--shadow-node`, `--shadow-focus`, `--shadow-focus-edge`\n- **Type:** `--font-sans`, `--font-mono`, `--leading`\n- **Text sizes:** `--text-2xs`, `--text-xs`, `--text-sm`, `--text-md`, `--text-base`, `--text-lg`, `--text-xl`, `--text-2xl`\n- **Weights:** `--weight-regular`, `--weight-medium`, `--weight-semibold`, `--weight-bold`\n- **Spacing:** `--space-3xs`, `--space-2xs`, `--space-xs`, `--space-sm`, `--space-md`, `--space-lg`, `--space-xl`, `--space-2xl`, `--space-3xl`\n- **Radii:** `--radius-xs`, `--radius-sm`, `--radius-md`, `--radius-lg`, `--radius-xl`, `--radius-2xl`, `--radius-full`\n- **Sizes:** `--control-xs`, `--control-sm`, `--control-md`, `--row-height`, `--topbar-height`\n- **Icons:** `--icon-sm`, `--icon-md`, `--icon-lg`, `--icon-stroke`\n- **Layers:** `--layer-popover`, `--layer-overlay`, `--layer-menu`\n- **Motion:** `--duration-fast`, `--duration-base`",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-432",
+      "label": "Icons named by meaning",
+      "summary": "UI code takes its icons only from the editor's icon set, where each is named after what it stands for, so every concept is drawn with the same icon everywhere.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-433",
+      "label": "Item kind icons",
+      "summary": "The icon set has one icon per kind of item in the map, relationships included.",
+      "notes": "`ComponentIcon`, `RequirementIcon`, `UseCaseIcon`, `InterfaceIcon`, `SnippetIcon`, `TypeIcon`, `MockupIcon`, `TechnologyIcon`, `ActorIcon`, `ResourceIcon`, `DecisionIcon`, `ReviewIcon`, `TestIcon`, `RelationshipIcon`",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-434",
+      "label": "Tag content",
+      "summary": "Shows a short text, optionally led by an icon.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-435",
+      "label": "Item identity",
+      "summary": "Shows the item's type icon and name, or \"Unnamed\" when it has no name.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-436",
+      "label": "Link to the item",
+      "summary": "Clicking the chip opens the item's page through a plain link.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-437",
+      "label": "Optional removal",
+      "summary": "Given a remove handler, the chip shows a remove button that reports the item.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-438",
+      "label": "Labelled icon",
+      "summary": "The button is named for screen readers and shows its label on hover.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-439",
+      "label": "Never submits",
+      "summary": "The button never submits a surrounding form.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-440",
+      "label": "Danger tone",
+      "summary": "A danger tone marks destructive actions.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-441",
+      "label": "Click to edit",
+      "summary": "Clicking the text turns it into an text field focused with the caret at the end.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-442",
+      "label": "Commit or drop",
+      "summary": "Enter or leaving the editor commits the edit; Escape drops it. An unchanged value isn't reported.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-443",
+      "label": "Placeholder",
+      "summary": "An empty value shows a placeholder.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-444",
+      "label": "Multiline",
+      "summary": "A multiline field breaks lines with Shift+Enter.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-445",
+      "label": "Suggestions",
+      "summary": "While typing, the field proposes the values it is given.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-446",
+      "label": "Rendered notes",
+      "summary": "At rest the notes are rendered as markdown, or show a placeholder when empty.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-447",
+      "label": "Click to edit notes",
+      "summary": "Clicking the notes, except on a link in them, edits the raw markdown.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-448",
+      "label": "Commit or drop notes",
+      "summary": "Leaving the editor or Ctrl+Enter commits the edit; Escape drops it.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-449",
+      "label": "Actions list",
+      "summary": "The button opens a list of actions, each with an icon and a label, optionally in a danger tone.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-450",
+      "label": "Menu closing",
+      "summary": "Picking an action, Escape or clicking elsewhere closes the menu.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-451",
+      "label": "Edit mode",
+      "summary": "Clicking or focusing the list enters edit mode, which reveals adding and removing entries; clicking elsewhere leaves it.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-452",
+      "label": "Add anchor",
+      "summary": "Adding reports the add button, so a picker can open next to it.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-453",
+      "label": "Empty list",
+      "summary": "An empty list shows a placeholder while not being edited.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-454",
+      "label": "Closed card",
+      "summary": "Closed, the card shows the spec's name, its description clamped to two lines and the tags it is given.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-455",
+      "label": "Open card",
+      "summary": "Open, the card edits the spec's name, description and notes, followed by the fields it is given.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-456",
+      "label": "Opening and closing",
+      "summary": "Clicking the card outside its controls, or its name while closed, asks to open or close it. The card doesn't own whether it's open.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-457",
+      "label": "Whole spec reported",
+      "summary": "Editing a field reports the whole spec with that field changed.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-458",
+      "label": "Card actions",
+      "summary": "An actions menu, shown on hover, focus or while open, holds the actions it is given.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-459",
+      "label": "Requirement tags",
+      "summary": "Closed, the card tags the requirement's category and how many checks enforce it, or that none does.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-460",
+      "label": "Requirement fields",
+      "summary": "Open, the card edits the category, proposing the map's categories, and lists the checks enforcing the requirement and the specs it derives from.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-461",
+      "label": "Linking checks and origins",
+      "summary": "Adding to the enforcements or derivations asks the page to link one, next to the add button; removing an entry asks to unlink its relationship.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-462",
+      "label": "Deleting a requirement",
+      "summary": "The card's menu asks to delete the requirement.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-463",
+      "label": "Trimmed id",
+      "summary": "Shows the first group of the item's UUID, with the full id on hover.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-464",
+      "label": "Copy on click",
+      "summary": "Clicking the pill copies the full id to the clipboard.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-465",
+      "label": "Copy outcome",
+      "summary": "After a click the pill briefly tells whether the copy worked or failed, then shows the trimmed id again.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-466",
+      "label": "Spec id",
+      "summary": "The card's header shows the spec's id as an id pill, whether the card is open or closed.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-467",
+      "label": "Shows spec's id",
+      "summary": "Shows the spec's id in an IdPill component.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-468",
+      "label": "Screenshot tests start at rest",
+      "summary": "Each `*.screenshot.test.tsx` test starts with the pointer away from the page, so nothing shows as hovered unless the test hovers it.",
       "verifiedBy": []
     }
   ],
