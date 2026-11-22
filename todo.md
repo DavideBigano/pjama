@@ -30,4 +30,4 @@
 - copy/paste/duplication spec options
 - movable spec cards
 
-- [ ] Make the files written by the editor compatible with formatters like biome, prettier and eslint
+- [ ] Make the files written by the editor compatible with formatters like biome, prettier and eslint- [ ] **Replace Floating UI in the editor's `Menu` with CSS anchor positioning.** Once anchor positioning is supported across major browsers, render the menu with the Popover API and position it with `position-anchor` and `position-try-fallbacks: flip-inline, flip-block`, then drop the `@floating-ui/react` dependency.
