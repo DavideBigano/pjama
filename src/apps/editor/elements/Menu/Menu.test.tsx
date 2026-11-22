@@ -31,6 +31,7 @@ describe('Menu', () => {
             <Menu label="Actions" items={createItems()} />,
         );
         await screen.getByRole('button', { name: 'Actions' }).click();
+        await expect.element(screen.getByRole('menu')).toBeVisible();
         await screen.getByRole('menuitem', { name: 'Delete' }).click();
         await expect.element(screen.getByRole('menu')).not.toBeInTheDocument();
     });
@@ -40,6 +41,7 @@ describe('Menu', () => {
             <Menu label="Actions" items={createItems()} />,
         );
         await screen.getByRole('button', { name: 'Actions' }).click();
+        await expect.element(screen.getByRole('menu')).toBeVisible();
         await userEvent.keyboard('{Escape}');
         await expect.element(screen.getByRole('menu')).not.toBeInTheDocument();
     });
@@ -52,6 +54,7 @@ describe('Menu', () => {
             </>,
         );
         await screen.getByRole('button', { name: 'Actions' }).click();
+        await expect.element(screen.getByRole('menu')).toBeVisible();
         await screen.getByText('Elsewhere').click();
         await expect.element(screen.getByRole('menu')).not.toBeInTheDocument();
     });
