@@ -2143,6 +2143,7 @@
         "requirements": [
           "REQ-449",
           "REQ-450",
+          "REQ-476",
           "REQ-473",
           "REQ-474",
           "REQ-475"
@@ -5696,6 +5697,12 @@
       "id": "REQ-475",
       "label": "Keyboard focus ring",
       "summary": "An action focused from the keyboard shows the focus ring, distinct from the hover background.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-476",
+      "label": "Menu default position",
+      "summary": "When there is room, the list opens below the button, its right edge aligned with the button's, separated by a small gap.",
       "verifiedBy": []
     }
   ],
