@@ -2142,14 +2142,18 @@
       "specs": {
         "requirements": [
           "REQ-449",
-          "REQ-450"
+          "REQ-450",
+          "REQ-473",
+          "REQ-474",
+          "REQ-475"
         ]
       },
       "partOf": [
         "COM-022"
       ],
       "technologies": [
-        "React"
+        "React",
+        "Floating UI"
       ],
       "sourceLocation": [
         "src/apps/editor/elements/Menu/"
@@ -5673,6 +5677,25 @@
       "id": "REQ-472",
       "label": "Behaviour tests in a browser",
       "summary": "`*.test.tsx` behaviour tests run in headless Chromium, so React components render in a real DOM; `*.test.ts` files run in Node.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-473",
+      "label": "Menu stays in view",
+      "summary": "The list is never clipped by its container: it shifts sideways to stay on screen and opens above the button when there is no room below.",
+      "notes": "Uses Floating UI until CSS anchor positioning is supported across major browsers (see todo.md).",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-474",
+      "label": "Hidden when empty",
+      "summary": "A menu without actions doesn't show its button.",
+      "verifiedBy": []
+    },
+    {
+      "id": "REQ-475",
+      "label": "Keyboard focus ring",
+      "summary": "An action focused from the keyboard shows the focus ring, distinct from the hover background.",
       "verifiedBy": []
     }
   ],
